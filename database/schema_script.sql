@@ -11,7 +11,9 @@ CREATE DATABASE mi_base_datos;
 ----------------------------------------------------------------------------
 CREATE TABLE "user_n" (
   "id_usuario" bigserial NOT NULL,
-  "nombre" CHARACTER VARYING NOT NULL,
+  "username" CHARACTER VARYING NULL,
+  "nombres" CHARACTER VARYING NOT NULL,
+  "apellidos" CHARACTER VARYING NOT NULL,
   "clave" CHARACTER VARYING NOT NULL,
   "tipo" INTEGER NOT NULL,
   "correo" CHARACTER VARYING NOT NULL,

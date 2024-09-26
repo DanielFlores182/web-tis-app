@@ -25,7 +25,7 @@ BEGIN
         ELSE 0
     END INTO user_role
     FROM user_n
-    WHERE nombre = u_username
+    WHERE username = u_username
     AND clave = u_password;
 
     -- Si no se encontró ningún usuario, devolvemos 0
@@ -44,14 +44,14 @@ $$ LANGUAGE plpgsql;
 --este stored procedure añade un nuevo usuario con su nombre y password
 --deseados ademas de el tipo de usuario que seria ya sea 1 docente o 2 estudainte
 -----------------------------------------------------------------------------------------
-CREATE OR REPLACE PROCEDURE add_user_n(p_nombre VARCHAR, p_clave VARCHAR, p_tipo INTEGER, p_correo VARCHAR, p_detalle INTEGER)
+CREATE OR REPLACE PROCEDURE add_user_n(p_nombre VARCHAR, p_apellido VARCHAR, p_clave VARCHAR, p_tipo INTEGER, p_correo VARCHAR, p_detalle INTEGER)
 LANGUAGE plpgsql AS $$
 DECLARE
     -- Declaramos una variable para almacenar el id_contacto que se autoincrementa
     new_id_usuario INTEGER;
 BEGIN
     -- Insertamos el nuevo registro en la tabla user_n
-    INSERT INTO user_n (nombre, clave, tipo, correo)
+    INSERT INTO user_n (nombres, apellidos, clave, tipo, correo)
     VALUES (p_nombre, p_clave, p_tipo, p_correo)
     RETURNING id_usuario INTO new_id_usuario; -- Guardamos el id autoincrementado
 
@@ -116,7 +116,7 @@ BEGIN
     -- Verificamos si el usuario existe y recuperamos su contraseña actual
     SELECT clave INTO stored_password
     FROM user_n
-    WHERE nombre = p_username;
+    WHERE username = p_username;
 
     -- Si no encontramos el usuario, lanzamos una excepción
     IF NOT FOUND THEN
@@ -136,7 +136,7 @@ BEGIN
     -- Si todas las validaciones son correctas, actualizamos la contraseña
     UPDATE user_n
     SET clave = u_new_password
-    WHERE nombre = u_username;
+    WHERE username = u_username;
 
     -- Confirmación de éxito
     RAISE NOTICE 'Contraseña actualizada con éxito para el usuario %', u_username;
@@ -155,7 +155,7 @@ BEGIN
     -- Verificamos si el usuario existe y recuperamos su contraseña actual
     SELECT clave INTO stored_password
     FROM user_n
-    WHERE nombre = u_username;
+    WHERE username = u_username;
 
     -- Si no encontramos el usuario, lanzamos una excepción
     IF NOT FOUND THEN
@@ -170,7 +170,7 @@ BEGIN
     -- Si todas las validaciones son correctas, actualizamos la contraseña
     UPDATE user_n
     SET correo = new_e_mail
-    WHERE nombre = u_username;
+    WHERE username = u_username;
 
     -- Confirmación de éxito
     RAISE NOTICE 'Contraseña actualizada con éxito para el usuario %', u_username;
@@ -181,7 +181,7 @@ $$;
 --STORED PROCEDURE para agregar el estudiante elegido al grupo señalado en el rol que esta ejerciendo
 ----------------------------------------------------------------------------------------------------------------
 
-CREATE OR REPLACE PROCEDURE add_student_to_group(nombre_estudiante VARCHAR, u_rol INTEGER, nombre_grupo VARCHAR)
+CREATE OR REPLACE PROCEDURE add_student_to_group(user_estudiante VARCHAR, u_rol INTEGER, nombre_grupo VARCHAR)
 LANGUAGE plpgsql AS $$
 DECLARE
     id_estudiante INTEGER;
@@ -190,12 +190,12 @@ BEGIN
     -- Verificamos si el estudiante existe en la tabla user_n y obtenemos su id_contacto
     SELECT id_usuario INTO id_estudiante
     FROM user_n
-    WHERE nombre = nombre_estudiante
+    WHERE username = user_estudiante
     AND tipo = 2;  -- tipo 2 para estudiante
 
     -- Si no se encuentra al estudiante, lanzamos una excepción
     IF NOT FOUND THEN
-        RAISE EXCEPTION 'El estudiante % no existe', nombre_estudiante;
+        RAISE EXCEPTION 'El estudiante % no existe', user_estudiante;
     END IF;
 
     -- Verificamos si el grupo existe y obtenemos el id del docente asociado al grupo
@@ -213,7 +213,7 @@ BEGIN
     VALUES (id_estudiante, nombre_grupo, id_docente_g, u_rol);
 
     -- Confirmación de éxito
-    RAISE NOTICE 'Estudiante % ha sido agregado al grupo % con éxito', nombre_estudiante, nombre_grupo;
+    RAISE NOTICE 'Estudiante % ha sido agregado al grupo % con éxito', user_estudiante, nombre_grupo;
 END;
 $$;
 --------------------------------------------------------------------------------------------------------
@@ -261,7 +261,7 @@ $$;
 ------------------------------------------------------------------------------------------------------------
 --STORED PROCEDURE para cambiar al docente de su grupo de materia
 ------------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE PROCEDURE change_doc_mat_group(nombre_docente VARCHAR, clave_d VARCHAR, new_grupo_materia INTEGER)
+CREATE OR REPLACE PROCEDURE change_doc_mat_group(user_docente VARCHAR, clave_d VARCHAR, new_grupo_materia INTEGER)
 LANGUAGE plpgsql AS $$
 DECLARE
 	stored_password VARCHAR;
@@ -270,7 +270,7 @@ BEGIN
     -- Verificamos si el usuario existe en la tabla user_n y obtenemos su id
     SELECT clave INTO stored_password
     FROM user_n
-    WHERE nombre = nombre_docente
+    WHERE username = nombre_docente
     AND tipo = 1;  -- tipo 1 para docente
 
     -- Si no se encuentra al docente, lanzamos una excepción
@@ -280,7 +280,7 @@ BEGIN
     
 	SELECT id_usuario INTO id_docente_g
     FROM user_n
-    WHERE nombre = nombre_docente;
+    WHERE username = nombre_docente;
 	
     -- Verificamos si la contraseña antigua proporcionada coincide con la almacenada
     IF stored_password != clave_d THEN
@@ -298,7 +298,7 @@ $$;
 ----------------------------------------------------------------------------------------------------------
 
 ---------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE PROCEDURE add_docente(p_nombre VARCHAR, p_correo VARCHAR, p_grupo_materia INTEGER, p_clave VARCHAR DEFAULT NULL)
+CREATE OR REPLACE PROCEDURE add_docente(p_nombres VARCHAR, p_apellidos VARCHAR, p_username VARCHAR, p_correo VARCHAR, p_grupo_materia INTEGER, p_clave VARCHAR DEFAULT NULL)
 LANGUAGE plpgsql AS $$
 DECLARE
     -- Declaramos una variable para almacenar el id_contacto que se autoincrementa
@@ -308,10 +308,13 @@ BEGIN
     IF p_clave IS NULL OR p_clave = '' THEN
         p_clave := 'publica'; -- Valor por defecto
     END IF;
+    IF p_username IS NULL OR p_username = '' THEN
+        p_username := p_nombres ; -- Valor por defecto
+    END IF;
 
     -- Insertamos el nuevo docente en la tabla user_n con el tipo = 1 (docente)
-    INSERT INTO user_n (nombre, clave, tipo, correo)
-    VALUES (p_nombre, p_clave, 1, p_correo)
+    INSERT INTO user_n (username, nombres, apellidos, clave, tipo, correo)
+    VALUES (p_username, p_nombres, p_apellidos p_clave, 1, p_correo)
     RETURNING id_usuario INTO new_id_usuario; -- Guardamos el id autoincrementado
     
 	INSERT INTO docente (id_usuario, grupo_materia)
@@ -323,7 +326,7 @@ END;
 $$;
 -----------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE PROCEDURE add_student(p_nombre VARCHAR, p_codsis INTEGER, p_correo VARCHAR, p_carrera INTEGER, p_clave VARCHAR DEFAULT NULL)
+CREATE OR REPLACE PROCEDURE add_student(p_nombres VARCHAR, p_apellidos VARCHAR, p_username VARCHAR, p_codsis INTEGER, p_correo VARCHAR, p_carrera INTEGER, p_clave VARCHAR DEFAULT NULL)
 LANGUAGE plpgsql AS $$
 DECLARE
     -- Declaramos una variable para almacenar el id_contacto que se autoincrementa
@@ -333,17 +336,19 @@ BEGIN
     IF p_clave IS NULL OR p_clave = '' THEN
         p_clave := 'publica'; -- Valor por defecto
     END IF;
-
+    IF p_username IS NULL OR p_username = '' THEN
+        p_username := p_codsis; -- Valor por defecto
+    END IF;
     -- Insertamos el nuevo estudiante en la tabla user_n con el tipo = 2 (estudiante)
-    INSERT INTO user_n (nombre, clave, tipo, correo)
-    VALUES (p_nombre, p_clave, 2, p_correo)
+    INSERT INTO user_n (username, nombres, apellidos , clave, tipo, correo)
+    VALUES (p_username, p_nombres, p_apellidos, p_clave, 2, p_correo)
     RETURNING id_usuario INTO new_id_usuario; -- Guardamos el id autoincrementado
     
 	INSERT INTO estudiante (id_usuario, cod_sis, carrera)
         VALUES (new_id_usuario, p_codsis, p_carrera);
         RAISE NOTICE 'El usuario ha sido insertado como estudiante con id %', new_id_usuario;
     -- Mensaje de confirmación
-    RAISE NOTICE 'Estudiante % con código % ha sido insertado con éxito', p_nombre, p_codsis;
+    RAISE NOTICE 'Estudiante % con código % ha sido insertado con éxito', p_nombres, p_codsis;
 END;
 $$;
 --------------------------------------------------------------------------------------------------------------------------------------------------
