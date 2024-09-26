@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'; // Necesario para redireccionar
 
 function Login() {
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [clave, setClave] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); // Estado para el mensaje de error
   const navigate = useNavigate(); // Hook para redireccionar
 
@@ -16,7 +16,7 @@ function Login() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, clave }),
     })
       .then(response => response.json())
       .then(data => {
@@ -57,8 +57,8 @@ function Login() {
               type="password" 
               id="password" 
               placeholder="Ingrese su contraseña" 
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)} 
+              value={clave} 
+              onChange={(e) => setClave(e.target.value)} 
               required 
             />
           </div>

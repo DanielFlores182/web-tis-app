@@ -24,18 +24,18 @@ try {
         // Obtener los datos del cuerpo de la solicitud
         $data = json_decode(file_get_contents("php://input"));
 
-        if (!isset($data->username) || !isset($data->password)) {
+        if (!isset($data->username) || !isset($data->clave)) {
             throw new Exception('Faltan campos obligatorios.');
         }
 
         $username = $data->username;
-        $password = $data->password;
+        $clave = $data->clave;
 
         // Llamar a la función login_check de PostgreSQL
-        $query = "SELECT login_check(:username, :password)";
+        $query = "SELECT login_check(:username, :clave)";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':clave', $clave);
         $stmt->execute();
         $result = $stmt->fetchColumn();
 

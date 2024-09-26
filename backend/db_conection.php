@@ -10,7 +10,7 @@ try {
     $pdo = new PDO($dsn, $user, $password);
     // Configura el modo de error de PDO a excepción
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Conexión exitosa a la base de datos.";
+  //  echo "Conexión exitosa a la base de datos.";
 } catch (PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();
     exit();
