@@ -23,7 +23,15 @@
     color: white;
     text-decoration: none;
   }
+  .submenu {
+    margin-left: 20px;
+    color: #CC1616;
+  }
   
+  .submenu li a {
+    color: #CC1616; /* Cambiar color para submenú */
+    text-decoration:dashed;
+  }
   .content {
     flex-grow: 1;
     padding: 20px;

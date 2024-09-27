@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Menu_doc.css';
 
 function MenuDoc() {
+  const [showRegisterOptions, setShowRegisterOptions] = useState(false);
+
+  const toggleRegisterOptions = () => {
+    setShowRegisterOptions(!showRegisterOptions); // Cambiar entre mostrar y ocultar
+  };
+
   return (
     <div className="menu-container">
       <aside className="sidebar">
         <nav>
           <ul>
-            <li><a href="/registrar_est">Registrar Estudiante</a></li>
-            <li><a href="/perfin">Perfil</a></li>
+            <li>
+              <a href="#!" onClick={toggleRegisterOptions}>Registrar Estudiante</a>
+              {showRegisterOptions && (
+                <ul className="submenu">
+                  <li><a href="/registro_est_ind">Registro Individual</a></li>
+                  <li><a href="/registro_est_lot">Registrar Por Lote</a></li>
+                </ul>
+              )}
+            </li>
+            <li><a href="/perfil">Perfil</a></li>
             <li><a href="/doc_config">Configuraciones</a></li>
             <li><a href="/">Cerrar Sesion</a></li>
           </ul>
