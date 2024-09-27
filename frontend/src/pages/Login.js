@@ -22,9 +22,9 @@ function Login() {
       .then(data => {
         // Verificar la respuesta del backend
         if (data.role === 1) {
-          navigate('/menu-docente'); // Redirigir a la página del administrador
+          navigate('/menu_doc'); // Redirigir a la página del administrador
         } else if (data.role === 2) {
-          navigate('/menu-estudiante'); // Redirigir a la página de usuario
+          navigate('/menu_est'); // Redirigir a la página de usuario
         } else if (data.role === 0) {
           setErrorMessage('Usuario o contraseña incorrectos'); // Mostrar mensaje de error
         }
