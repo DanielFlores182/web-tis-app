@@ -11,17 +11,17 @@ const GroupView = () => {
   const toggleRegisterOptions = () => {
       setShowRegisterOptions(!showRegisterOptions); // Cambiar entre mostrar y ocultar
   };
-    const [grupo, setGrupo] = useState(new Grupo(1, 'Grupo A', 'Juan Pérez', 'Ingeniería en Sistemas'));
+    const [grupo, setGrupo] = useState(new Grupo(1, 'Grupo A', 'Juan Pérez'));
     const [students, setStudents] = useState([]); // Estado separado para estudiantes
-    const [newStudent, setNewStudent] = useState({ name: '', age: '', major: '' });
+    const [newStudent, setNewStudent] = useState({ name: '', email: ''});
     const [groupName, setGroupName] = useState(grupo.name); // Estado para el nombre del grupo
     const [groupLeader, setGroupLeader] = useState(grupo.lider); // Estado para el líder del grupo
 
     useEffect(() => {
         GroupController.updateGroup().then(data => {
-            const fetchedStudents = data.map(user => new Estudiante(user.id, user.name, user.age, user.major));
+            const fetchedStudents = data.map(user => new Estudiante(user.id, user.name, user.email));
             setStudents(fetchedStudents); // Actualiza el estado de estudiantes
-            setGrupo(prev => new Grupo(prev.id, prev.name, prev.lider, prev.major, fetchedStudents)); // Asigna estudiantes al grupo
+            setGrupo(prev => new Grupo(prev.id, prev.name, prev.lider, fetchedStudents)); // Asigna estudiantes al grupo
         });
     }, []);
 
@@ -31,32 +31,33 @@ const GroupView = () => {
 
     const handleStudentSubmit = (e) => {
         e.preventDefault();
-        const { name, age, major } = newStudent;
-        if (name && age && major) {
+        const { name, email } = newStudent;
+        if (name && email) {
             const studentId = students.length + 1; // Genera un ID simple
-            const student = new Estudiante(studentId, name, age, major);
+            const student = new Estudiante(studentId, name, email); // Crea el nuevo estudiante
             const updatedStudents = [...students, student]; // Actualiza la lista de estudiantes
             setStudents(updatedStudents); // Actualiza el estado de estudiantes
-            setGrupo(prev => new Grupo(prev.id, prev.name, prev.lider, prev.major, updatedStudents)); // Actualiza el grupo
-            setNewStudent({ name: '', age: '', major: '' }); // Reinicia los campos del formulario
+            setGrupo(prev => new Grupo(prev.id, prev.name, prev.lider, updatedStudents)); // Actualiza el grupo
+            setNewStudent({ name: '', email: '' }); // Reinicia los campos del formulario
         }
     };
+    
 
     const handleGroupChange = (e) => {
         const { name, value } = e.target;
         if (name === 'groupName') {
             setGroupName(value);
-            setGrupo(prev => new Grupo(prev.id, value, prev.lider, prev.major, prev.estudiantes)); // Actualiza el grupo
+            setGrupo(prev => new Grupo(prev.id, value, prev.lider, prev.estudiantes)); // Actualiza el grupo
         } else if (name === 'groupLeader') {
             setGroupLeader(value);
-            setGrupo(prev => new Grupo(prev.id, prev.name, value, prev.major, prev.estudiantes)); // Actualiza el grupo
+            setGrupo(prev => new Grupo(prev.id, prev.name, value, prev.estudiantes)); // Actualiza el grupo
         }
     };
 
     const handleDeleteStudent = (id) => {
         const updatedStudents = students.filter(student => student.id !== id);
         setStudents(updatedStudents); // Actualiza la lista de estudiantes
-        setGrupo(prev => new Grupo(prev.id, prev.name, prev.lider, prev.major, updatedStudents)); // Actualiza el grupo
+        setGrupo(prev => new Grupo(prev.id, prev.name, prev.lider, updatedStudents)); // Actualiza el grupo
     };
 
     const handleGroupSubmit = async (e) => {
@@ -92,7 +93,7 @@ const GroupView = () => {
                 </ul>
                 </nav>
             </aside>
-            <main className="content card">
+            <main className="content card px-5">
 
                 <div class="text-danger text-center">
                     <h2>Registro de Datos del grupo empresarial/Equipo</h2>
@@ -101,7 +102,7 @@ const GroupView = () => {
                 <div class="pb-5 text-center">
                     Complete el siguiente formulario para registrar la informacion basica del equipo
                 </div>
-                <div class="card-body background">
+                <div class="card-body background px-5 rounded">
 
                     <div class="p-3">
                         <div class="title-custome text-light" >
@@ -134,7 +135,7 @@ const GroupView = () => {
                                 </select>
                                 <label for="floatingPassword">Líder del Grupo</label>
                             </div>
-                            <button class="btn btn-primary" type="submit">Actualizar Grupo</button>
+                            <button class="btn btn-primary" type="submit">Guardar Grupo</button>
                         </div>
                     </form>
                     <div class="p-3">
@@ -160,29 +161,16 @@ const GroupView = () => {
                             </div>
                             <div class="form-floating">
                                 <input 
-                                    type="number" 
-                                    name="age" 
-                                    placeholder="Edad" 
-                                    class="form-control" 
-                                    id="floatingInput"
-                                    value={newStudent.age} 
-                                    onChange={handleStudentChange} 
-                                    required 
-                                />
-                                <label for="floatingInput">Edad</label>
-                            </div>
-                            <div class="form-floating">
-                                <input 
                                     type="text" 
-                                    name="major" 
-                                    placeholder="Especialidad" 
+                                    name="email" 
+                                    placeholder="Correo" 
                                     class="form-control" 
                                     id="floatingInput"
-                                    value={newStudent.major} 
+                                    value={newStudent.email} 
                                     onChange={handleStudentChange} 
                                     required 
                                 />
-                                <label for="floatingInput">Especialidad</label>
+                                <label for="floatingInput">Correo</label>
                             </div>
                             <button class="btn btn-danger" type="submit">Añadir Estudiante</button>
                         </div>
@@ -199,7 +187,7 @@ const GroupView = () => {
                             <tr>
                             <th scope="col"></th>
                             <th scope="col">Nombres</th>
-                            <th scope="col">edad</th>
+                            <th scope="col">Correo</th>
                             <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -208,7 +196,7 @@ const GroupView = () => {
                                 <tr key={student.id}>
                                     <th scope="row">{student.id}</th>
                                     <td>{student.name}</td>
-                                    <td>{student.age}</td>
+                                    <td>{student.email}</td>
                                     <td>
                                         <button onClick={() => handleDeleteStudent(student.id)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                     <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>

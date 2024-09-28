@@ -4,6 +4,7 @@ import Menudoc from './pages/Menu_doc.js';
 import Menuest from './pages/Menu_est.js';
 import RegEstInd from './pages/registro_est_ind.js';
 import GroupView from './pages/Grupos/GruposView.js';
+import GruposMod from './pages/Grupos/GruposMod.js';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/menu_est" element={<Menuest />} />
         <Route path="/registro_est_ind" element={<RegEstInd />} />
         <Route path="/registrar_grupo" element={<GroupView />} />
+        <Route path="/modificar_grupo" element={<GruposMod />} />
       </Routes>
     </Router>
   );

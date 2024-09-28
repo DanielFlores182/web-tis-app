@@ -1,10 +1,9 @@
 // src/Models/Estudent.js
 class Estudiante {
-    constructor(id, name, age, major) {
+    constructor(id, name, email) {
         this.id = id;
         this.name = name;
-        this.age = age;
-        this.major = major;
+        this.email = email;
     }
 }
 
