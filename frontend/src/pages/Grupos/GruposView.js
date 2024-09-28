@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import GroupController from '../../controller/groupController'; // Verifica que esta ruta sea correcta
 import Grupo from '../../Models/Group';
 import Estudiante from '../../Models/Estudent';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './GruposView.css';
 
 const GroupView = () => {
     const [showRegisterOptions, setShowRegisterOptions] = useState(false);
@@ -51,6 +53,12 @@ const GroupView = () => {
         }
     };
 
+    const handleDeleteStudent = (id) => {
+        const updatedStudents = students.filter(student => student.id !== id);
+        setStudents(updatedStudents); // Actualiza la lista de estudiantes
+        setGrupo(prev => new Grupo(prev.id, prev.name, prev.lider, prev.major, updatedStudents)); // Actualiza el grupo
+    };
+
     const handleGroupSubmit = async (e) => {
         e.preventDefault();
         console.log(grupo); // Imprime el objeto grupo en la consola
@@ -64,80 +72,154 @@ const GroupView = () => {
     };
 
     return (
-        <div>
+        <div class="menu-container">
             <aside className="sidebar">
-        <nav>
-          <ul>
-          <li><a href="/registro_Group_ind">Registro Grupo</a></li>
-            <li>
-              <a href="#!" onClick={toggleRegisterOptions}>Registrar Estudiante</a>
-              {showRegisterOptions && (
-                <ul className="submenu">
-                  <li><a href="/registro_est_ind">Registro Individual</a></li>
-                  <li><a href="/registro_est_lot">Registrar Por Lote</a></li>
+                <nav>
+                <ul>
+                <li><a href="/registrar_grupo">Registro Grupo</a></li>
+                    <li>
+                    <a href="#!" onClick={toggleRegisterOptions}>Registrar Estudiante</a>
+                    {showRegisterOptions && (
+                        <ul className="submenu">
+                        <li><a href="/registro_est_ind">Registro Individual</a></li>
+                        <li><a href="/registro_est_lot">Registrar Por Lote</a></li>
+                        </ul>
+                    )}
+                    </li>
+                    <li><a href="/perfil">Perfil</a></li>
+                    <li><a href="/doc_config">Configuraciones</a></li>
+                    <li><a href="/">Cerrar Sesion</a></li>
                 </ul>
-              )}
-            </li>
-            <li><a href="/perfil">Perfil</a></li>
-            <li><a href="/doc_config">Configuraciones</a></li>
-            <li><a href="/">Cerrar Sesion</a></li>
-          </ul>
-        </nav>
-      </aside>
-            <main className="content">
-                
-                <h1>Grupo: {grupo.name}</h1>
-                <h3>Líder: {grupo.lider}</h3>
-                <h3>Lista de Estudiantes</h3>
+                </nav>
+            </aside>
+            <main className="content card">
 
-                <h3>Añadir Estudiante</h3>
-                <form onSubmit={handleStudentSubmit}>
-                    <input 
-                        type="text" 
-                        name="name" 
-                        placeholder="Nombre" 
-                        value={newStudent.name} 
-                        onChange={handleStudentChange} 
-                        required 
-                    />
-                    <input 
-                        type="number" 
-                        name="age" 
-                        placeholder="Edad" 
-                        value={newStudent.age} 
-                        onChange={handleStudentChange} 
-                        required 
-                    />
-                    <input 
-                        type="text" 
-                        name="major" 
-                        placeholder="Especialidad" 
-                        value={newStudent.major} 
-                        onChange={handleStudentChange} 
-                        required 
-                    />
-                    <button type="submit">Añadir Estudiante</button>
-                </form>
-                <h3>Actualizar Grupo</h3>
-                <form onSubmit={handleGroupSubmit}>
-                    <input 
-                        type="text" 
-                        name="groupName" 
-                        placeholder="Nombre del Grupo" 
-                        value={groupName} 
-                        onChange={handleGroupChange} 
-                        required 
-                    />
-                    <input 
-                        type="text" 
-                        name="groupLeader" 
-                        placeholder="Líder del Grupo" 
-                        value={groupLeader} 
-                        onChange={handleGroupChange} 
-                        required 
-                    />
-                    <button type="submit">Actualizar Grupo</button>
-                </form>
+                <div class="text-danger text-center">
+                    <h2>Registro de Datos del grupo empresarial/Equipo</h2>
+                    
+                </div>
+                <div class="pb-5 text-center">
+                    Complete el siguiente formulario para registrar la informacion basica del equipo
+                </div>
+                <div class="card-body background">
+
+                    <div class="p-3">
+                        <div class="title-custome text-light" >
+                            <h4><b>Actualizar Grupo</b></h4>
+                        </div>
+                    </div>
+                    <form onSubmit={handleGroupSubmit}>
+                        <div class="input-group flex-nowrap">
+                            <div class="form-floating">
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    name="groupName" 
+                                    placeholder="Nombre del Grupo" 
+                                    value={groupName} 
+                                    onChange={handleGroupChange} 
+                                    required 
+                                />
+                                <label for="floatingInput">Nombre del Grupo</label>
+                            </div>
+                            <div class="form-floating">
+                                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" value={groupLeader} 
+                                    onChange={handleGroupChange} 
+                                    required >
+
+                                    <option value="1">Rene Angosta</option>
+                                        <option value="2">Carlos Perez</option>
+                                        <option value="3">Ana Saenz</option>
+                                    
+                                </select>
+                                <label for="floatingPassword">Líder del Grupo</label>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Actualizar Grupo</button>
+                        </div>
+                    </form>
+                    <div class="p-3">
+                        <div class="title-custome text-light" >
+                            <h4><b>Añadir Estudiante</b></h4>
+                        </div>
+                    </div>
+                    
+                    <form onSubmit={handleStudentSubmit}>
+                        <div class="input-group flex-nowrap">
+                            <div class="form-floating">
+                                <input 
+                                    type="text" 
+                                    name="name" 
+                                    placeholder="Nombre" 
+                                    class="form-control" 
+                                    id="floatingInput"
+                                    value={newStudent.name} 
+                                    onChange={handleStudentChange} 
+                                    required 
+                                />
+                                <label for="floatingInput">Nombre</label>
+                            </div>
+                            <div class="form-floating">
+                                <input 
+                                    type="number" 
+                                    name="age" 
+                                    placeholder="Edad" 
+                                    class="form-control" 
+                                    id="floatingInput"
+                                    value={newStudent.age} 
+                                    onChange={handleStudentChange} 
+                                    required 
+                                />
+                                <label for="floatingInput">Edad</label>
+                            </div>
+                            <div class="form-floating">
+                                <input 
+                                    type="text" 
+                                    name="major" 
+                                    placeholder="Especialidad" 
+                                    class="form-control" 
+                                    id="floatingInput"
+                                    value={newStudent.major} 
+                                    onChange={handleStudentChange} 
+                                    required 
+                                />
+                                <label for="floatingInput">Especialidad</label>
+                            </div>
+                            <button class="btn btn-danger" type="submit">Añadir Estudiante</button>
+                        </div>
+                    </form>
+
+                    <div class="p-3">
+                        <div class="title-custome text-light" >
+                            <h4><b>Lista de Estudiantes</b></h4>
+                        </div>
+                    </div>
+                    <ul class ="text-light">
+                    <table class="table table-light table-striped">
+                        <thead>
+                            <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Nombres</th>
+                            <th scope="col">edad</th>
+                            <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {grupo.estudiantes.map(student => (
+                                <tr key={student.id}>
+                                    <th scope="row">{student.id}</th>
+                                    <td>{student.name}</td>
+                                    <td>{student.age}</td>
+                                    <td>
+                                        <button onClick={() => handleDeleteStudent(student.id)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                    </svg></button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                        </table> 
+                    </ul>
+                </div>
             </main>
         </div>
     );

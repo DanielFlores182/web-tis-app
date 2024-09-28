@@ -1,0 +1,25 @@
+.title-custome{
+    border-left: 6px solid #d34d14;
+    border-top: 0;
+    border-bottom: 0;
+    border-right: 0;
+}
+.sidebar {
+    width: 250px;
+    background-color: #1e2342;
+    color: white;
+    padding: 20px;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
+.menu-container {
+    display: flex;
+    height: 100vh;
+  }
+.background{
+    background-color: #1e2342;
+}
