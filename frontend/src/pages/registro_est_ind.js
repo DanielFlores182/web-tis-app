@@ -38,6 +38,7 @@ function RegistroEstInd() {
               <a href="#!" onClick={toggleRegisterOptions}>Registrar Estudiante</a>
               {showRegisterOptions && (
                 <ul className="submenu">
+                  <li><a href="/registro_est_ind">Registro Individual</a></li>
                   <li><a href="/registro_est_lot">Registrar Por Lote</a></li>
                 </ul>
               )}
