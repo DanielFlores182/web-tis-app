@@ -16,6 +16,8 @@ const GroupView = () => {
     const [newStudent, setNewStudent] = useState({ name: '', email: ''});
     const [groupName, setGroupName] = useState(grupo.name); // Estado para el nombre del grupo
     const [groupLeader, setGroupLeader] = useState(grupo.lider); // Estado para el líder del grupo
+    const [selectedLeader, setSelectedLeader] = useState(null); // Estado para el líder seleccionado
+    const [groupDescription, setGroupDescription] = useState(''); // Nuevo estado para la descripción
 
     useEffect(() => {
         GroupController.updateGroup().then(data => {
@@ -42,15 +44,18 @@ const GroupView = () => {
         }
     };
     
+    const handleLeaderSelection = (selectedLeader) => {
+        setGroupLeader(selectedLeader); // Actualiza el líder del grupo
+        setGrupo(prev => new Grupo(prev.id, prev.name, selectedLeader, prev.estudiantes)); // Actualiza el objeto grupo
+    };
 
     const handleGroupChange = (e) => {
         const { name, value } = e.target;
         if (name === 'groupName') {
             setGroupName(value);
             setGrupo(prev => new Grupo(prev.id, value, prev.lider, prev.estudiantes)); // Actualiza el grupo
-        } else if (name === 'groupLeader') {
-            setGroupLeader(value);
-            setGrupo(prev => new Grupo(prev.id, prev.name, value, prev.estudiantes)); // Actualiza el grupo
+        } else if (name === 'groupDescription') {
+            setGroupDescription(value); // Actualiza la descripción
         }
     };
 
@@ -62,6 +67,11 @@ const GroupView = () => {
 
     const handleGroupSubmit = async (e) => {
         e.preventDefault();
+        const grupo = {
+            ...Grupo,
+            leader: selectedLeader, // Añade el líder seleccionado
+            description: groupDescription // Añade la descripción al grupo
+        };
         console.log(grupo); // Imprime el objeto grupo en la consola
 
         try {
@@ -123,19 +133,27 @@ const GroupView = () => {
                                 />
                                 <label for="floatingInput">Nombre del Grupo</label>
                             </div>
-                            <div class="form-floating">
-                                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" value={groupLeader} 
-                                    onChange={handleGroupChange} 
-                                    required >
-
-                                    <option value="1">Rene Angosta</option>
-                                        <option value="2">Carlos Perez</option>
-                                        <option value="3">Ana Saenz</option>
-                                    
-                                </select>
-                                <label for="floatingPassword">Líder del Grupo</label>
-                            </div>
+                            
                             <button class="btn btn-primary" type="submit">Guardar Grupo</button>
+                        </div>
+                        {/* Nuevo bloque para la Descripción */}
+                    <div class="p-3">
+                            <div class="title-custome text-light" >
+                                <h4><b>Descripción del Grupo</b></h4>
+                            </div>
+                            <div class="form-floating">
+                                <textarea 
+                                    class="form-control" 
+                                    name="groupDescription" 
+                                    placeholder="Descripción del Grupo" 
+                                    value={groupDescription} 
+                                    onChange={handleGroupChange} 
+                                    rows="3" 
+                                    required 
+                                />
+                                <label for="floatingInput">Descripción del Grupo</label>
+                            </div>
+                            
                         </div>
                     </form>
                     <div class="p-3">
@@ -198,9 +216,26 @@ const GroupView = () => {
                                     <td>{student.name}</td>
                                     <td>{student.email}</td>
                                     <td>
+                                    <div className="d-flex align-items-center" style={{ gap: '10px' }}>
                                         <button onClick={() => handleDeleteStudent(student.id)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                     <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
                                     </svg></button>
+                                    {/* Checkbox para seleccionar líder */}
+                                        <div className="form-check form-check-inline">
+                                         <input 
+                                             className="form-check-input" 
+                                             type="radio" 
+                                             name="groupLeader" 
+                                             id={`leaderCheckbox-${student.id}`} 
+                                             value={student.name} 
+                                             onChange={(e) => handleLeaderSelection(e.target.value)}
+                                             checked={groupLeader === student.name} // Marca el checkbox si es el líder actual
+                                            />
+                                        <label className="form-check-label" htmlFor={`leaderCheckbox-${student.id}`}>
+                                            Líder
+                                        </label>
+                                         </div> 
+                                         </div>
                                     </td>
                                 </tr>
                             ))}
