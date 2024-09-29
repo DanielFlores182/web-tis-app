@@ -4,7 +4,7 @@ const GroupController = {
     // Otras funciones de tu controlador
     async updateGroup(grupo) {
         try {
-            const response = await fetch('URL_DEL_TU_API', {
+            const response = await fetch('http://localhost:8081/web-tis-app/backend/getGroupByLeader.phpI', {
                 method: 'POST', // o 'PUT' si es una actualización
                 headers: {
                     'Content-Type': 'application/json',
@@ -18,8 +18,24 @@ const GroupController = {
             throw error;
         }
     },
-
     async getGroupByLeader(leaderName) {
+        try {
+            const response = await fetch(`http://localhost:8081/web-tis-app/backend/getGroupByLeader.php?leader=${leaderName}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error al obtener el grupo:', error);
+            throw error;
+        }
+    }
+    
+    
+    /* async getGroupByLeader(leaderName) {
         // Datos simulados
         const groups = [
             {
@@ -66,7 +82,7 @@ const GroupController = {
                 }
             }, 500);
         });
-    },
+    }, */
 
     /*
     async getGroupByLeader(leaderName) {
