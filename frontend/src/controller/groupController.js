@@ -32,7 +32,28 @@ const GroupController = {
             console.error('Error al obtener el grupo:', error);
             throw error;
         }
+    }, 
+    async addGroup(nombre, docente, descripcion) {
+        try {
+            const response = await fetch('http://localhost:8081/web-tis-app/backend/addGroup.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    docente: docente,
+                    descripcion: descripcion
+                }),
+            });
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error al agregar el grupo:', error);
+            throw error;
+        }
     }
+
     
     
     /* async getGroupByLeader(leaderName) {
