@@ -90,19 +90,10 @@ const GroupView = () => {
             <aside className="sidebar">
                 <nav>
                 <ul>
-                <li><a href="/registrar_grupo">Registro Grupo</a></li>
-                    <li>
-                    <a href="#!" onClick={toggleRegisterOptions}>Registrar Estudiante</a>
-                    {showRegisterOptions && (
-                        <ul className="submenu">
-                        <li><a href="/registro_est_ind">Registro Individual</a></li>
-                        <li><a href="/registro_est_lot">Registrar Por Lote</a></li>
-                        </ul>
-                    )}
-                    </li>
-                    <li><a href="/perfil">Perfil</a></li>
-                    <li><a href="/doc_config">Configuraciones</a></li>
-                    <li><a href="/">Cerrar Sesion</a></li>
+                <li><a href="/registrar_grupo">Registrarse en grupos</a></li>
+                <li><a href="/perfil">Perfil</a></li>
+                <li><a href="/est_config">Configuraciones</a></li>
+                <li><a href="/">Cerrar Sesion</a></li>
                 </ul>
                 </nav>
             </aside>
