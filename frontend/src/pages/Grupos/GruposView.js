@@ -4,9 +4,12 @@ import GroupController from '../../controller/groupController'; // Verifica que 
 import Grupo from '../../Models/Group';
 import Estudiante from '../../Models/Estudent';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 import './GruposView.css';
 
+
 const GroupView = () => {
+    const navigate = useNavigate();
     const [showRegisterOptions, setShowRegisterOptions] = useState(false);
   const toggleRegisterOptions = () => {
       setShowRegisterOptions(!showRegisterOptions); // Cambiar entre mostrar y ocultar
@@ -16,6 +19,7 @@ const GroupView = () => {
     const [newStudent, setNewStudent] = useState({ name: '', email: ''});
     const [groupName, setGroupName] = useState(grupo.name); // Estado para el nombre del grupo
     const [groupLeader, setGroupLeader] = useState(grupo.lider); // Estado para el líder del grupo
+    const [groupDescr, setGrupoDescripcion] = useState(grupo.descripcion); // Estado para el líder del grupo
 
     useEffect(() => {
         GroupController.updateGroup().then(data => {
@@ -37,7 +41,7 @@ const GroupView = () => {
             const student = new Estudiante(studentId, name, email); // Crea el nuevo estudiante
             const updatedStudents = [...students, student]; // Actualiza la lista de estudiantes
             setStudents(updatedStudents); // Actualiza el estado de estudiantes
-            setGrupo(prev => new Grupo(prev.id, prev.name, prev.lider, updatedStudents)); // Actualiza el grupo
+            setGrupo(prev => new Grupo(prev.id, prev.name, prev.lider, prev.descripcion, updatedStudents)); // Actualiza el grupo
             setNewStudent({ name: '', email: '' }); // Reinicia los campos del formulario
         }
     };
@@ -47,10 +51,13 @@ const GroupView = () => {
         const { name, value } = e.target;
         if (name === 'groupName') {
             setGroupName(value);
-            setGrupo(prev => new Grupo(prev.id, value, prev.lider, prev.estudiantes)); // Actualiza el grupo
+            setGrupo(prev => new Grupo(prev.id, value, prev.lider, prev.descripcion, prev.estudiantes)); // Actualiza el grupo
         } else if (name === 'groupLeader') {
             setGroupLeader(value);
-            setGrupo(prev => new Grupo(prev.id, prev.name, value, prev.estudiantes)); // Actualiza el grupo
+            setGrupo(prev => new Grupo(prev.id, prev.name, value, prev.descripcion, prev.estudiantes)); // Actualiza el grupo
+        } else if (name === 'groupDescription') {
+            setGrupoDescripcion(value)
+            setGrupo(prev => new Grupo(prev.id, prev.name, prev.lider, value, prev.estudiantes))
         }
     };
 
@@ -62,11 +69,13 @@ const GroupView = () => {
 
     const handleGroupSubmit = async (e) => {
         e.preventDefault();
-        console.log(grupo); // Imprime el objeto grupo en la consola
 
         try {
+            const redirectToModifyGroup = () => navigate('/modificar_grupo');
+            redirectToModifyGroup();
             const response = await GroupController.updateGroup(grupo); // Envía el grupo al controlador
             console.log('Grupo actualizado:', response); // Imprime la respuesta del servidor
+            
         } catch (error) {
             console.error('Error al actualizar el grupo:', error); // Manejo de errores
         }
@@ -106,7 +115,7 @@ const GroupView = () => {
 
                     <div class="p-3">
                         <div class="title-custome text-light" >
-                            <h4><b>Actualizar Grupo</b></h4>
+                            <h4><b>Guardar Grupo</b></h4>
                         </div>
                     </div>
                     <form onSubmit={handleGroupSubmit}>
@@ -127,16 +136,28 @@ const GroupView = () => {
                                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example" value={groupLeader} 
                                     onChange={handleGroupChange} 
                                     required >
-
-                                    <option value="1">Rene Angosta</option>
+                                        <option value="1">Rene Angosta</option>
                                         <option value="2">Carlos Perez</option>
                                         <option value="3">Ana Saenz</option>
                                     
                                 </select>
                                 <label for="floatingPassword">Líder del Grupo</label>
                             </div>
+ 
                             <button class="btn btn-primary" type="submit">Guardar Grupo</button>
                         </div>
+                        <div class="form-floating mt-3">
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    name="groupDescription" 
+                                    placeholder="Nombre del Grupo" 
+                                    onChange={handleGroupChange} 
+                                    required 
+                                    value={groupDescr}
+                                />
+                                <label for="floatingInput">Descripcion del grupo</label>
+                            </div>
                     </form>
                     <div class="p-3">
                         <div class="title-custome text-light" >
@@ -172,6 +193,7 @@ const GroupView = () => {
                                 />
                                 <label for="floatingInput">Correo</label>
                             </div>
+                            
                             <button class="btn btn-danger" type="submit">Añadir Estudiante</button>
                         </div>
                     </form>

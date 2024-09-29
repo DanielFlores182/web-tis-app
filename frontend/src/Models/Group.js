@@ -1,9 +1,10 @@
 // src/models/Group.js
 class Grupo {
-    constructor(id, name, lider, estudiantes = []) {
+    constructor(id, name, lider, descripcion, estudiantes = []) {
         this.id = id;
         this.name = name;
         this.lider = lider;
+        this.descripcion = descripcion;
         this.estudiantes = estudiantes;
     }
     addStudent(student) {
