@@ -4,3 +4,22 @@
     border-bottom: 0;
     border-right: 0;
 }
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+  }
+  
+  .update-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .update-button:hover {
+    background-color: darkred;
+  }
