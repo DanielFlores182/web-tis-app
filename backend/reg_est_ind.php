@@ -1,44 +1,66 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Habilitar CORS
+header("Access-Control-Allow-Origin: http://localhost:3000"); // Permite solicitudes desde tu frontend
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");   // Métodos permitidos
+header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Encabezados permitidos
+
+// Manejar preflight (solicitudes OPTIONS)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+// Continúa con la lógica de registro
+require 'db_conection.php';
+
+header('Content-Type: application/json');
 
 try {
-    // Crear una conexión a la base de datos PostgreSQL
-    $conn = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Verifica si es una solicitud POST
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Obtener los datos del cuerpo de la solicitud
+        $data = json_decode(file_get_contents("php://input"));
 
-    // Verificar si la solicitud es de tipo POST
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Obtener los datos enviados desde el frontend
-        $data = json_decode(file_get_contents('php://input'), true);
-
-        // Verificar que los campos requeridos no estén vacíos
-        if (!empty($data['nombres']) && !empty($data['apellidos']) && !empty($data['codsis']) && !empty($data['carrera'])) {
-            // Preparar la consulta SQL para insertar los datos
-            $query = "INSERT INTO estudiantes (nombres, apellidos, codsis, carrera) 
-                      VALUES (:nombres, :apellidos, :codsis, :carrera)";
-
-            $stmt = $conn->prepare($query);
-
-            // Asignar valores a los parámetros de la consulta
-            $stmt->bindParam(':nombres', $data['nombres']);
-            $stmt->bindParam(':apellidos', $data['apellidos']);
-            $stmt->bindParam(':codsis', $data['codsis']);
-            $stmt->bindParam(':carrera', $data['carrera']);
-
-            // Ejecutar la consulta
-            if ($stmt->execute()) {
-                // Respuesta exitosa
-                echo json_encode(['status' => 'success', 'message' => 'Estudiante registrado con éxito']);
-            } else {
-                // Respuesta de error
-                echo json_encode(['status' => 'error', 'message' => 'Error al registrar estudiante']);
-            }
-        } else {
-            // Respuesta de error si faltan campos requeridos
-            echo json_encode(['status' => 'error', 'message' => 'Todos los campos son obligatorios']);
+        if (!isset($data->nombres) || !isset($data->apellidos) || !isset($data->codsis) || !isset($data->carrera)) {
+            throw new Exception('Faltan campos obligatorios.');
         }
+
+        $nombres = $data->nombres;
+        $apellidos = $data->apellidos;
+        $codsis = $data->codsis;
+        $carrera = $data->carrera;
+        
+        // Valores predeterminados para correo, username y clave
+        $username = ''; // Se establece como vacío
+        $correo = '';   // Se establece como vacío
+        $clave = '';    // Se establece como vacío (puedes cambiar esto si deseas otro valor)
+
+        // Llamar al procedimiento add_student de PostgreSQL
+        $query = "CALL add_student(:nombres, :apellidos, :username, :codsis, :correo, :carrera, :clave)";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':nombres', $nombres);
+        $stmt->bindParam(':apellidos', $apellidos);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':codsis', $codsis);
+        $stmt->bindParam(':correo', $correo);
+        $stmt->bindParam(':carrera', $carrera);
+        $stmt->bindParam(':clave', $clave); // También envías el valor vacío para la clave
+
+        // Ejecutar la declaración
+        if ($stmt->execute()) {
+            echo json_encode(['message' => 'Estudiante registrado con éxito.']);
+        } else {
+            throw new Exception('Error al registrar estudiante.');
+        }
+    } else {
+        throw new Exception('Método HTTP no permitido.');
     }
-} catch (PDOException $e) {
-    // Manejo de errores en la conexión
-    echo json_encode(['status' => 'error', 'message' => 'Error en la conexión a la base de datos: ' . $e->getMessage()]);
+} catch (Exception $e) {
+    // Devolver un error JSON
+    echo json_encode(['error' => $e->getMessage()]);
 }
 ?>
