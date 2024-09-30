@@ -78,7 +78,7 @@ $$;
 --STORED PROCEDURE para agregar grupos con un docente a cargo y la descripcion de datos
 --y/o de contacto con el grupo
 ------------------------------------------------------------------------------------------
-CREATE OR REPLACE PROCEDURE add_grupo(g_nombre VARCHAR, g_docente VARCHAR, g_descripcion VARCHAR)
+CREATE OR REPLACE PROCEDURE add_grupo(g_nombres VARCHAR, g_apellidos VARCHAR, g_docente VARCHAR, g_descripcion VARCHAR)
 LANGUAGE plpgsql AS $$
 DECLARE
     -- Declaramos una variable para almacenar el id_contacto del docente del grupo
@@ -87,7 +87,7 @@ BEGIN
     -- Verificamos si el g_docente existe en la tabla user_n y si es un docente (tipo = 1)
     SELECT id_usuario INTO selec_id_usuario
     FROM user_n
-    WHERE nombre = g_docente
+    WHERE nombres = g_docente AND apellidos= g_apellidos
     AND tipo = 1;
 
     -- Si no se encuentra ningún registro, lanzamos un error
@@ -339,6 +339,9 @@ BEGIN
     IF p_username IS NULL OR p_username = '' THEN
         p_username := p_codsis; -- Valor por defecto
     END IF;
+    IF p_correo IS NULL OR p_correo = '' THEN
+        p_correo := 'dummy@correo.com'; -- Valor por defecto
+    END IF;
     -- Insertamos el nuevo estudiante en la tabla user_n con el tipo = 2 (estudiante)
     INSERT INTO user_n (username, nombres, apellidos , clave, tipo, correo)
     VALUES (p_username, p_nombres, p_apellidos, p_clave, 2, p_correo)
@@ -352,3 +355,12 @@ BEGIN
 END;
 $$;
 --------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION get_all_docentes()
+RETURNS TABLE(nombre VARCHAR) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT nombre
+    FROM user_n
+    WHERE tipo = 1;  -- Suponiendo que 'tipo = 1' indica que es un docente
+END;
+$$ LANGUAGE plpgsql;
