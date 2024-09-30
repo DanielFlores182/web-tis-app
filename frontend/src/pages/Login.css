@@ -18,7 +18,28 @@
 
     max-width: 400px; /* Ancho máximo para pantallas grandes */
   }
+
+  .form-label {
+    color: #CC1616; /* Rojo */
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
   
+  .form-input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid #CC1616; /* Borde rojo */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .form-input:focus {
+    border-color: #CC1616; /* Borde rojo más intenso al hacer foco */
+    box-shadow: 0 0 8px rgba(204, 22, 22, 0.5); /* Sombra roja al enfocar */
+    outline: none;
+  }
+
   .login-title {
     font-size: 2rem; /* Tamaño de fuente grande */
     margin-bottom: 5%; /* Espaciado inferior usando porcentaje */
@@ -26,6 +47,14 @@
     text-align: center; /* Centrar el texto */
   }
   
+  .login-subtitle {
+    color: white; /* Color blanco */
+    font-size: 0.65rem; /* Tamaño de fuente más pequeño (14px aprox) */
+    margin-bottom: 1rem; /* Espacio debajo del subtítulo */
+    margin-top: -20px;
+    text-align: center; /* Centra el texto */
+  }
+
   .login-form {
     display: flex;
     flex-direction: column;
@@ -66,7 +95,7 @@
   }
   
   .login-button:hover {
-    background-color: #CC1616; /* Color más oscuro al pasar el ratón */
+    background-color: #3498db; /* Color más oscuro al pasar el ratón */
   }
   
   .forgot-password {
