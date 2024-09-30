@@ -26,3 +26,6 @@
 .btn {
     margin-right: 10px; /* espacio entre eeliminar y lider*/
 }
+.form-check-label {
+    font-size: 0.85rem; /* Cambia este valor para ajustar el tamaño */
+}
