@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, toggleRegisterOptions, showRegisterOptions } from 'react';
 import './registro_est_ind.css'; // Asegúrate de crear y ajustar los estilos
 
 function RegistroEstInd() {
