@@ -26,20 +26,22 @@ try {
         $data = json_decode(file_get_contents("php://input"));
 
         // Validar que se reciban todos los datos necesarios
-        if (!isset($data->user_estudiante) || !isset($data->rol) || !isset($data->nombre_grupo)) {
+        if (!isset($data->nombres_estudiante) || !isset($data->apellidos_estudiante) || !isset($data->rol) || !isset($data->nombre_grupo)) {
             throw new Exception('Datos incompletos.');
         }
 
         // Extraer datos
-        $user_estudiante = $data->user_estudiante; // Nombre de usuario del estudiante
+        $nombres_estudiante = $data->nombres_estudiante; // Nombres del estudiante
+        $apellidos_estudiante = $data->apellidos_estudiante; // Apellidos del estudiante
         $rol = $data->rol; // Rol del estudiante
         $nombre_grupo = $data->nombre_grupo; // Nombre del grupo
 
         // Llamar al procedimiento almacenado para agregar el estudiante al grupo
-        $query = "CALL public.add_student_to_group(:user_estudiante, :u_rol, :nombre_grupo)";
+        $query = "CALL add_student_to_group(:nombres_estudiante, :apellidos_estudiante, :u_rol, :nombre_grupo)";
         $stmt = $pdo->prepare($query);
         $stmt->execute([
-            ':user_estudiante' => $user_estudiante,
+            ':nombres_estudiante' => $nombres_estudiante,
+            ':apellidos_estudiante' => $apellidos_estudiante,
             ':u_rol' => $rol,
             ':nombre_grupo' => $nombre_grupo
         ]);

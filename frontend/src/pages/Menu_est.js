@@ -1,8 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Menu_est.css';
 import logo from '../images/logo.png';
 
 function MenuEst() {
+  const [showRegisterOptions, setShowRegisterOptions] = useState(false);
+
+  const toggleRegisterOptions = () => {
+    setShowRegisterOptions(!showRegisterOptions); // Cambiar entre mostrar y ocultar
+  };
+
   return (
     <div className="menu-container">
       <aside className="sidebar">
@@ -10,7 +16,15 @@ function MenuEst() {
         <h1 className="header-title">Estudiante</h1>
         <nav>
           <ul>
-            <li><a href="/registrar_grupo">Registrarse en grupos</a></li>
+          <li>
+              <a href="#!" onClick={toggleRegisterOptions}>Registrar Grupo</a>
+              {showRegisterOptions && (
+                <ul className="submenu">
+                  <li><a href="/registrar_grupo">Nuevo Grupo</a></li>
+                  <li><a href="/agregar_est">Agregar Estudiantes</a></li>
+                </ul>
+              )}
+            </li>
             <li><a href="/perfin">Tareas pendientes</a></li>
             <li><a href="/perfin">Cronograma de actividades</a></li>
             <li><a href="/perfin">Historial de evaluaciones</a></li>

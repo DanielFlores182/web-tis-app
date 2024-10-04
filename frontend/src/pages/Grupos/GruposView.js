@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './GruposView.css'; // Asegúrate de tener este archivo para los estilos
+import './GruposView.css';
+import { useNavigate } from 'react-router-dom';
+import logo from '../../images/logo.png';
 
 const GruposView = () => {
     const [groupName, setGroupName] = useState('');
     const [groupDocente, setGroupDocente] = useState('');
     const [groupDescription, setGroupDescription] = useState('');
-    const [isSubmitted, setIsSubmitted] = useState(false);
     const [teachers, setTeachers] = useState([]);
-    const [studentName, setStudentName] = useState('');
-    const [studentLastName, setStudentLastName] = useState('');
-    const [isGroupLeader, setIsGroupLeader] = useState(false);
-    const [studentsList, setStudentsList] = useState([]); // Estado para almacenar los estudiantes
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchTeachers = async () => {
@@ -52,29 +50,51 @@ const GruposView = () => {
                 })
             });
             const result = await response.json();
+           // En el lugar donde haces la redirección
             if (result.success) {
                 alert(result.message);
+            // Pasar el nombre del grupo como estado al navegar
+                navigate('/agregar_estudiante', { state: { nombreGrupo: groupName } });
             } else {
-                console.error(result.error);
-                alert('Error al agregar el grupo.');
+                    console.error(result.error);
+                    alert('Error al agregar el grupo.');
             }
         } catch (error) {
             console.error('Error en la solicitud:', error);
             alert('Error en la solicitud.');
         }
-        setIsSubmitted(true);
     };
+    const [showRegisterOptions, setShowRegisterOptions] = useState(false);
 
+    const toggleRegisterOptions = () => {
+      setShowRegisterOptions(!showRegisterOptions); // Cambiar entre mostrar y ocultar
+    };
+  
     return (
         <div className="menu-container">
             <aside className="sidebar">
+             <img src={logo} alt="Logo de la Empresa" className="header-logo"></img>
+             <h1 className="header-title">Estudiante</h1>
                 <nav>
-                    <ul>
-                        <li><a href="/registrar_grupo">Registro Grupo</a></li>
-                        <li><a href="/perfil">Perfil</a></li>
-                        <li><a href="/doc_config">Configuraciones</a></li>
-                        <li><a href="/">Cerrar Sesión</a></li>
-                    </ul>
+                  <ul>
+                    <li>
+                        <a href="#!" onClick={toggleRegisterOptions}>Registrar Grupo</a>
+                        {showRegisterOptions && (
+                        <ul className="submenu">
+                        <li><a href="/registrar_grupo">Nuevo Grupo</a></li>
+                        <li><a href="/agregar_est">Agregar Estudiantes</a></li>
+                        </ul>
+                        )}
+                    </li>
+                    <li><a href="/perfin">Tareas pendientes</a></li>
+                    <li><a href="/perfin">Cronograma de actividades</a></li>
+                    <li><a href="/perfin">Historial de evaluaciones</a></li>
+                    <li><a href="/perfin">Ver grupo</a></li>
+                    <li><a href="/perfin">Perfil</a></li>
+                    <li><a href="/perfin">Darse de baja</a></li>
+                    <li><a href="/est_config">Configuraciones</a></li>
+                    <li><a href="/">Cerrar Sesion</a></li>
+                  </ul>
                 </nav>
             </aside>
             <main className="content card px-5">
@@ -98,7 +118,6 @@ const GruposView = () => {
                                     value={groupName} 
                                     onChange={(e) => setGroupName(e.target.value)} 
                                     required 
-                                    disabled={isSubmitted} 
                                 />
                                 <label>Nombre del Grupo</label>
                             </div>
@@ -109,7 +128,6 @@ const GruposView = () => {
                                 value={groupDocente} 
                                 onChange={(e) => setGroupDocente(e.target.value)} 
                                 required 
-                                disabled={isSubmitted} 
                             >
                                 <option value="" disabled>Seleccione un Docente</option>
                                 {teachers.map((teacher) => (
@@ -126,73 +144,11 @@ const GruposView = () => {
                                 value={groupDescription} 
                                 onChange={(e) => setGroupDescription(e.target.value)} 
                                 required 
-                                disabled={isSubmitted} 
                             />
                             <label>Descripción del Grupo</label>
                         </div>
-                        <button className="btn btn-primary" type="submit" disabled={isSubmitted}>Registrar Grupo</button>
+                        <button className="btn btn-primary" type="submit">Registrar Grupo</button>
                     </form>
-                </div>
-
-                {/* Formulario para agregar estudiantes (sin lógica) */}
-                <div className="card-body background px-5 rounded mt-5">
-                    <div className="title-custome text-light mb-3">
-                        <h4><b>Agregar Estudiante al Grupo</b></h4>
-                    </div>
-                    <div className="row mb-3">
-                        <div className="col">
-                            <div className="form-floating">
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    placeholder="Nombre del Estudiante" 
-                                    value={studentName} 
-                                    onChange={(e) => setStudentName(e.target.value)} 
-                                    required 
-                                />
-                                <label>Nombre del Estudiante</label>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="form-floating">
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    placeholder="Apellido del Estudiante" 
-                                    value={studentLastName} 
-                                    onChange={(e) => setStudentLastName(e.target.value)} 
-                                    required 
-                                />
-                                <label>Apellido del Estudiante</label>
-                            </div>
-                        </div>
-                        <div className="col-auto">
-                            <div className="form-check">
-                                <input 
-                                    type="checkbox" 
-                                    className="form-check-input" 
-                                    id="liderGrupo" 
-                                    checked={isGroupLeader} 
-                                    onChange={(e) => setIsGroupLeader(e.target.checked)} 
-                                />
-                                <label className="form-check-label small text-light" htmlFor="liderGrupo">Líder de Grupo</label>
-                            </div>
-                        </div>
-                    </div>
-                    <button className="btn btn-success" type="button" disabled>Agregar Estudiante</button>
-                </div>
-
-                {/* Burbuja con la lista de estudiantes añadidos (sin lógica) */}
-                <div className="card-body background px-5 rounded mt-5">
-                    <div className="title-custome text-light mb-3">
-                        <h4><b>Estudiantes en el Grupo</b></h4>
-                    </div>
-                    <ul className="list-group">
-                        {/* Aquí puedes agregar estudiantes manualmente para la visualización */}
-                        <li className="list-group-item">Ejemplo Estudiante 1 (Líder de Grupo)</li>
-                        <li className="list-group-item">Ejemplo Estudiante 2</li>
-                        <li className="list-group-item">Ejemplo Estudiante 3</li>
-                    </ul>
                 </div>
             </main>
         </div>
