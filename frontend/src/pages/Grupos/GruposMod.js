@@ -34,20 +34,22 @@ function GruposMod() {
   };
 
   // Función para eliminar un estudiante
-  const handleDeleteStudent = (studentId) => {
-    if (grupoSeleccionado) {
-      const updatedGroup = { ...grupoSeleccionado };
-      updatedGroup.estudiantes = updatedGroup.estudiantes.filter(est => est.id !== studentId);
-      setGrupoSeleccionado(updatedGroup);
-    }
-  };
+  
 
   return (
     <div className="menu-container">
       <aside className="sidebar">
                 <nav>
                 <ul>
-                <li><a href="/registrar_grupo">Registrarse en grupos</a></li>
+                <li>
+                        <a href="#!" onClick={toggleRegisterOptions}>Registrar Grupo</a>
+                        {showRegisterOptions && (
+                        <ul className="submenu">
+                        <li><a href="/registrar_grupo">Nuevo Grupo</a></li>
+                        <li><a href="/agregar_est">Agregar Estudiantes</a></li>
+                        </ul>
+                        )}
+                    </li>
                 <li><a href="/perfil">Perfil</a></li>
       <li><a href="/est_config">Configuraciones</a></li>
       <li><a href="/">Cerrar Sesion</a></li>
