@@ -5,7 +5,8 @@ import Menuest from './pages/Menu_est.js';
 import RegEstInd from './pages/registro_est_ind.js';
 import GroupView from './pages/Grupos/GruposView.js';
 import GruposMod from './pages/Grupos/GruposMod.js';
-
+import EvaluacionSemanal from './pages/EvaluacionSemanal/EvaluacionSemanal';
+import ActasSemanales from './pages/EvaluacionSemanal/ActasSemanales';  // Importa ActasSemanales
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         <Route path="/registro_est_ind" element={<RegEstInd />} />
         <Route path="/registrar_grupo" element={<GroupView />} />
         <Route path="/modificar_grupo" element={<GruposMod />} />
+        <Route path="/evaluacion_semanal" element={<EvaluacionSemanal />} />
+        <Route path="/evaluacion_semanal/actas_semanales" element={<ActasSemanales />} /> 
       </Routes>
     </Router>
   );

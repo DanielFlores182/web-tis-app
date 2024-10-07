@@ -10,6 +10,7 @@ function MenuEst() {
             <li><a href="/registrar_grupo">Registrarse en grupos</a></li>
             <li><a href="/perfin">Perfil</a></li>
             <li><a href="/est_config">Configuraciones</a></li>
+            <li><a href="/evaluacion_semanal">Evaluación Semanal</a></li>
             <li><a href="/">Cerrar Sesion</a></li>
           </ul>
         </nav>

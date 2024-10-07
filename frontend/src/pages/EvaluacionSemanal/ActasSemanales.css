@@ -1,0 +1,147 @@
+/* Contenedor principal */
+.acta-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Cabecera */
+.acta-header {
+  margin-bottom: 20px;
+}
+
+.acta-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.acta-header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.acta-header-info span {
+  font-weight: bold;
+}
+
+/* Secciones */
+.acta-section {
+  margin-bottom: 20px;
+}
+
+.acta-section h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Tabla */
+.acta-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.acta-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+/* Temas tratados */
+.acta-topic {
+  margin-bottom: 15px;
+}
+
+.acta-topic h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.acta-content {
+  white-space: pre-line;
+}
+
+/* Textarea */
+.acta-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Footer de los botones */
+.acta-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.acta-button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #FFF;
+  border: 1px solid;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Botón "Aprobado" siempre verde */
+.acta-button.approve-default {
+  background-color: #28a745; 
+  color: #FFF;
+  border-color: #28a745;
+}
+
+/* Botón "Reprobado" siempre rojo */
+.acta-button.reject-default {
+  background-color: #dc3545; 
+  color: #FFF;
+  border-color: #dc3545;
+}
+
+/* Efecto de opacidad cuando se presiona (active) */
+.acta-button:active {
+  opacity: 0.6;
+}
+
+/* Botón "Aprobado" clickeado */
+.acta-button.approved {
+  background-color: #28a745; 
+  color: #FFF;
+  border-color: #28a745;
+}
+
+/* Botón "Reprobado" clickeado */
+.acta-button.rejected {
+  background-color: #dc3545; 
+  color: #FFF;
+  border-color: #dc3545;
+}
+
+
+
+.acta-save-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #FFF;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.acta-back {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.acta-back-button {
+  padding: 10px 20px;
+  background-color: #6c757d;
+  color: #FFF;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
