@@ -1,13 +1,29 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './Menu_est.css';
 import logo from '../images/logo.png';
+import { useLocation, useNavigate } from 'react-router-dom'; // Importa useNavigate para redirigir
 
 function MenuEst() {
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
+  const location = useLocation();
+  const { username } = location.state || {}; // Extraer el username del estado
+  const navigate = useNavigate(); // Hook para redirigir
+  localStorage.setItem('username', username);
+  console.log("Username recibido:", username);
 
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions); // Cambiar entre mostrar y ocultar
   };
+
+  const handleModifyGroup = () => {
+    
+    if (username) {
+        navigate('/select_grupo'); // Redirigir a "Modificar Grupo" con el username
+    } else {
+        console.error("Username no disponible"); // Mensaje en caso de que el username no esté definido
+    }
+};
+
 
   return (
     <div className="menu-container">
@@ -16,12 +32,12 @@ function MenuEst() {
         <h1 className="header-title">Estudiante</h1>
         <nav>
           <ul>
-          <li>
+            <li>
               <a href="#!" onClick={toggleRegisterOptions}>Registrar Grupo</a>
               {showRegisterOptions && (
                 <ul className="submenu">
                   <li><a href="/registrar_grupo">Nuevo Grupo</a></li>
-                  <li><a href="/agregar_est">Agregar Estudiantes</a></li>
+                  <li><a href="#!" onClick={handleModifyGroup}>Modificar Grupo</a></li> {/* Cambia el enlace aquí */}
                 </ul>
               )}
             </li>
@@ -38,7 +54,7 @@ function MenuEst() {
       </aside>
       <main className="content">
         <h1>Bienvenido al menú principal</h1>
-        <h3>Esta es la pagina principal para Estudiante para la materia TIS</h3>
+        <h3>Esta es la página principal para Estudiante para la materia TIS</h3>
         <p>Selecciona una opción de la barra de navegación.</p>
       </main>
     </div>
