@@ -4,9 +4,13 @@ import logo from '../images/logo.png';
 
 function MenuEst() {
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
+  const [showRegisterPlanningOptions, setShowRegisterPlanningOptions] = useState(false);
 
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions); // Cambiar entre mostrar y ocultar
+  };   
+  const toggleRegisterPlanningOptions = () => {
+    setShowRegisterPlanningOptions(!showRegisterPlanningOptions); // Cambiar entre mostrar y ocultar
   };
 
   return (
@@ -24,12 +28,21 @@ function MenuEst() {
                   <li><a href="/agregar_est">Agregar Estudiantes</a></li>
                 </ul>
               )}
-            </li>
-            <li><a href="/perfin">Tareas pendientes</a></li>
-            <li><a href="/perfin">Cronograma de actividades</a></li>
-            <li><a href="/perfin">Historial de evaluaciones</a></li>
-            <li><a href="/perfin">Ver grupo</a></li>
-            <li><a href="/perfin">Perfil</a></li>
+            </li>  
+            <li>
+              <a href="#!" onClick={toggleRegisterPlanningOptions}>Registrar Planificacion</a>
+              {showRegisterPlanningOptions && (
+                <ul className="submenu">
+                  <li><a href="/registro_planificacion">Nueva Planificacion</a></li>
+                  <li><a href="/perfin">Asignar Tareas</a></li>
+                </ul>
+              )}
+            </li>  
+           <li><a href="/perfin">Tareas pendientes</a></li>
+           <li><a href="/perfin">Cronograma de actividades</a></li>
+           <li><a href="/perfin">Historial de evaluaciones</a></li>
+           <li><a href="/perfin">Ver grupo</a></li>
+            
             <li><a href="/perfin">Darse de baja</a></li>
             <li><a href="/est_config">Configuraciones</a></li>
             <li><a href="/">Cerrar Sesion</a></li>

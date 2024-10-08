@@ -65,11 +65,16 @@ const GruposView = () => {
         }
     };
     const [showRegisterOptions, setShowRegisterOptions] = useState(false);
+    const [showRegisterPlanningOptions, setShowRegisterPlanningOptions] = useState(false);
 
     const toggleRegisterOptions = () => {
       setShowRegisterOptions(!showRegisterOptions); // Cambiar entre mostrar y ocultar
     };
   
+    const toggleRegisterPlanningOptions = () => {
+        setShowRegisterPlanningOptions(!showRegisterPlanningOptions);
+      };
+
     return (
         <div className="menu-container">
             <aside className="sidebar">
@@ -85,7 +90,17 @@ const GruposView = () => {
                         <li><a href="/agregar_est">Agregar Estudiantes</a></li>
                         </ul>
                         )}
-                    </li>
+                </li>
+                    <li>
+                        <a href="#!" onClick={toggleRegisterPlanningOptions}>Registrar Planificación</a>
+                        {showRegisterPlanningOptions && (
+                        <ul className="submenu">
+                        <li><a href="/registro_planificacion">Nueva Planificación</a></li>
+                        <li><a href="/perfin">Asignar Tareas</a></li>
+                        </ul>
+                        )}
+               </li>
+
                     <li><a href="/perfin">Tareas pendientes</a></li>
                     <li><a href="/perfin">Cronograma de actividades</a></li>
                     <li><a href="/perfin">Historial de evaluaciones</a></li>
