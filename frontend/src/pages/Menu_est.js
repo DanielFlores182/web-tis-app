@@ -34,7 +34,7 @@ function MenuEst() {
               {showRegisterPlanningOptions && (
                 <ul className="submenu">
                   <li><a href="/registro_planificacion">Nueva Planificacion</a></li>
-                  <li><a href="/perfin">Asignar Tareas</a></li>
+                  <li><a href="/asignar_tareas">Asignar Tareas</a></li>
                 </ul>
               )}
             </li>  

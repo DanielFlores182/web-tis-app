@@ -8,6 +8,7 @@ import GruposMod from './pages/Grupos/GruposMod.js';
 import RegEstLot from './pages/reg_est_lot.js';
 import AgregarEst from './pages/Grupos/agregar_est_view.js'
 import RegPlan from './pages/registro_planificacion.js';
+import AsigTarea from './pages/asignar_tareas';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         <Route path="/modificar_grupo" element={<GruposMod />} />
         <Route path="/agregar_estudiante" element={<AgregarEst />} />
         <Route path="/registro_planificacion" element={<RegPlan />} />
-
+        <Route path="/asignar_tareas" element={<AsigTarea />} />
 
       </Routes>
     </Router>
