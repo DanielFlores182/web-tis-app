@@ -8,10 +8,13 @@ import GruposMod from './pages/Grupos/GruposMod.js';
 import RegEstLot from './pages/reg_est_lot.js';
 import AgregarEst from './pages/Grupos/agregar_est_view.js'
 import SelectGrupo from './pages/Grupos/select_grupo.js'
+import { UserProvider } from './controller/userContex';
+import EditarEstGrupo from './pages/Grupos/edit_est_grupo.js';
 
 
 function App() {
   return (
+    <UserProvider>
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
@@ -23,8 +26,10 @@ function App() {
         <Route path="/modificar_grupo" element={<GruposMod />} />
         <Route path="/agregar_estudiante" element={<AgregarEst />} />
         <Route path="/select_grupo" element={<SelectGrupo />} />
+        <Route path="/editar_est_grupo" element={<EditarEstGrupo />} />
       </Routes>
     </Router>
+    </UserProvider>
   );
 }
 
