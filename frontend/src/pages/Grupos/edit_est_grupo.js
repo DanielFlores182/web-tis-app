@@ -13,12 +13,40 @@ const EditEstGrupoView = () => {
     const [studentsList, setStudentsList] = useState([]);
     const [studentSuggestions, setStudentSuggestions] = useState([]);
     const [students, setStudents] = useState([]);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         if (location.state && location.state.grupo_nombre) {
             setGrupoNombre(location.state.grupo_nombre);
         }
     }, [location.state]);
+
+    useEffect(() => {
+        const fetchRegisteredStudents = async () => {
+            if (grupo_nombre) {
+                try {
+                    const response = await fetch('http://localhost:8081/web-tis-app/backend/get_est_from_grupo.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ grupo_nombre })
+                    });
+
+                    const data = await response.json();
+                    if (Array.isArray(data)) {
+                        setStudentsList(data);
+                    } else {
+                        console.error('La respuesta no es un array:', data);
+                    }
+                } catch (error) {
+                    console.error('Error al obtener estudiantes del grupo:', error);
+                }
+            }
+        };
+
+        fetchRegisteredStudents();
+    }, [grupo_nombre]);
 
     useEffect(() => {
         const fetchStudents = async () => {
@@ -60,8 +88,8 @@ const EditEstGrupoView = () => {
     const handleStudentSubmit = async (e) => {
         e.preventDefault();
         const updatedStudent = {
-            nombre: studentName,
-            apellido: studentLastName,
+            nombres_e: studentName,
+            apellidos_e: studentLastName,
             lider: isGroupLeader,
             nombreGrupo: grupo_nombre
         };
@@ -73,26 +101,30 @@ const EditEstGrupoView = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    nombres_estudiante: updatedStudent.nombre,
-                    apellidos_estudiante: updatedStudent.apellido,
-                    rol: updatedStudent.lider ? 1 : 0,  // Rol: 1 para líder, 0 para miembro
+                    nombres_estudiante: updatedStudent.nombres_e,
+                    apellidos_estudiante: updatedStudent.apellidos_e,
+                    rol: updatedStudent.lider ? 1 : 0,
                     nombre_grupo: updatedStudent.nombreGrupo
                 })
             });
 
             const result = await response.json();
             if (result.success) {
-                alert(result.message);
-                setStudentsList([...studentsList, updatedStudent]);
+                setMessage(result.message);
+                setStudentsList([...studentsList, {
+                    id: result.id,
+                    nombres_e: updatedStudent.nombres_e,
+                    apellidos_e: updatedStudent.apellidos_e,
+                    lider: updatedStudent.lider
+                }]);
             } else {
-                alert(result.error || 'Error al actualizar el estudiante.');
+                setMessage(result.error || 'Error al actualizar el estudiante.');
             }
         } catch (error) {
             console.error('Error en la solicitud:', error);
-            alert('Error en la solicitud.');
+            setMessage('Error en la solicitud.');
         }
 
-        // Limpiar los campos del formulario
         setStudentName('');
         setStudentLastName('');
         setIsGroupLeader(false);
@@ -106,16 +138,17 @@ const EditEstGrupoView = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    nombres_e: student.nombre,
-                    apellidos_e: student.apellido,
+                    nombres_e: student.nombres_e,
+                    apellidos_e: student.apellidos_e,
                     nombre_grupo: grupo_nombre
                 })
             });
 
             const result = await response.json();
+
             if (result.success) {
                 alert(result.message);
-                setStudentsList(studentsList.filter(s => s.nombre !== student.nombre || s.apellido !== student.apellido));
+                setStudentsList(studentsList.filter(s => s.id !== student.id));
             } else {
                 alert(result.error || 'Error al eliminar el estudiante.');
             }
@@ -140,7 +173,7 @@ const EditEstGrupoView = () => {
                         <li><a href="/perfin">Perfil</a></li>
                         <li><a href="/perfin">Darse de baja</a></li>
                         <li><a href="/est_config">Configuraciones</a></li>
-                        <li><a href="/">Cerrar Sesion</a></li>
+                        <li><a href="/">Cerrar Sesión</a></li>
                     </ul>
                 </nav>
             </aside>
@@ -148,6 +181,7 @@ const EditEstGrupoView = () => {
                 <div className="text-danger text-center">
                     <h2>Editar Estudiante en el Grupo: {grupo_nombre}</h2>
                 </div>
+                {message && <div className="alert alert-info">{message}</div>}
                 <div className="pb-5 text-center">
                     Complete el formulario para editar un estudiante en el grupo.
                 </div>
@@ -193,37 +227,27 @@ const EditEstGrupoView = () => {
                                     <label>Apellido del Estudiante</label>
                                 </div>
                             </div>
-                            <div className="col-auto">
-                                <div className="form-check">
-                                    <input
-                                        type="checkbox"
-                                        className="form-check-input"
-                                        id="liderGrupo"
-                                        checked={isGroupLeader}
-                                        onChange={(e) => setIsGroupLeader(e.target.checked)}
-                                    />
-                                    <label className="form-check-label small text-light" htmlFor="liderGrupo">Líder de Grupo</label>
-                                </div>
-                            </div>
                         </div>
-                        <button className="btn btn-success" type="submit">Agregar Estudiante</button>
+                        <div className="form-check mb-3">
+                            <input
+                                type="checkbox"
+                                className="form-check-input"
+                                id="isGroupLeader"
+                                checked={isGroupLeader}
+                                onChange={() => setIsGroupLeader(!isGroupLeader)}
+                            />
+                            <label className="form-check-label" htmlFor="isGroupLeader">¿Líder del Grupo?</label>
+                        </div>
+                        <button type="submit" className="btn btn-primary">Agregar Estudiante</button>
                     </form>
                 </div>
-
-                <div className="card-body background px-5 rounded mt-5">
-                    <div className="title-custome text-light mb-3">
-                        <h4><b>Estudiantes en el Grupo</b></h4>
-                    </div>
+                <div className="card-body mt-4 p-3">
+                    <h4 className="mt-4">Lista de Estudiantes en el Grupo:</h4>
                     <ul className="list-group">
-                        {studentsList.map((student, index) => (
-                            <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-                                {student.nombre} {student.apellido} {student.lider && <span className="text-success">(Líder de Grupo)</span>}
-                                <button 
-                                    className="btn btn-danger btn-sm"
-                                    onClick={() => handleDeleteStudent(student)}
-                                >
-                                    Eliminar
-                                </button>
+                        {studentsList.map(student => (
+                            <li key={student.id} className="list-group-item d-flex justify-content-between align-items-center">
+                                {student.nombres_e} {student.apellidos_e}
+                                <button className="btn btn-danger" onClick={() => handleDeleteStudent(student)}>Eliminar</button>
                             </li>
                         ))}
                     </ul>
@@ -234,4 +258,3 @@ const EditEstGrupoView = () => {
 };
 
 export default EditEstGrupoView;
-
