@@ -10,7 +10,7 @@ export default function ActaReunion() {
   };
 
   const attendees = [
-    { id: 1, name: 'Asilani Martinez Alvaro (asistió)' },
+    { id: 1, name: 'Asllani Martinez Alvaro (asistió)' },
     { id: 2, name: 'Auca Chambi Juan Pablo (asistió)' },
     { id: 3, name: 'Cabrera Bernal Giselle Lorena (asistió)' },
     { id: 4, name: 'Flores Olmos Daniel Marcelo (asistió)' },

@@ -15,15 +15,10 @@ const Evaluaciones = () => {
       <header>
         <h1>Evaluaciones Semanales de Equipos</h1>
         <p>domingo, 6 de octubre de 2024</p>
-        <div className="user-info">
-          <span>Usuario: Juan Pérez</span>
-          <button className="btn-new-evaluation">+ Registrar nueva evaluación semanal</button>
-        </div>
       </header>
 
       <nav className="tabs">
         <button className="tab active">Lista de Equipos</button>
-        <button className="tab">Registro de Evaluación</button>
         <button className="tab">Planillas Anteriores</button>
       </nav>
 

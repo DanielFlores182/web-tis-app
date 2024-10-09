@@ -6,6 +6,7 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  background-color: #f8f9fa; /* Fondo claro */
 }
 
 /* Cabecera */
@@ -16,6 +17,7 @@
 .acta-header h1 {
   font-size: 24px;
   font-weight: bold;
+  color: #e62438; /* Rojo del encabezado similar al diseño */
 }
 
 .acta-header-info {
@@ -26,6 +28,7 @@
 
 .acta-header-info span {
   font-weight: bold;
+  color: #6c757d; /* Gris para el número de acta y fecha */
 }
 
 /* Secciones */
@@ -36,6 +39,7 @@
 .acta-section h2 {
   font-size: 20px;
   font-weight: bold;
+  color: #212529; /* Negro suave */
   margin-bottom: 10px;
 }
 
@@ -43,11 +47,13 @@
 .acta-table {
   width: 100%;
   border-collapse: collapse;
+  background-color: #fff;
 }
 
 .acta-table td {
   border: 1px solid #ddd;
   padding: 8px;
+  color: #212529; /* Texto en negro */
 }
 
 /* Temas tratados */
@@ -58,10 +64,12 @@
 .acta-topic h3 {
   font-size: 18px;
   font-weight: bold;
+  color: #495057; /* Tono oscuro de gris */
 }
 
 .acta-content {
   white-space: pre-line;
+  color: #6c757d; /* Gris suave para el contenido */
 }
 
 /* Textarea */
@@ -70,6 +78,8 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  background-color: #fff; /* Fondo blanco */
+  color: #495057; /* Texto en gris oscuro */
 }
 
 /* Footer de los botones */
@@ -82,23 +92,24 @@
 .acta-button {
   padding: 10px 20px;
   margin-right: 10px;
-  background-color: #FFF;
+  background-color: #fff;
   border: 1px solid;
   border-radius: 4px;
   cursor: pointer;
+  color: #212529; /* Texto negro */
 }
 
 /* Botón "Aprobado" siempre verde */
 .acta-button.approve-default {
   background-color: #28a745; 
-  color: #FFF;
+  color: #fff;
   border-color: #28a745;
 }
 
 /* Botón "Reprobado" siempre rojo */
 .acta-button.reject-default {
   background-color: #dc3545; 
-  color: #FFF;
+  color: #fff;
   border-color: #dc3545;
 }
 
@@ -110,28 +121,28 @@
 /* Botón "Aprobado" clickeado */
 .acta-button.approved {
   background-color: #28a745; 
-  color: #FFF;
+  color: #fff;
   border-color: #28a745;
 }
 
 /* Botón "Reprobado" clickeado */
 .acta-button.rejected {
   background-color: #dc3545; 
-  color: #FFF;
+  color: #fff;
   border-color: #dc3545;
 }
 
-
-
+/* Botón "Guardar Acta" */
 .acta-save-button {
   padding: 10px 20px;
   background-color: #007bff;
-  color: #FFF;
+  color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
+/* Botón "Volver" */
 .acta-back {
   margin-top: 20px;
   text-align: center;
@@ -140,7 +151,7 @@
 .acta-back-button {
   padding: 10px 20px;
   background-color: #6c757d;
-  color: #FFF;
+  color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
