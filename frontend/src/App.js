@@ -11,9 +11,12 @@ import SelectGrupo from './pages/Grupos/select_grupo.js'
 import VerTarea from './pages/ver_tarea.js';
 import VerPlanilla from './pages/planilla.js';
 import VerPerfil from './pages/ver_perfil.js';
+import { UserProvider } from './controller/userContex';
+import EditarEstGrupo from './pages/Grupos/edit_est_grupo.js';
 
 function App() {
   return (
+    <UserProvider>
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
@@ -28,8 +31,10 @@ function App() {
         <Route path="/ver_tarea" element={<VerTarea />} />
         <Route path="/planilla" element={<VerPlanilla />} />
         <Route path="/ver_perfil" element={<VerPerfil />} />
+        <Route path="/editar_est_grupo" element={<EditarEstGrupo />} />
       </Routes>
     </Router>
+    </UserProvider>
   );
 }
 

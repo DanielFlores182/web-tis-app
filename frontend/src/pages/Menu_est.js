@@ -1,29 +1,22 @@
+// src/MenuEst.js
 import React, { useState } from 'react';
 import './Menu_est.css';
 import logo from '../images/logo.png';
-import { useLocation, useNavigate } from 'react-router-dom'; // Importa useNavigate para redirigir
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../controller/userContex'; // Importar el contexto
 
 function MenuEst() {
+  const { username } = useUser(); // Extraer username del contexto
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
-  const location = useLocation();
-  const { username } = location.state || {}; // Extraer el username del estado
-  const navigate = useNavigate(); // Hook para redirigir
-  localStorage.setItem('username', username);
-  console.log("Username recibido:", username);
+  const navigate = useNavigate();
 
   const toggleRegisterOptions = () => {
-    setShowRegisterOptions(!showRegisterOptions); // Cambiar entre mostrar y ocultar
+    setShowRegisterOptions(!showRegisterOptions);
   };
 
   const handleModifyGroup = () => {
-    
-    if (username) {
-        navigate('/select_grupo'); // Redirigir a "Modificar Grupo" con el username
-    } else {
-        console.error("Username no disponible"); // Mensaje en caso de que el username no esté definido
-    }
-};
-
+    navigate('/select_grupo');
+  };
 
   return (
     <div className="menu-container">
@@ -37,7 +30,7 @@ function MenuEst() {
               {showRegisterOptions && (
                 <ul className="submenu">
                   <li><a href="/registrar_grupo">Nuevo Grupo</a></li>
-                  <li><a href="#!" onClick={handleModifyGroup}>Modificar Grupo</a></li> {/* Cambia el enlace aquí */}
+                  <li><a href="#!" onClick={handleModifyGroup}>Modificar Grupo</a></li>
                 </ul>
               )}
             </li>
@@ -53,7 +46,7 @@ function MenuEst() {
         </nav>
       </aside>
       <main className="content">
-        <h1>Bienvenido al menú principal</h1>
+        <h1>Bienvenido, {username}</h1> {/* Mostrar el username */}
         <h3>Esta es la página principal para Estudiante para la materia TIS</h3>
         <p>Selecciona una opción de la barra de navegación.</p>
       </main>
