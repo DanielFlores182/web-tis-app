@@ -187,71 +187,77 @@ const EditEstGrupoView = () => {
                 </div>
                 <div className="card-body background px-5 rounded">
                     <form onSubmit={handleStudentSubmit}>
-                        <div className="row mb-3">
-                            <div className="col">
-                                <div className="form-floating">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Nombre del Estudiante"
-                                        value={studentName}
-                                        onChange={handleStudentNameChange}
-                                        required
-                                    />
-                                    <label>Nombre del Estudiante</label>
-                                    {studentSuggestions.length > 0 && (
-                                        <ul className="list-group mt-1">
-                                            {studentSuggestions.map(student => (
-                                                <li
-                                                    key={student.id}
-                                                    className="list-group-item list-group-item-action"
-                                                    onClick={() => handleSuggestionClick(student)}
-                                                >
-                                                    {student.nombres_e} {student.apellidos_e}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="form-floating">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Apellido del Estudiante"
-                                        value={studentLastName}
-                                        onChange={(e) => setStudentLastName(e.target.value)}
-                                        required
-                                    />
-                                    <label>Apellido del Estudiante</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="form-check mb-3">
-                            <input
-                                type="checkbox"
-                                className="form-check-input"
-                                id="isGroupLeader"
-                                checked={isGroupLeader}
-                                onChange={() => setIsGroupLeader(!isGroupLeader)}
-                            />
-                            <label className="form-check-label" htmlFor="isGroupLeader">¿Líder del Grupo?</label>
-                        </div>
+                    <div className="row mb-3">
+    <div className="col">
+        <div className="form-floating">
+            <input
+                type="text"
+                className="form-control"
+                placeholder="Nombre del Estudiante"
+                value={studentName}
+                onChange={handleStudentNameChange}
+                required
+            />
+            <label>Nombre del Estudiante</label>
+            {studentSuggestions.length > 0 && (
+                <ul className="list-group mt-1">
+                    {studentSuggestions.map(student => (
+                        <li
+                            key={student.id}
+                            className="list-group-item list-group-item-action"
+                            onClick={() => handleSuggestionClick(student)}
+                        >
+                            {student.nombres_e} {student.apellidos_e}
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    </div>
+    <div className="col">
+        <div className="form-floating">
+            <input
+                type="text"
+                className="form-control"
+                placeholder="Apellido del Estudiante"
+                value={studentLastName}
+                onChange={(e) => setStudentLastName(e.target.value)}
+                required
+            />
+            <label>Apellido del Estudiante</label>
+        </div>
+    </div>
+    <div className="col-auto d-flex align-items-center">
+        <input
+            type="checkbox"
+            className="form-check-input"
+            id="isGroupLeader"
+            checked={isGroupLeader}
+            onChange={() => setIsGroupLeader(!isGroupLeader)}
+        />
+        <label className="form-check-label small text-light" htmlFor="isGroupLeader">
+            ¿Líder del Grupo?
+        </label>
+    </div>
+</div>
+
                         <button type="submit" className="btn btn-primary">Agregar Estudiante</button>
                     </form>
                 </div>
                 <div className="card-body mt-4 p-3">
-                    <h4 className="mt-4">Lista de Estudiantes en el Grupo:</h4>
-                    <ul className="list-group">
-                        {studentsList.map(student => (
-                            <li key={student.id} className="list-group-item d-flex justify-content-between align-items-center">
-                                {student.nombres_e} {student.apellidos_e}
-                                <button className="btn btn-danger" onClick={() => handleDeleteStudent(student)}>Eliminar</button>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+    <h4 className="mt-4">Lista de Estudiantes en el Grupo:</h4>
+    <div className="alert alert-primary p-3">
+        <ul className="list-group">
+            {studentsList.map(student => (
+                <li key={student.id} className="list-group-item d-flex justify-content-between align-items-center">
+                    {student.nombres_e} {student.apellidos_e}
+                    <button className="btn btn-danger" onClick={() => handleDeleteStudent(student)}>Eliminar</button>
+                </li>
+            ))}
+        </ul>
+    </div>
+</div>
+
             </main>
         </div>
     );
