@@ -8,9 +8,11 @@ import GruposMod from './pages/Grupos/GruposMod.js';
 import RegEstLot from './pages/reg_est_lot.js';
 import AgregarEst from './pages/Grupos/agregar_est_view.js'
 import SelectGrupo from './pages/Grupos/select_grupo.js'
+import VerTarea from './pages/ver_tarea.js';
+import VerPlanilla from './pages/planilla.js';
+import VerPerfil from './pages/ver_perfil.js';
 import { UserProvider } from './controller/userContex';
 import EditarEstGrupo from './pages/Grupos/edit_est_grupo.js';
-
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
         <Route path="/modificar_grupo" element={<GruposMod />} />
         <Route path="/agregar_estudiante" element={<AgregarEst />} />
         <Route path="/select_grupo" element={<SelectGrupo />} />
+        <Route path="/ver_tarea" element={<VerTarea />} />
+        <Route path="/planilla" element={<VerPlanilla />} />
+        <Route path="/ver_perfil" element={<VerPerfil />} />
         <Route path="/editar_est_grupo" element={<EditarEstGrupo />} />
       </Routes>
     </Router>
