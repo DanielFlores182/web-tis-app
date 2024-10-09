@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, toggleRegisterOptions, showRegisterOptions } from 'react';
 import './registro_est_ind.css'; // Asegúrate de crear y ajustar los estilos
 
 function RegistroEstInd() {
-
-  const [showRegisterOptions, setShowRegisterOptions] = useState(false);
-  const toggleRegisterOptions = () => {
-      setShowRegisterOptions(!showRegisterOptions); // Cambiar entre mostrar y ocultar
-  };
-
   const [formData, setFormData] = useState({
     nombres: '',
     apellidos: '',
     codsis: '',
-    carrera: ''
+    carrera: '' // Este campo se mantendrá como string, pero será un select
   });
 
   const handleInputChange = (e) => {
@@ -23,15 +17,43 @@ function RegistroEstInd() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí puedes realizar la lógica para enviar los datos al backend
-    console.log('Datos del formulario:', formData);
+    
+    // Transformar la carrera en un número antes de enviar
+    const carreraValue = formData.carrera === "Ing. Informatica" ? 1 : 2;
+
+    try {
+      const response = await fetch('http://localhost:8081/web-tis-app/backend/reg_est_ind.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nombres: formData.nombres, // Enviar el nombre
+          apellidos: formData.apellidos, // Enviar el apellido
+          codsis: formData.codsis, // Enviar el código SIS
+          carrera: carreraValue, // Enviar el valor numérico
+        }) 
+      });
+
+      const data = await response.json();
+      
+      // Maneja la respuesta del servidor
+      if (data.success) {
+        alert('Estudiante registrado exitosamente!');
+      } else {
+        alert('Mensaje: ' + data.message);
+      }
+    } catch (error) {
+      console.error('Error en el envío:', error);
+      alert('Ocurrió un error al enviar los datos.');
+    }
   };
 
   return (
     <div className="menu-container">
-     <aside className="sidebar">
+      <aside className="sidebar">
         <nav>
           <ul>
             <li>
@@ -75,7 +97,7 @@ function RegistroEstInd() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="codsis">Codigo Sis:</label>
+            <label htmlFor="codsis">Código SIS:</label>
             <input 
               type="text" 
               id="codsis" 
@@ -87,14 +109,17 @@ function RegistroEstInd() {
           </div>
           <div className="form-group">
             <label htmlFor="carrera">Carrera:</label>
-            <input 
-              type="text" 
+            <select 
               id="carrera" 
               name="carrera" 
               value={formData.carrera} 
               onChange={handleInputChange} 
-              required 
-            />
+              required
+            >
+              <option value="" disabled>Seleccione una carrera</option>
+              <option value="Ing. Informatica">Ing. Informatica</option>
+              <option value="Ing. Sistemas">Ing. Sistemas</option>
+            </select>
           </div>
           <button type="submit" className="submit-button">Registrar Estudiante</button>
         </form>

@@ -78,7 +78,7 @@ $$;
 --STORED PROCEDURE para agregar grupos con un docente a cargo y la descripcion de datos
 --y/o de contacto con el grupo
 ------------------------------------------------------------------------------------------
-CREATE OR REPLACE PROCEDURE add_grupo(g_nombre VARCHAR, g_docente VARCHAR, g_descripcion VARCHAR)
+CREATE OR REPLACE PROCEDURE add_grupo(g_nombres VARCHAR, g_apellidos VARCHAR, g_docente VARCHAR, g_descripcion VARCHAR)
 LANGUAGE plpgsql AS $$
 DECLARE
     -- Declaramos una variable para almacenar el id_contacto del docente del grupo
@@ -87,7 +87,7 @@ BEGIN
     -- Verificamos si el g_docente existe en la tabla user_n y si es un docente (tipo = 1)
     SELECT id_usuario INTO selec_id_usuario
     FROM user_n
-    WHERE nombre = g_docente
+    WHERE nombres = g_docente AND apellidos= g_apellidos
     AND tipo = 1;
 
     -- Si no se encuentra ningún registro, lanzamos un error
@@ -181,7 +181,7 @@ $$;
 --STORED PROCEDURE para agregar el estudiante elegido al grupo señalado en el rol que esta ejerciendo
 ----------------------------------------------------------------------------------------------------------------
 
-CREATE OR REPLACE PROCEDURE add_student_to_group(user_estudiante VARCHAR, u_rol INTEGER, nombre_grupo VARCHAR)
+CREATE OR REPLACE PROCEDURE add_student_to_group(nombres_e VARCHAR, apelllidos_e VARCHAR, u_rol INTEGER, nombre_grupo VARCHAR)
 LANGUAGE plpgsql AS $$
 DECLARE
     id_estudiante INTEGER;
@@ -190,7 +190,7 @@ BEGIN
     -- Verificamos si el estudiante existe en la tabla user_n y obtenemos su id_contacto
     SELECT id_usuario INTO id_estudiante
     FROM user_n
-    WHERE username = user_estudiante
+    WHERE nombres = nombres_e AND apellidos = apelllidos_e
     AND tipo = 2;  -- tipo 2 para estudiante
 
     -- Si no se encuentra al estudiante, lanzamos una excepción
@@ -221,7 +221,7 @@ $$;
 --------------------------------------------------------------------------------------------------------
 --STORED PROCEDURE que elimmina a un estudiante elegido del grupo especificado
 ---------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE PROCEDURE drop_student_of_group(nombre_estudiante VARCHAR, nombre_grupo VARCHAR)
+CREATE OR REPLACE PROCEDURE drop_student_of_group(nombres_e VARCHAR, apellidos_e VARCHAR, nombre_grupo VARCHAR)
 LANGUAGE plpgsql AS $$
 DECLARE
     id_estudiante_g INTEGER;
@@ -230,12 +230,12 @@ BEGIN
     -- Verificamos si el estudiante existe en la tabla user_n y obtenemos su id_contacto
     SELECT id_usuario INTO id_estudiante_g
     FROM user_n
-    WHERE nombre = nombre_estudiante
+    WHERE nombres = nombres_e AND apellidos = apellidos_e
     AND tipo = 2;  -- tipo 2 para estudiante
 
     -- Si no se encuentra al estudiante, lanzamos una excepción
     IF NOT FOUND THEN
-        RAISE EXCEPTION 'El estudiante % no existe', nombre_estudiante;
+        RAISE EXCEPTION 'El estudiante % no existe', nombres_e;
     END IF;
 
     -- Verificamos si el grupo existe y obtenemos el id del docente asociado al grupo
@@ -253,7 +253,7 @@ BEGIN
 	WHERE id_estudiante = id_estudiante_g;
 
     -- Confirmación de éxito
-    RAISE NOTICE 'Estudiante % ha sido eliminado del grupo % con éxito', nombre_estudiante, nombre_grupo;
+    RAISE NOTICE 'Estu  diante % ha sido eliminado del grupo % con éxito', nombres_e, nombre_grupo;
 END;
 $$;
 ------------------------------------------------------------------------------------------------------------
@@ -339,6 +339,9 @@ BEGIN
     IF p_username IS NULL OR p_username = '' THEN
         p_username := p_codsis; -- Valor por defecto
     END IF;
+    IF p_correo IS NULL OR p_correo = '' THEN
+        p_correo := 'dummy@correo.com'; -- Valor por defecto
+    END IF;
     -- Insertamos el nuevo estudiante en la tabla user_n con el tipo = 2 (estudiante)
     INSERT INTO user_n (username, nombres, apellidos , clave, tipo, correo)
     VALUES (p_username, p_nombres, p_apellidos, p_clave, 2, p_correo)
@@ -352,3 +355,23 @@ BEGIN
 END;
 $$;
 --------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION get_all_docentes()
+RETURNS TABLE(nombre VARCHAR) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT nombres, apellidos
+    FROM user_n
+    WHERE tipo = 1;  -- Suponiendo que 'tipo = 1' indica que es un docente
+END;
+$$ LANGUAGE plpgsql;
+------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION get_all_estudiantes()
+RETURNS TABLE(nombre VARCHAR) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT nombres, apellidos
+    FROM user_n
+    WHERE tipo = 2;  -- Suponiendo que 'tipo = 2' indica que es un estudiante
+END;
+$$ LANGUAGE plpgsql;
+

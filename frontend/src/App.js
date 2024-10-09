@@ -16,6 +16,7 @@ function App() {
         <Route path="/menu_doc" element={<Menudoc />} />
         <Route path="/menu_est" element={<Menuest />} />
         <Route path="/registro_est_ind" element={<RegEstInd />} />
+        <Route path="/registro_est_lot" element={<RegEstLot />} />
         <Route path="/registrar_grupo" element={<GroupView />} />
         <Route path="/modificar_grupo" element={<GruposMod />} />
         <Route path="/evaluacion_semanal" element={<EvaluacionSemanal />} />

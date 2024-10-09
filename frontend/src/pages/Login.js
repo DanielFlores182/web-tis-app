@@ -24,7 +24,7 @@ function Login() {
         if (data.role === 1) {
           navigate('/menu_doc'); // Redirigir a la página del administrador
         } else if (data.role === 2) {
-          navigate('/menu_est'); // Redirigir a la página de usuario
+          navigate('/menu_est', { state: { username } }); // Redirigir a la página de usuario
         } else if (data.role === 0) {
           setErrorMessage('Usuario o contraseña incorrectos'); // Mostrar mensaje de error
         }
@@ -37,22 +37,25 @@ function Login() {
 
   return (
     <div className="login-container">
+      <h1 className="login-title">Iniciar Sesión</h1>
+      <p className="login-subtitle">Inicia sesión en tu cuenta para continuar
+      </p>
       <div className="bubble">
-        <h1 className="login-title">Iniciar Sesión</h1>
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="username">Usuario</label>
+            <label htmlFor="username" className="form-label">Usuario</label>
             <input 
-              type="text" 
+              type="text"
               id="username" 
               placeholder="Ingrese su usuario" 
               value={username} 
               onChange={(e) => setUsername(e.target.value)} 
               required 
+              className="form-input"
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Contraseña</label>
+            <label htmlFor="password" className="form-label">Contraseña</label>
             <input 
               type="password" 
               id="password" 
@@ -60,6 +63,7 @@ function Login() {
               value={clave} 
               onChange={(e) => setClave(e.target.value)} 
               required 
+              className="form-input"
             />
           </div>
           <button type="submit" className="login-button">Ingresar</button>
