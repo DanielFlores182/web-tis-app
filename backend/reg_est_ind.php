@@ -14,7 +14,7 @@ try {
         if (!empty($data['nombres']) && !empty($data['apellidos']) && !empty($data['codsis']) && !empty($data['carrera'])) {
             // Preparar la consulta SQL para insertar los datos
             $query = "INSERT INTO estudiantes (nombres, apellidos, codsis, carrera) 
-                      VALUES (:nombres, :apellidos, :codsis, :carrera)";
+                    VALUES (:nombres, :apellidos, :codsis, :carrera)";
 
             $stmt = $conn->prepare($query);
 

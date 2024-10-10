@@ -1,0 +1,77 @@
+.menu-container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #1e2342;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin: 20px 0;
+}
+
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
+
+.options-container {
+    margin-bottom: 20px;
+}
+
+.options-container h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.options-container ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.options-container ul li {
+    margin-bottom: 10px;
+}
+
+  /* Estilos para la tabla */
+.table-container {
+    margin-top: 20px;
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-container table, th, td {
+    border: 1px solid #ddd;
+}
+
+.table-container th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+.table-container th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.table-container tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
