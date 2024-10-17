@@ -32,43 +32,43 @@ return (
         <h1>Resultados semanales</h1>
         {/* contenido pagina */}
         <div className="options-container">
-            <h2>Opciones</h2>
+            <h2>Seleccione el grupo</h2>
                 <select>
                 <option value="opcion1">Opción 1</option>
                 <option value="opcion2">Opción 2</option>
                 <option value="opcion3">Opción 3</option>
                 </select>
-</div>
+        </div>
 
         <div className="table-container">
-        <h2>Tabla de Trabajo</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Integrantes</th>
-                <th>Trabajo Asignado</th>
-                <th>Trabajo Concluido</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Juan Pérez</td>
-                <td>Diseño del frontend</td>
-                <td>En progreso</td>
-            </tr>
-            <tr>
-                <td>Maria López</td>
-                <td>Base de datos</td>
-                <td>Concluido</td>
-            </tr>
-            <tr>
-                <td>Carlos Martínez</td>
-                <td>Documentación</td>
-                <td>Pendiente</td>
-            </tr>
-            </tbody>
-        </table>
-        </div>
+            <h2>Tabla de Trabajo</h2>
+                <table>
+                <thead>
+                    <tr>
+                    <th>Nombre del equipo</th>
+                    <th>Estado de evaluación</th>
+                    <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>Equipo Alpha</td>
+                    <td><span className="estado-pendiente">Pendiente</span></td> 
+                    <td><button className="btn-ver-actas">Ver Actas</button> </td>
+                    </tr>
+                    <tr>
+                    <td>Equipo Beta</td>
+                    <td><span className="estado-completado">Completado</span> </td>
+                    <td><button className="btn-ver-actas">Ver Actas</button> </td>
+                    </tr>
+                    <tr>
+                    <td>Equipo Omega</td>
+                    <td><span className="estado-atrasado">Atrasado</span> </td>
+                    <td><button className="btn-ver-actas">Ver Actas</button></td>
+                    </tr>
+                </tbody>
+                </table>
+</div>
 
     </main>
     </div>
