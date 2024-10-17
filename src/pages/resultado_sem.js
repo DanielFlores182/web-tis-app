@@ -47,6 +47,7 @@ return (
                     <tr>
                     <th>Nombre del equipo</th>
                     <th>Estado de evaluación</th>
+                    <th>Fecha</th>
                     <th>Acciones</th>
                     </tr>
                 </thead>
@@ -54,16 +55,19 @@ return (
                     <tr>
                     <td>Equipo Alpha</td>
                     <td><span className="estado-pendiente">Pendiente</span></td> 
+                    <td>11/10/2024</td>
                     <td><button className="btn-ver-actas">Ver Actas</button> </td>
                     </tr>
                     <tr>
                     <td>Equipo Beta</td>
                     <td><span className="estado-completado">Completado</span> </td>
+                    <td>18/10/2024</td>
                     <td><button className="btn-ver-actas">Ver Actas</button> </td>
                     </tr>
                     <tr>
                     <td>Equipo Omega</td>
                     <td><span className="estado-atrasado">Atrasado</span> </td>
+                    <td>25/10/2024</td>
                     <td><button className="btn-ver-actas">Ver Actas</button></td>
                     </tr>
                 </tbody>
