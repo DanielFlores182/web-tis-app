@@ -144,6 +144,18 @@ CREATE TABLE "acta" (
 );
 
 -- -------------------------------------------------------------------------
+-- Table: evaluacion_pro
+-- -------------------------------------------------------------------------
+CREATE TABLE "evaluacion_pro" (
+  "id_eva" INTEGER NOT NULL,
+  "tipo_eva" VARCHAR(20) NOT NULL,
+  "descripcion_eva" TEXT NOT NULL,
+  "fecha_ini" DATE NOT NULL,
+  "fecha_fin" DATE NOT NULL,
+  PRIMARY KEY ("id_eva")
+);
+
+-- -------------------------------------------------------------------------
 -- Relations for table: estudiante
 -- -------------------------------------------------------------------------
 ALTER TABLE "estudiante" ADD FOREIGN KEY ("id_usuario") 
