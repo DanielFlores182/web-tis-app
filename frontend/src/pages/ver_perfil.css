@@ -16,7 +16,7 @@ body {
   }
   
   .titulo {
-    font-size: 2em; /* Tamaño del título */
+    font-size: 2em; 
     margin-bottom: 10px; /* Espacio debajo del título */
   }
   
@@ -31,7 +31,7 @@ body {
   
   .subtitulo {
     font-size: 1.5em; /* Tamaño del subtítulo */
-    color: black; /* Color negro para el subtítulo */
+    color: black !important; /* Color negro para el subtítulo */
   }
   
   .tarea {
