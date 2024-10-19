@@ -53,6 +53,7 @@ try {
         // Ejecutar la declaración
         if ($stmt->execute()) {
             echo json_encode(['message' => 'Estudiante registrado con éxito.']);
+
         } else {
             throw new Exception('Error al registrar estudiante.');
         }
