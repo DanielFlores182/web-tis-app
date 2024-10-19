@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './Menu_doc.css';
+import logo from '../images/logo.png';
+
 
 function MenuDoc() {
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
@@ -11,6 +13,8 @@ function MenuDoc() {
   return (
     <div className="menu-container">
       <aside className="sidebar">
+        <img src={logo} alt="Logo de la Empresa" className="header-logo"></img>
+        <h1 className="header-title">Docente</h1>
         <nav>
           <ul>
             <li>
@@ -22,6 +26,9 @@ function MenuDoc() {
                 </ul>
               )}
             </li>
+            <li><a href="/perfil">Ver grupos</a></li>
+            <li><a href="/perfil">Ver evaluaciones</a></li>
+            <li><a href="/perfil">Programar evaluaciones</a></li>
             <li><a href="/perfil">Perfil</a></li>
             <li><a href="/doc_config">Configuraciones</a></li>
             <li><a href="/">Cerrar Sesion</a></li>

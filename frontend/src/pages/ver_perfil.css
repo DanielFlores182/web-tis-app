@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* Fuente por defecto */
+    background-color: white; /* Fondo blanco para el body */
+  }
+  
+  .perfil-container {
+    padding: 20px; /* Espaciado alrededor del contenedor */
+    max-width: 800px; /* Ancho máximo del contenedor */
+    margin: auto; /* Centrar el contenedor */
+    background-color: #000630; /* Fondo azul para el contenedor */
+    border-radius: 8px; /* Bordes redondeados del contenedor */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+    color: white; /* Color del texto en el contenedor */
+  }
+  
+  .titulo {
+    font-size: 2em; /* Tamaño del título */
+    margin-bottom: 10px; /* Espacio debajo del título */
+  }
+  
+  .tareas-container {
+    padding: 20px; /* Espaciado interno para el contenedor de tareas */
+    background-color: white; /* Fondo blanco para el contenedor de tareas */
+    color: black; /* Color de texto negro para las tareas */
+    border-radius: 8px; /* Bordes redondeados */
+    border: 2px solid white; /* Borde azul alrededor del contenedor de tareas */
+    margin-bottom: 20px; /* Espacio debajo del contenedor de tareas */
+  }
+  
+  .subtitulo {
+    font-size: 1.5em; /* Tamaño del subtítulo */
+    color: black; /* Color negro para el subtítulo */
+  }
+  
+  .tarea {
+    display: flex; /* Alinear elementos en fila */
+    justify-content: space-between; /* Espacio entre elementos */
+    align-items: center; /* Centrar elementos verticalmente */
+    padding: 10px 0; /* Espaciado interno de las tareas */
+    border-bottom: 1px solid #ccc; /* Línea separadora */
+  }
+  
+  .btn-ver {
+    background-color: red; /* Color de fondo del botón "Ver" */
+    color: white; /* Color de texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    padding: 10px 15px; /* Espaciado interno del botón */
+    cursor: pointer; /* Cambiar cursor a puntero al pasar sobre el botón */
+    transition: background-color 0.3s; /* Efecto de transición */
+  }
+  
+  .btn-ver:hover {
+    background-color: green; /* Cambiar a verde al pasar el mouse sobre el botón */
+  }
+  
+  .btn {
+    background-color: red; /* Color de fondo para otros botones */
+    color: white; /* Color de texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    padding: 10px 15px; /* Espaciado interno del botón */
+    cursor: pointer; /* Cambiar cursor a puntero al pasar sobre el botón */
+    margin-top: 10px; /* Espacio arriba del botón */
+    transition: background-color 0.3s; /* Efecto de transición */
+  }
+  
+  .btn:hover {
+    background-color: lightblue; /* Cambiar a celeste al pasar el mouse sobre el botón */
+  }
+  
+  .botones {
+    display: flex; /* Alinear botones en fila */
+    justify-content: space-between; /* Espacio entre botones */
+  }
+  
