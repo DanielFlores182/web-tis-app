@@ -8,10 +8,15 @@ import { useUser } from '../controller/userContex'; // Importar el contexto
 function MenuEst() {
   const { username } = useUser(); // Extraer username del contexto
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
+  const [showTaskOptions, setShowTaskOptions] = useState(false); // Estado para las opciones de Tareas
   const navigate = useNavigate();
 
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions);
+  };
+
+  const toggleTaskOptions = () => {
+    setShowTaskOptions(!showTaskOptions);
   };
 
   const handleModifyGroup = () => {
@@ -34,14 +39,22 @@ function MenuEst() {
                 </ul>
               )}
             </li>
-            <li><a href="/perfin">Tareas pendientes</a></li>
+            <li>
+              <a href="#!" onClick={toggleTaskOptions}>Tareas</a> {/* Modificado a "Tareas" */}
+              {showTaskOptions && (
+                <ul className="submenu">
+                  <li><a href="/planilla">Planilla de tareas</a></li>
+                  <li><a href="/ver_perfil_tareas">Tareas publicadas</a></li>
+                </ul>
+              )}
+            </li>
             <li><a href="/perfin">Cronograma de actividades</a></li>
             <li><a href="/perfin">Historial de evaluaciones</a></li>
             <li><a href="/perfin">Ver grupo</a></li>
             <li><a href="/perfin">Perfil</a></li>
             <li><a href="/perfin">Darse de baja</a></li>
             <li><a href="/est_config">Configuraciones</a></li>
-            <li><a href="/">Cerrar Sesion</a></li>
+            <li><a href="/">Cerrar Sesión</a></li>
           </ul>
         </nav>
       </aside>

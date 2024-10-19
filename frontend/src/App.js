@@ -30,7 +30,7 @@ function App() {
         <Route path="/select_grupo" element={<SelectGrupo />} />
         <Route path="/ver_tarea" element={<VerTarea />} />
         <Route path="/planilla" element={<VerPlanilla />} />
-        <Route path="/ver_perfil" element={<VerPerfil />} />
+        <Route path="/ver_perfil_tareas" element={<VerPerfil />} />
         <Route path="/editar_est_grupo" element={<EditarEstGrupo />} />
       </Routes>
     </Router>

@@ -375,3 +375,61 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+---------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION public.get_grupo_by_username(
+	p_username character varying)
+    RETURNS character varying
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+DECLARE
+    estudiante_id INTEGER;
+    grupo_nombre VARCHAR;
+BEGIN
+    -- Buscar el id_usuario del estudiante en la tabla user_n
+    SELECT id_usuario INTO estudiante_id
+    FROM user_n
+    WHERE username = p_username
+    AND tipo = 2; -- Aseguramos que sea un estudiante (tipo = 2)
+    
+    -- Verificamos si se encontró el estudiante
+    IF NOT FOUND THEN
+        RETURN 'No se encontró un estudiante con ese username.';
+    END IF;
+    
+    -- Buscar el grupo al que está registrado en la tabla grupo_estudiante
+    SELECT ga.nombre INTO grupo_nombre
+    FROM grupo_estudiante AS ge
+    JOIN grupo AS ga ON ga.nombre = ge.grupo_nombre
+    WHERE ge.id_estudiante = estudiante_id;
+    
+    -- Verificamos si está registrado en algún grupo
+    IF NOT FOUND THEN
+        RETURN 'El estudiante no está registrado en ningún grupo.';
+    ELSE
+        RETURN  grupo_nombre;
+    END IF;
+END;
+$BODY$;
+----------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION public.get_estudiantes_by_grupo(
+	p_grupo_nombre character varying)
+    RETURNS TABLE(nombres character varying, apellidos character varying) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+BEGIN
+    RETURN QUERY
+    SELECT u.nombres, u.apellidos
+    FROM grupo AS ga
+    JOIN grupo_estudiante AS ge ON ga.nombre = ge.grupo_nombre
+    JOIN user_n AS u ON ge.id_estudiante = u.id_usuario
+    WHERE ga.nombre = p_grupo_nombre
+    AND u.tipo = 2;  -- Aseguramos que solo obtengamos estudiantes (tipo = 2)
+END;
+$BODY$;
+-------------------------------------------------------------------------------------------------------
