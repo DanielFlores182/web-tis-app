@@ -44,11 +44,11 @@ function MenuEst() {
             <li><a href="/perfin">Tareas pendientes</a></li>
             <li><a href="/perfin">Cronograma de actividades</a></li>
             <li><a href="/perfin">Historial de evaluaciones</a></li>
+            <li><a href="/evaluacion_semanal/actas_semanales">Actas Semanales</a></li>
             <li><a href="/perfin">Ver grupo</a></li>
             <li><a href="/perfin">Perfil</a></li>
             <li><a href="/perfin">Darse de baja</a></li>
             <li><a href="/est_config">Configuraciones</a></li>
-            <li><a href="/evaluacion_semanal">Evaluación Semanal</a></li>
             <li><a href="/">Cerrar Sesion</a></li>
           </ul>
         </nav>

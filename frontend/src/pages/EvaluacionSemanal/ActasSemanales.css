@@ -1,12 +1,17 @@
+body {
+  background-color: #1e2342;
+  margin: 0;
+  padding: 0;
+}
 /* Contenedor principal */
 .acta-container {
   width: 100%;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 40px auto; /* Añade algo de espacio desde los bordes superiores e inferiores */
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #f8f9fa; /* Fondo claro */
+  background-color: #f8f9fa; /* Mantiene el fondo interno del contenedor */
 }
 
 /* Cabecera */
@@ -17,18 +22,32 @@
 .acta-header h1 {
   font-size: 24px;
   font-weight: bold;
-  color: #e62438; /* Rojo del encabezado similar al diseño */
+  color: #CC1616; /* Color cambiado */
 }
 
 .acta-header-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 20px; /* Desplaza los inputs hacia abajo */
+}
+.acta-info-group {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
 }
 
-.acta-header-info span {
-  font-weight: bold;
-  color: #6c757d; /* Gris para el número de acta y fecha */
+.acta-info-group label {
+  font-size: 14px;
+  color: #495057;
+  margin-bottom: 5px; /* Espacio entre el label y el input */
+}
+/* Inputs generales */
+.acta-input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 /* Secciones */
@@ -39,7 +58,7 @@
 .acta-section h2 {
   font-size: 20px;
   font-weight: bold;
-  color: #212529; /* Negro suave */
+  color: #1e2342; /* Color cambiado */
   margin-bottom: 10px;
 }
 
@@ -53,7 +72,32 @@
 .acta-table td {
   border: 1px solid #ddd;
   padding: 8px;
-  color: #212529; /* Texto en negro */
+  color: #1e2342; /* Color cambiado */
+}
+
+/* Grid de asistentes */
+.attendee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Organiza en columnas */
+  gap: 10px; /* Espacio entre celdas */
+}
+
+.attendee-cell {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+}
+
+.attendee-cell label {
+  display: flex;
+  align-items: center;
+}
+
+.attendee-cell input {
+  margin-right: 10px;
 }
 
 /* Temas tratados */
@@ -61,15 +105,9 @@
   margin-bottom: 15px;
 }
 
-.acta-topic h3 {
-  font-size: 18px;
-  font-weight: bold;
-  color: #495057; /* Tono oscuro de gris */
-}
-
-.acta-content {
-  white-space: pre-line;
-  color: #6c757d; /* Gris suave para el contenido */
+.acta-topic input {
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 /* Textarea */
@@ -78,8 +116,9 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  background-color: #fff; /* Fondo blanco */
-  color: #495057; /* Texto en gris oscuro */
+  background-color: #fff;
+  color: #495057;
+  font-size: 14px;
 }
 
 /* Footer de los botones */
@@ -96,41 +135,39 @@
   border: 1px solid;
   border-radius: 4px;
   cursor: pointer;
-  color: #212529; /* Texto negro */
+  color: #1e2342; /* Color cambiado */
 }
 
-/* Botón "Aprobado" siempre verde */
+/* 
 .acta-button.approve-default {
   background-color: #28a745; 
   color: #fff;
   border-color: #28a745;
 }
 
-/* Botón "Reprobado" siempre rojo */
+
 .acta-button.reject-default {
-  background-color: #dc3545; 
+  background-color: #CC1616;
   color: #fff;
-  border-color: #dc3545;
+  border-color: #CC1616; 
 }
 
-/* Efecto de opacidad cuando se presiona (active) */
 .acta-button:active {
   opacity: 0.6;
 }
 
-/* Botón "Aprobado" clickeado */
 .acta-button.approved {
   background-color: #28a745; 
   color: #fff;
   border-color: #28a745;
 }
 
-/* Botón "Reprobado" clickeado */
+
 .acta-button.rejected {
-  background-color: #dc3545; 
+  background-color: #CC1616; 
   color: #fff;
-  border-color: #dc3545;
-}
+  border-color: #CC1616; 
+} */
 
 /* Botón "Guardar Acta" */
 .acta-save-button {
@@ -140,6 +177,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin: 0 auto;
 }
 
 /* Botón "Volver" */
@@ -155,4 +193,19 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+/* Botón "Añadir Tema" */
+.acta-add-button {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.acta-add-button:hover {
+  background-color: #218838;
 }
