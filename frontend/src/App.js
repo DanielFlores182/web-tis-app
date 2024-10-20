@@ -8,9 +8,6 @@ import GroupView from './pages/Grupos/GruposView.js';
 import GruposMod from './pages/Grupos/GruposMod.js';
 import ActasSemanales from './pages/EvaluacionSemanal/ActasSemanales';
 import ResultadoSem from './pages/resultado_sem.js';
-import GroupView from './pages/Grupos/GruposView.js';
-import GruposMod from './pages/Grupos/GruposMod.js';
-import RegEstLot from './pages/reg_est_lot.js';
 import AgregarEst from './pages/Grupos/agregar_est_view.js'
 import SelectGrupo from './pages/Grupos/select_grupo.js'
 import VerTarea from './pages/ver_tarea.js';
