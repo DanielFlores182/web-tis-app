@@ -1,130 +1,132 @@
-/* General container and layout */
-.container {
-  display: flex;
-  height: 100vh;
-  font-family: Arial, sans-serif;
-  background-color: #e3f2fd; /* Color de fondo claro para todo el contenedor */
-}
-
-/* Sidebar */
+/* Estilos para el sidebar */
 .sidebar {
+  background-color: #1d1d41; /* Fondo oscuro */
   width: 250px;
-  background-color: #0c1b33;
-  color: white;
+  height: 100vh;
   padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.sidebar h2 {
-  margin-bottom: 20px;
+.header-logo {
+  width: 100px;
+  margin-bottom: 30px;
+  align-self: center;
 }
 
-.sidebar ul {
+.header-title {
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+nav ul {
   list-style: none;
   padding: 0;
 }
 
-.sidebar ul li {
-  margin: 10px 0;
+nav ul li {
+  margin: 20px 0;
 }
 
-.sidebar ul li a {
+nav ul li a {
   color: white;
   text-decoration: none;
+  font-size: 1rem;
+  padding: 10px;
+  display: block;
+  transition: background-color 0.3s ease;
 }
 
-.sidebar .logout {
-  color: #ff4d4d;
-  text-decoration: none;
+nav ul li a:hover {
+  background-color: #293b6a;
 }
 
-/* Main Content */
-.main-content {
-  flex-grow: 1;
-  background-color: #eef2f3;
-  padding: 40px;
-  border-radius: 10px;
-  margin: auto;
-  max-width: 800px;
+.submenu {
+  margin-left: 20px;
 }
 
-.main-content h2 {
-  text-align: center;
-  margin-bottom: 20px;
+.submenu li a {
+  font-size: 0.9rem;
 }
 
-/* Form and Table Styling */
-.plan-form {
-  background-color: #1e2342; /* Fondo del formulario en azul oscuro */
+/* Estilos para el formulario */
+.app-container {
+  display: flex;
+  margin-left: 250px; /* Espacio para el sidebar */
+}
+
+.planificacion-form {
+  background-color: #1d1d41; /* Fondo oscuro */
+  color: #ffffff; /* Texto blanco */
   padding: 20px;
   border-radius: 10px;
-  color: white;
+  width: 600px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
 }
 
-.plan-form label {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 18px;
-  color: #e3f2fd; /* Texto del label en azul claro */
-}
-
-.objective-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  border: none;
-  background-color: #bbdefb; /* Color de fondo del input */
-  color: #0c1b33; /* Color del texto del input */
-}
-
-table {
-  width: 100%;
-  margin-bottom: 20px;
-  border-collapse: collapse;
-  background-color: #1e88e5; /* Fondo de la tabla en azul intermedio */
-  border-radius: 5px;
-}
-
-table th, table td {
-  padding: 10px;
-  border: 1px solid #ffffff;
+h2, h3 {
   text-align: center;
-  color: white;
+  color: #f3f3f3;
 }
 
-table input[type="date"] {
-  background-color: #bbdefb;
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"] {
+  background-color: #e0e0e0; /* Fondo gris claro */
+  color: #333333; /* Texto oscuro */
+  border: none;
+  padding: 8px;
   border-radius: 5px;
-  border: none;
-  padding: 5px;
+  margin-top: 5px;
+  font-size: 1rem;
 }
 
-.delete-btn {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  color: red;
-  font-size: 20px;
-}
-
-.buttons {
+.sprint-row {
   display: flex;
   justify-content: space-between;
-}
-
-/* Botones de Añadir y Guardar */
-.add-btn, .save-btn {
-  background-color: #64b5f6; /* Azul más claro para los botones */
-  color: white;
-  padding: 10px 20px;
-  border: none;
+  align-items: center;
+  gap: 10px;
+  background-color: #2c2c52;
+  padding: 10px;
   border-radius: 5px;
-  cursor: pointer;
 }
 
-.add-btn:hover, .save-btn:hover {
-  background-color: #64b5f6; /* Azul más claro en hover */
+button {
+  background-color: #e63946;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #d62828;
+}
+
+button[type="submit"] {
+  background-color: #00b4d8;
+}
+
+button[type="submit"]:hover {
+  background-color: #0096c7;
 }

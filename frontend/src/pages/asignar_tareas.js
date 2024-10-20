@@ -1,144 +1,158 @@
 import React, { useState } from 'react';
-import './asignar_tareas.css'; // estilos importados
+import './asignar_tareas.css';
+import logo from '../images/logo.png';
 
-function AsignarTareas() {
-  const [tasks, setTasks] = useState([
-    { id: 1, nombreTarea: '', responsable: '', fechaEntrega: '' },
-    { id: 2, nombreTarea: '', responsable: '', fechaEntrega: '' }
-  ]);
+const AsignarTareas = () => {
+    const [tareas, setTareas] = useState([{ nombre: '', responsable: '', fechaEntrega: '', entregable: '' }]);
+    const [showRegisterOptions, setShowRegisterOptions] = useState(false);
+    const [showRegisterPlanningOptions, setShowRegisterPlanningOptions] = useState(false);
 
-  const [showPlanningOptions, setShowPlanningOptions] = useState(false); // Estado para mostrar/ocultar el submenu
+    const toggleRegisterOptions = () => {
+        setShowRegisterOptions(!showRegisterOptions);
+    };
 
-  // Maneja el cambio en los inputs de las tareas
-  const handleTaskChange = (id, field, value) => {
-    const updatedTasks = tasks.map((task) => 
-      task.id === id ? { ...task, [field]: value } : task
+    const toggleRegisterPlanningOptions = () => {
+        setShowRegisterPlanningOptions(!showRegisterPlanningOptions);
+    };
+
+    const addTarea = () => {
+        setTareas([...tareas, { nombre: '', responsable: '', fechaEntrega: '', entregable: '' }]);
+    };
+
+    const handleInputChange = (index, field, value) => {
+        const nuevasTareas = [...tareas];
+        nuevasTareas[index][field] = value;
+        setTareas(nuevasTareas);
+    };
+
+    const removeTarea = (index) => {
+        const nuevasTareas = tareas.filter((_, i) => i !== index);
+        setTareas(nuevasTareas);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const data = {
+            sprint_nombre: 'Sprint 0',
+            tareas: tareas,
+        };
+
+        try {
+            const response = await fetch('http://localhost:8081/web-tis-app/backend/asig_tarea.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Tareas asignadas correctamente');
+            } else {
+                alert('Error al asignar tareas: ' + result.error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error al conectar con el servidor');
+        }
+    };
+
+    return (
+        <div className="app-container">
+            <aside className="sidebar">
+                <img src={logo} alt="Logo de la Empresa" className="header-logo" />
+                <h1 className="header-title">Estudiante</h1>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="#!" onClick={toggleRegisterOptions}>Registrar Grupo</a>
+                            {showRegisterOptions && (
+                                <ul className="submenu">
+                                    <li><a href="/registrar_grupo">Nuevo Grupo</a></li>
+                                    <li><a href="/agregar_est">Agregar Estudiantes</a></li>
+                                </ul>
+                            )}
+                        </li>
+                        <li>
+                            <a href="#!" onClick={toggleRegisterPlanningOptions}>Registrar Planificación</a>
+                            {showRegisterPlanningOptions && (
+                                <ul className="submenu">
+                                    <li><a href="/registro_planificacion">Nueva Planificación</a></li>
+                                    <li><a href="/asignar_tareas">Asignar Tareas</a></li>
+                                </ul>
+                            )}
+                        </li>
+                        <li><a href="/perfil">Tareas pendientes</a></li>
+                        <li><a href="/perfil">Cronograma de actividades</a></li>
+                        <li><a href="/perfil">Historial de evaluaciones</a></li>
+                        <li><a href="/perfil">Ver grupo</a></li>
+                        <li><a href="/perfil">Darse de baja</a></li>
+                        <li><a href="/configuracion">Configuraciones</a></li>
+                        <li><a href="/">Cerrar Sesión</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <div className="tareas-container">
+                <h2>Tareas Sprint 0</h2>
+                <form onSubmit={handleSubmit}>
+                    {tareas.map((tarea, index) => (
+                        <div key={index} className="tarea-row">
+                            <label>
+                                Nombre de tarea:
+                                <input
+                                    type="text"
+                                    value={tarea.nombre}
+                                    onChange={(e) => handleInputChange(index, 'nombre', e.target.value)}
+                                    required
+                                />
+                            </label>
+                            <label>
+                                Responsable:
+                                <select
+                                    value={tarea.responsable}
+                                    onChange={(e) => handleInputChange(index, 'responsable', e.target.value)}
+                                    required
+                                >
+                                    <option value="">Miembro de equipo</option>
+                                    <option value="miembro1">Miembro 1</option>
+                                    <option value="miembro2">Miembro 2</option>
+                                </select>
+                            </label>
+                            <label>
+                                Fecha de entrega:
+                                <input
+                                    type="date"
+                                    value={tarea.fechaEntrega}
+                                    onChange={(e) => handleInputChange(index, 'fechaEntrega', e.target.value)}
+                                    required
+                                />
+                            </label>
+                            <label>
+                                Que se entregará:
+                                <input
+                                    type="text"
+                                    value={tarea.entregable}
+                                    onChange={(e) => handleInputChange(index, 'entregable', e.target.value)}
+                                    required
+                                />
+                            </label>
+                            <button type="button" className="eliminar-btn" onClick={() => removeTarea(index)}>
+                                Eliminar tarea
+                            </button>
+                        </div>
+                    ))}
+                    <button type="button" className="agregar-btn" onClick={addTarea}>
+                        Agregar más tareas
+                    </button>
+                    <button type="submit" className="submit-btn">
+                        Guardar tareas
+                    </button>
+                </form>
+            </div>
+        </div>
     );
-    setTasks(updatedTasks);
-  };
-
-  // Añadir nueva tarea
-  const addTask = () => {
-    const newTask = { id: tasks.length + 1, nombreTarea: '', responsable: '', fechaEntrega: '' };
-    setTasks([...tasks, newTask]);
-  };
-
-  // Eliminar tarea
-  const removeTask = (id) => {
-    setTasks(tasks.filter(task => task.id !== id));
-  };
-
-  // Asignar tarea
-  const assignTask = (id) => {
-    const task = tasks.find(task => task.id === id);
-    alert(`Tarea ${id} asignada a ${task.responsable}`);
-  };
-
-  // Muestra/Oculta el submenu de planificación
-  const togglePlanningOptions = () => {
-    setShowPlanningOptions(!showPlanningOptions);
-  };
-
-  return (
-    <div className="menu-container">
-      <aside className="sidebar">
-        <nav>
-          <ul>
-            <li>
-              <a href="#!" onClick={togglePlanningOptions}>Planificación</a>
-              {showPlanningOptions && (
-                <ul className="submenu">
-                  <li><a href="/registro_planificacion">Nuevo Planificación</a></li>
-                  <li><a href="/asignar_tareas">Asignar Tareas</a></li>
-                </ul>
-              )}
-            </li>
-            <li><a href="/perfil">Perfil</a></li>
-            <li><a href="/doc_config">Configuraciones</a></li>
-            <li><a href="/">Cerrar Sesión</a></li>
-          </ul>
-        </nav>
-      </aside>
-
-      <main className="content">
-        <h1>Asignación de Tareas</h1>
-        <form className="assign-task-form">
-          <h3>Tareas Sprint 0</h3>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Nombre de tarea</th>
-                <th>Responsable</th>
-                <th>Fecha de entrega</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tasks.map((task) => (
-                <tr key={task.id}>
-                  <td>{task.id}</td>
-                  <td>
-                    <input 
-                      type="text" 
-                      value={task.nombreTarea}
-                      onChange={(e) => handleTaskChange(task.id, 'nombreTarea', e.target.value)}
-                      placeholder="Nombre de la tarea"
-                      required
-                    />
-                  </td>
-                  <td>
-                    <select
-                      value={task.responsable}
-                      onChange={(e) => handleTaskChange(task.id, 'responsable', e.target.value)}
-                      required
-                    >
-                      <option value="" disabled>Miembro de equipo</option>
-                      <option value="Miembro 1">Miembro 1</option>
-                      <option value="Miembro 2">Miembro 2</option>
-                      <option value="Miembro 3">Miembro 3</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input 
-                      type="date" 
-                      value={task.fechaEntrega}
-                      onChange={(e) => handleTaskChange(task.id, 'fechaEntrega', e.target.value)}
-                      required
-                    />
-                  </td>
-                  <td>
-                    <button 
-                      type="button" 
-                      className="btn btn-success" 
-                      onClick={() => assignTask(task.id)}
-                    >
-                      Asignar tarea
-                    </button>
-                    <button 
-                      type="button" 
-                      className="btn btn-danger" 
-                      onClick={() => removeTask(task.id)}
-                    >
-                      🗑️
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          <button 
-            type="button" 
-            className="btn btn-primary" 
-            onClick={addTask}
-          >
-            Agregar más tareas
-          </button>
-        </form>
-      </main>
-    </div>
-  );
-}
+};
 
 export default AsignarTareas;

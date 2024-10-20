@@ -65,12 +65,24 @@ CREATE TABLE "grupo" (
 CREATE TABLE "plan" (
   "grupo_nombre" CHARACTER VARYING NOT NULL,
   "grupo_id_docente" INTEGER NOT NULL,
-  "tipo_plan" INTEGER NOT NULL,
-  "descripcion" VARCHAR(255) NOT NULL,
+  "objetivo" VARCHAR(255) NOT NULL,
   "fecha_ini" DATE NULL,
   "fecha_fin" DATE NULL,
   PRIMARY KEY ("grupo_nombre", "grupo_id_docente")
 );
+-- -------------------------------------------------------------------------
+-- Table: sprint
+-- -------------------------------------------------------------------------
+CREATE TABLE sprint (
+    "id" SERIAL PRIMARY KEY,
+    "grupo_nombre" CHARACTER VARYING NOT NULL,
+    "grupo_id_docente" INTEGER NOT NULL,
+    "nombre" CHARACTER VARYING NOT NULL,
+    "fecha_inicio" DATE,
+    "fecha_fin" DATE,
+    FOREIGN KEY ("grupo_nombre", "grupo_id_docente") REFERENCES "grupo"("nombre", "id_docente") ON DELETE CASCADE
+);
+
 
 -- -------------------------------------------------------------------------
 -- Table: tipo_plan
