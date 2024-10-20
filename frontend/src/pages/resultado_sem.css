@@ -1,0 +1,171 @@
+/* Contenedor principal del menú */
+.menu-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Barra lateral */
+.sidebar {
+    width: 250px;
+    background-color: #1e2342;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin: 20px 0;
+}
+
+.sidebar nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.sidebar nav ul li a:hover {
+    color: #007bff; /* Efecto hover con un azul claro */
+}
+
+/* Contenido principal */
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f1f1f1;
+    color: #333; /* Color del texto */
+}
+
+/* Opciones del contenedor */
+.options-container {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #2c3e50; /* Fondo oscuro */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: #fff; /* Texto blanco */
+}
+
+/* Títulos dentro del contenedor de opciones */
+.options-container h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #ffffff; 
+}
+
+/* Select */
+.options-container select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #ffffff; /* Fondo blanco */
+    font-size: 16px;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+/* Efecto hover y focus en el select */
+.options-container select:focus {
+    border: 1px solid #007bff;
+}
+
+/* Estilos para las opciones dentro del select */
+.options-container option {
+    padding: 10px;
+    color: #333;
+}
+
+/* Tabla */
+.table-container {
+    margin-top: 20px;
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff; /* Fondo de la tabla blanco */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Celdas de la tabla */
+.table-container th, .table-container td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Filas alternas */
+.table-container tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table-container th {
+    background-color: #34495e; /* Fondo más oscuro para el encabezado */
+    color: #ffffff; /* Texto blanco */
+    font-weight: bold;
+}
+
+/* Botón de "Ver Actas" */
+.btn-ver-actas {
+    background-color: #007bff; /* Fondo azul claro */
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-ver-actas:hover {
+    background-color: #0056b3; /* Azul más oscuro al hacer hover */
+}
+
+/* Estado pendiente */
+.estado-pendiente {
+    margin: 3% 0 0 3%;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #ffc107; /* Fondo amarillo */
+    color: #333; /* Texto más oscuro */
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    min-width: 80px;
+}
+
+/* Estado completado */
+.estado-completado {
+    margin: 3% 0 0 3%;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #28a745; /* Fondo verde */
+    color: #fff; /* Texto blanco */
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    min-width: 80px;
+}
+
+/* Estado atrasado */
+.estado-atrasado {
+    margin: 3% 0 0 3%;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #dc3545; /* Fondo rojo */
+    color: #fff; /* Texto blanco */
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    min-width: 80px;
+}
