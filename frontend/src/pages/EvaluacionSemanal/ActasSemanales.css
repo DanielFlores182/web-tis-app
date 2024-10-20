@@ -1,0 +1,211 @@
+body {
+  background-color: #1e2342;
+  margin: 0;
+  padding: 0;
+}
+/* Contenedor principal */
+.acta-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 40px auto; /* Añade algo de espacio desde los bordes superiores e inferiores */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f9fa; /* Mantiene el fondo interno del contenedor */
+}
+
+/* Cabecera */
+.acta-header {
+  margin-bottom: 20px;
+}
+
+.acta-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #CC1616; /* Color cambiado */
+}
+
+.acta-header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px; /* Desplaza los inputs hacia abajo */
+}
+.acta-info-group {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.acta-info-group label {
+  font-size: 14px;
+  color: #495057;
+  margin-bottom: 5px; /* Espacio entre el label y el input */
+}
+/* Inputs generales */
+.acta-input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Secciones */
+.acta-section {
+  margin-bottom: 20px;
+}
+
+.acta-section h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1e2342; /* Color cambiado */
+  margin-bottom: 10px;
+}
+
+/* Tabla */
+.acta-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.acta-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  color: #1e2342; /* Color cambiado */
+}
+
+/* Grid de asistentes */
+.attendee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Organiza en columnas */
+  gap: 10px; /* Espacio entre celdas */
+}
+
+.attendee-cell {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+}
+
+.attendee-cell label {
+  display: flex;
+  align-items: center;
+}
+
+.attendee-cell input {
+  margin-right: 10px;
+}
+
+/* Temas tratados */
+.acta-topic {
+  margin-bottom: 15px;
+}
+
+.acta-topic input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Textarea */
+.acta-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #495057;
+  font-size: 14px;
+}
+
+/* Footer de los botones */
+.acta-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.acta-button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #fff;
+  border: 1px solid;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #1e2342; /* Color cambiado */
+}
+
+/* 
+.acta-button.approve-default {
+  background-color: #28a745; 
+  color: #fff;
+  border-color: #28a745;
+}
+
+
+.acta-button.reject-default {
+  background-color: #CC1616;
+  color: #fff;
+  border-color: #CC1616; 
+}
+
+.acta-button:active {
+  opacity: 0.6;
+}
+
+.acta-button.approved {
+  background-color: #28a745; 
+  color: #fff;
+  border-color: #28a745;
+}
+
+
+.acta-button.rejected {
+  background-color: #CC1616; 
+  color: #fff;
+  border-color: #CC1616; 
+} */
+
+/* Botón "Guardar Acta" */
+.acta-save-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+/* Botón "Volver" */
+.acta-back {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.acta-back-button {
+  padding: 10px 20px;
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Botón "Añadir Tema" */
+.acta-add-button {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.acta-add-button:hover {
+  background-color: #218838;
+}

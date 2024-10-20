@@ -50,6 +50,7 @@ function MenuEst() {
             </li>
             <li><a href="/perfin">Cronograma de actividades</a></li>
             <li><a href="/perfin">Historial de evaluaciones</a></li>
+            <li><a href="/evaluacion_semanal/actas_semanales">Actas Semanales</a></li>
             <li><a href="/perfin">Ver grupo</a></li>
             <li><a href="/perfin">Perfil</a></li>
             <li><a href="/perfin">Darse de baja</a></li>
@@ -59,6 +60,7 @@ function MenuEst() {
         </nav>
       </aside>
       <main className="content">
+
         <h1>Bienvenido, {username}</h1> {/* Mostrar el username */}
         <h3>Esta es la página principal para Estudiante para la materia TIS</h3>
         <p>Selecciona una opción de la barra de navegación.</p>

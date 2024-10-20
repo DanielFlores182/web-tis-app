@@ -3,7 +3,12 @@ import './GruposMod.css';
 import GroupController from '../../controller/groupController';
 
 function GruposMod() {
-  const [grupoSeleccionado, setGrupoSeleccionado] = useState(null);
+  const [groupData, setGroupData] = useState({
+    nombre: '',
+    docente: '',
+    descripcion: ''
+  });
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
   const toggleRegisterOptions = () => {
@@ -17,21 +22,21 @@ function GruposMod() {
     setGroupDescription('Ana Saenz');
     handleLiderChange({ target: { value: 'Ana Saenz' } }); 
   }, []); // Se ejecuta solo una vez
-
-  // Función para manejar el cambio del líder
-  const handleLiderChange = async (e) => {
-    const liderSeleccionado = e.target.value;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setLoading(true);
-    
+    setMessage('');
+
     try {
-      const grupo = await GroupController.getGroupByLeader(liderSeleccionado);
-      setGrupoSeleccionado(grupo);
+      const response = await GroupController.addGroup(groupData.nombre, groupData.docente, groupData.descripcion);
+      setMessage(response.message || 'Error al agregar el grupo');
     } catch (error) {
-      console.error('Error al obtener el grupo:', error);
+      setMessage('Error en el servidor al agregar el grupo');
     } finally {
       setLoading(false);
     }
   };
+
 
   // Función para eliminar un estudiante
   

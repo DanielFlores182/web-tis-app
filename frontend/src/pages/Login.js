@@ -25,6 +25,7 @@ function Login() {
           setUsername(username); // Guardar username en el contexto
           navigate('/menu_doc');
         } else if (data.role === 2) {
+          
           setUsername(username); // Guardar username en el contexto
           navigate('/menu_est', { state: { username } });
         } else {
@@ -45,6 +46,7 @@ function Login() {
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username" className="form-label">Usuario</label>
+
             <input
               type="text"
               id="username"

@@ -68,12 +68,15 @@ function SelectGrupo() {
             <li><a href="/perfin">Historial de evaluaciones</a></li>
             <li><a href="/perfin">Ver grupo</a></li>
             <li><a href="/perfin">Perfil</a></li>
+
+            <li><a href="/perfin">Darse de baja</a></li>
             <li><a href="/est_config">Configuraciones</a></li>
             <li><a href="/">Cerrar Sesion</a></li>
           </ul>
         </nav>
       </aside>
       <main className="content">
+
         {errorMessage ? (
           <p className="error-message">{errorMessage}</p>
         ) : grupo ? (
