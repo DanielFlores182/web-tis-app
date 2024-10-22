@@ -1,11 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './asignar_tareas.css';
 import logo from '../images/logo.png';
 
 const AsignarTareas = () => {
     const [tareas, setTareas] = useState([{ nombre: '', responsable: '', fechaEntrega: '', entregable: '' }]);
+    const [sprints, setSprints] = useState([]); // Estado para almacenar los sprints
+    const [sprintSeleccionado, setSprintSeleccionado] = useState(''); // Estado para el sprint seleccionado
     const [showRegisterOptions, setShowRegisterOptions] = useState(false);
     const [showRegisterPlanningOptions, setShowRegisterPlanningOptions] = useState(false);
+
+    useEffect(() => {
+        // Llamada al backend para obtener los sprints
+        const fetchSprints = async () => {
+            try {
+                const response = await fetch('http://localhost:8081/web-tis-app/backend/get_sprints.php'); // Cambiar URL según corresponda
+                const result = await response.json();
+                if (result.success) {
+                    setSprints(result.sprints); // Supone que el resultado es un array de nombres de sprints
+                } else {
+                    console.error('Error al obtener sprints:', result.error);
+                }
+            } catch (error) {
+                console.error('Error al conectar con el servidor:', error);
+            }
+        };
+
+        fetchSprints();
+    }, []);
 
     const toggleRegisterOptions = () => {
         setShowRegisterOptions(!showRegisterOptions);
@@ -32,8 +53,13 @@ const AsignarTareas = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!sprintSeleccionado) {
+            alert('Por favor, selecciona un sprint.');
+            return;
+        }
+
         const data = {
-            sprint_nombre: 'Sprint 0',
+            sprint_nombre: sprintSeleccionado,
             tareas: tareas,
         };
 
@@ -78,7 +104,7 @@ const AsignarTareas = () => {
                             <a href="#!" onClick={toggleRegisterPlanningOptions}>Registrar Planificación</a>
                             {showRegisterPlanningOptions && (
                                 <ul className="submenu">
-                                    <li><a href="/registro_planificacion">Nueva Planificación</a></li>
+                                    <li><a href="/registro_planificacion">Crear Plan</a></li>
                                     <li><a href="/asignar_tareas">Asignar Tareas</a></li>
                                 </ul>
                             )}
@@ -95,10 +121,27 @@ const AsignarTareas = () => {
             </aside>
 
             <div className="tareas-container">
-                <h2>Tareas Sprint 0</h2>
+                <h2>Asignar Tareas a un Sprint</h2>
+                {/* Selector de Sprint */}
+                <label>
+                    Seleccionar Sprint:
+                    <select
+                        value={sprintSeleccionado}
+                        onChange={(e) => setSprintSeleccionado(e.target.value)}
+                        required
+                    >
+                        <option value="">Seleccionar Sprint</option>
+                        {sprints.map((sprint, index) => (
+                            <option key={index} value={sprint.nombre}>
+                                {sprint.nombre}
+                            </option>
+                        ))}
+                    </select>
+                </label>
                 <form onSubmit={handleSubmit}>
                     {tareas.map((tarea, index) => (
                         <div key={index} className="tarea-row">
+                            {/* Campos de entrada para cada tarea */}
                             <label>
                                 Nombre de tarea:
                                 <input

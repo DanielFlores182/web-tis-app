@@ -64,7 +64,7 @@ const PlanificacionForm = () => {
         };
 
         try {
-            console.log(data)
+            console.log(data, sprints)
             const response = await fetch('http://localhost:8081/web-tis-app/backend/reg_planificacion.php', {
                 method: 'POST',
                 headers: {
@@ -105,7 +105,7 @@ const PlanificacionForm = () => {
                             <a href="#!" onClick={toggleRegisterPlanningOptions}>Registrar Planificación</a>
                             {showRegisterPlanningOptions && (
                                 <ul className="submenu">
-                                    <li><a href="/registro_planificacion">Nueva Planificación</a></li>
+                                    <li><a href="/registro_planificacion">Crear Plan</a></li>
                                     <li><a href="/asignar_tareas">Asignar Tareas</a></li>
                                 </ul>
                             )}

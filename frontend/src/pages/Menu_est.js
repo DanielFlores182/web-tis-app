@@ -33,7 +33,7 @@ function MenuEst() {
               <a href="#!" onClick={toggleRegisterPlanningOptions}>Registrar Planificacion</a>
               {showRegisterPlanningOptions && (
                 <ul className="submenu">
-                  <li><a href="/registro_planificacion">Nueva Planificacion</a></li>
+                  <li><a href="/registro_planificacion">Crear Plan</a></li>
                   <li><a href="/asignar_tareas">Asignar Tareas</a></li>
                 </ul>
               )}
