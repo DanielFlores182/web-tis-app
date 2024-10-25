@@ -53,7 +53,9 @@ function RegistroEstInd() {
 
   return (
     <div className="menu-container">
+
       <aside className="sidebar">
+
         <nav>
           <ul>
             <li>
