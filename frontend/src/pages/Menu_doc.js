@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import './Menu_doc.css';
 import logo from '../images/logo.png';
 
@@ -39,6 +40,7 @@ function MenuDoc() {
         <h1>Bienvenido al menú principal</h1>
         <h3>Esta es la pagina principal para Docentes para el control de la materia TIS</h3>
         <p>Selecciona una opción de la barra de navegación.</p>
+        <Outlet /> {/* Aquí se renderizarán las rutas hijas */}
       </main>
     </div>
   );

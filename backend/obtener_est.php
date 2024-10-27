@@ -30,18 +30,22 @@ try {
         $idEstudiante = intval($_GET['id']);
 
         // Consulta para obtener el nombre del estudiante
-        $query = "SELECT nombre FROM estudiantes WHERE id = :id";
+        $query = "SELECT nombres, apellidos FROM user_n WHERE id_usuario = :id";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':id', $idEstudiante);
         $stmt->execute();
-        $nombre = $stmt->fetchColumn();
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($nombre === false) {
+        if ($resultado === false) {
             throw new Exception('Estudiante no encontrado.');
         }
+        $nombre = $resultado['nombres'];
+        $apellido = $resultado['apellidos'];
 
+        
+        
         // Consulta para obtener las tareas del estudiante
-        $query = "SELECT id, nombre, estado FROM tareas WHERE id_estudiante = :id";
+        $query = "SELECT id_tarea, detalle, entregado FROM tarea WHERE id_estudiante = :id";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':id', $idEstudiante);
         $stmt->execute();
@@ -50,8 +54,9 @@ try {
         // Devolver los datos en formato JSON
         echo json_encode([
             'nombre' => $nombre,
+            'apellido'=>$apellido,
             'tareas' => $tareas
-        ]);
+        ]); 
     } else {
         throw new Exception('Método HTTP no permitido.');
     }

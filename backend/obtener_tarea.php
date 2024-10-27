@@ -1,4 +1,8 @@
 <?php
+
+header("Access-Control-Allow-Origin: http://localhost:3000"); // Permitir solicitudes desde el frontend
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");   // Métodos permitidos
+header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Encabezados permitidos
 header('Content-Type: application/json');
 require 'db_conection.php';
 
@@ -10,7 +14,7 @@ try {
     $idTarea = $_GET['id'];
 
     // Obtener detalles de la tarea
-    $query = "SELECT nombre, detalle FROM tareas WHERE id = :id";
+    $query = "SELECT detalle, entregado, archivo FROM tarea WHERE id_tarea = :id"; // Asegúrate de que 'archivo' sea el nombre correcto de tu columna
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(':id', $idTarea);
     $stmt->execute();
@@ -20,19 +24,13 @@ try {
         throw new Exception('Tarea no encontrada.');
     }
 
-    // Obtener comentarios de la tarea
-    $queryComentarios = "SELECT comentario FROM comentarios WHERE id_tarea = :id";
-    $stmtComentarios = $pdo->prepare($queryComentarios);
-    $stmtComentarios->bindParam(':id', $idTarea);
-    $stmtComentarios->execute();
-    $comentarios = $stmtComentarios->fetchAll(PDO::FETCH_COLUMN);
-
-    // Devolver respuesta con tarea y comentarios
+    // Devolver respuesta con los campos requeridos
     echo json_encode([
-        'nombre' => $tarea['nombre'],
-        'descripcion' => $tarea['detalle'],
-        'comentarios' => $comentarios
+        'detalle' => $tarea['detalle'],
+        'entregado' => $tarea['entregado'], // Este será un booleano
+        'archivo' => base64_encode($tarea['archivo']) // Codifica el archivo en base64 si es necesario
     ]);
+    
 } catch (Exception $e) {
     echo json_encode(['error' => $e->getMessage()]);
 }

@@ -6,7 +6,7 @@ body {
 
 .tarea {
   background-color: #000630; /* Fondo azul */
-  color: white; /* Color de texto por defecto */
+  color: white !important; /* Color de texto por defecto */
   padding: 20px;
   max-width: 600px; /* Máximo ancho del contenedor */
   margin: 20px auto; /* Centrar el contenedor y margen arriba y abajo */
@@ -19,29 +19,31 @@ body {
   font-size: 2em; /* Tamaño del título */
   margin-bottom: 10px; /* Espacio debajo del título */
   text-align: left;
+  display: flex;
+  justify-content: space-between;
 }
-
+.subtitulo-container {
+  background-color: white; /* Fondo azul para el contenedor */
+  padding: 10px;
+}
 .subtitulo {
   font-size: 1.5em; /* Tamaño del subtítulo */
   margin: 10px 0; /* Espacio alrededor del subtítulo */
-  color: white !important;
+  color: black;
 }
 
 .descripcion {
-  background-color: white; /* Fondo blanco para la descripción */
-  color: white; /* Color de texto negro */
+  color: white !important; /* Color de texto blanco */
   padding: 10px; /* Espacio dentro del párrafo */
-  border-radius: 4px; /* Bordes redondeados */
   width: 100%; /* Ancho completo del div */
-  height: 100px; /* Altura fija */
-  overflow: auto; /* Scroll si el contenido es demasiado grande */
+  height: auto; /* Ajuste automático de altura */
 }
 
 .adjuntos {
   margin-top: 20px; /* Espacio arriba de la sección de archivos adjuntos */
   padding: 10px; /* Espaciado interno */
   background-color: white; /* Fondo blanco */
-  color: white; /* Texto negro */
+  color: black; /* Texto negro */
   border-radius: 4px; /* Bordes redondeados */
 }
 
@@ -70,21 +72,4 @@ body {
 
 .btn:hover {
   background-color: #3498db; /* Color al pasar el mouse */
-}
-
-.comentario-container,
-.nota-container {
-  margin-top: 20px; /* Espacio superior */
-}
-
-.comentario-input,
-.nota-input {
-  width: 100%; /* Ancho completo del input */
-  padding: 10px; /* Espacio interno */
-  border-radius: 4px; /* Bordes redondeados */
-  border: 1px solid #ccc; /* Borde gris claro */
-}
-
-.nota-input {
-  height: 40px; /* Altura fija para el input de la nota */
 }
