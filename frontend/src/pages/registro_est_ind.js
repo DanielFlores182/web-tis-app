@@ -1,4 +1,4 @@
-import React, { useState, toggleRegisterOptions, showRegisterOptions } from 'react';
+import React, { useState, showRegisterOptions } from 'react';
 import './registro_est_ind.css'; // Asegúrate de crear y ajustar los estilos
 
 function RegistroEstInd() {
@@ -8,7 +8,10 @@ function RegistroEstInd() {
     codsis: '',
     carrera: '' // Este campo se mantendrá como string, pero será un select
   });
-
+  const [showRegisterOptions, setShowRegisterOptions] = useState(false);
+  const toggleRegisterOptions = () => {
+    setShowRegisterOptions(!showRegisterOptions); // Cambiar entre mostrar y ocultar
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
