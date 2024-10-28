@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './ver_tarea.css'; // Importa tu archivo de estilos CSS
 
 function VerTarea({ nombreTarea, descripcionTarea }) {
