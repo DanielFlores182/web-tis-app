@@ -12,7 +12,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:8081/web-tis-app/backend/login_check.php', {
+    fetch('https://web-tis-app-production.up.railway.app/login_check.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
