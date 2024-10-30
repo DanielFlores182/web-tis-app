@@ -27,7 +27,7 @@ function RegistroEstInd() {
     const carreraValue = formData.carrera === "Ing. Informatica" ? 1 : 2;
 
     try {
-      const response = await fetch('http://localhost:8081/web-tis-app/backend/reg_est_ind.php', {
+      const response = await fetch('http://web-tis-app-production.up.railway.app/reg_est_ind.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

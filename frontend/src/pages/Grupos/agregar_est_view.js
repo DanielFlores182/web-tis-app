@@ -23,7 +23,7 @@ const AgregarEstudianteView = () => {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await fetch('http://localhost:8081/web-tis-app/backend/get_estudiantes.php');
+                const response = await fetch('http://web-tis-app-production.up.railway.app/get_estudiantes.php');
                 const data = await response.json();
 
                 // Verifica si la respuesta es un array
@@ -70,7 +70,7 @@ const AgregarEstudianteView = () => {
 
         try {
             // Realizar la solicitud POST al backend para agregar el estudiante al grupo
-            const response = await fetch('http://localhost:8081/web-tis-app/backend/add_estu_to_group.php', {
+            const response = await fetch('http://web-tis-app-production.up.railway.app/add_estu_to_group.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -104,7 +104,7 @@ const AgregarEstudianteView = () => {
 
     const handleDeleteStudent = async (student) => {
         try {
-            const response = await fetch('http://localhost:8081/web-tis-app/backend/eliminar_estudiante.php', {
+            const response = await fetch('http://web-tis-app-production.up.railway.app/eliminar_estudiante.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

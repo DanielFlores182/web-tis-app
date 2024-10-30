@@ -132,7 +132,7 @@ const EditEstGrupoView = () => {
 
     const handleDeleteStudent = async (student) => {
         try {
-            const response = await fetch('http://localhost:8081/web-tis-app/backend/eliminar_estudiante.php', {
+            const response = await fetch('http://web-tis-app-production.up.railway.app/eliminar_estudiante.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

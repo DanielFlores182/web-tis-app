@@ -47,7 +47,7 @@ export default function App() {
     };
   
     try {
-      const response = await fetch('http://localhost:8081/web-tis-app/backend/add_acta_semanal.php', {
+      const response = await fetch('http://web-tis-app-production.up.railway.app/add_acta_semanal.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

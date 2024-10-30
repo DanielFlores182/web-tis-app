@@ -14,7 +14,7 @@ function SelectGrupo() {
   useEffect(() => {
     const fetchGrupo = async () => {
       try {
-        const response = await fetch('http://localhost:8081/web-tis-app/backend/get_grupo_from_est.php', {
+        const response = await fetch('http://web-tis-app-production.up.railway.app/get_grupo_from_est.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

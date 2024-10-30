@@ -9,11 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 // Configuración de la base de datos PostgreSQL
-$host = 'isabelle.db.elephantsql.com';
-$port = '5432';
-$dbname = 'bymbbrry';
-$user = 'bymbbrry';
-$password = 'vwqXSm7GuRBcQLjfNubKMWNer-Jek6PG';
+$host = 'aws-0-sa-east-1.pooler.supabase.com';
+$port = '6543';
+$dbname = 'postgres';
+$user = 'postgres.yofxxjpkfxwicvnonvna';
+$password = 'SodacorpDBpassword';
 
 // Conectar a la base de datos PostgreSQL
 $connectionString = "host=$host port=$port dbname=$dbname user=$user password=$password";
