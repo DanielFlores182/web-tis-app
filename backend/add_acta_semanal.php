@@ -1,13 +1,14 @@
 <?php
-header("Access-Control-Allow-Origin: *"); // Permite todas las solicitudes de origen
-header("Access-Control-Allow-Methods: POST, OPTIONS"); // Permitir métodos
-header("Access-Control-Allow-Headers: Content-Type"); // Permitir encabezados específicos
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
 
 // Manejar la solicitud OPTIONS (preflight)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
+
 // Configuración de la base de datos PostgreSQL
 $host = 'aws-0-sa-east-1.pooler.supabase.com';
 $port = '6543';
@@ -39,10 +40,19 @@ $meetingNumber = $data['meetingNumber'];
 $meetingDate = $data['meetingDate'];
 $startTime = $data['startTime'];
 $comments = $data['comments'];
+$attendees = $data['attendees']; // Asumimos que es un array de asistentes
+$topics = $data['topics']; // Asumimos que es un array de temas
 
-// Preparar y ejecutar la llamada al Stored Procedure
-$query = "CALL guardar_acta($1, $2, $3, $4, $5)";
-$result = pg_query_params($conn, $query, [$meetingNumber, $meetingDate, $startTime, $comments]);
+// Preparar la llamada al Stored Procedure
+$query = "CALL guardar_acta($1, $2, $3, $4, $5, $6, $7)";
+$result = pg_query_params($conn, $query, [
+    $meetingNumber,
+    $meetingDate,
+    $startTime,
+    json_encode($attendees), // Convertir a JSON para almacenar en la base de datos
+    json_encode($topics),    // Convertir a JSON para almacenar en la base de datos
+    $comments
+]);
 
 if ($result) {
     echo json_encode(['message' => 'Acta guardada correctamente']);

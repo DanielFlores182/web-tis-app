@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ActasSemanales.css';
 
 export default function App() {
@@ -17,7 +17,11 @@ export default function App() {
     { id: 1, title: '', content: '' },
   ]);
   const [comments, setComments] = useState('');
-  //const [approved, setApproved] = useState(null);
+
+  useEffect(() => {
+    const today = new Date().toISOString().slice(0, 10);
+    setMeetingDate(today);
+  }, []);
 
   const handleAttendeeChange = (id) => {
     setAttendees(attendees.map(attendee =>
@@ -35,6 +39,11 @@ export default function App() {
     setTopics([...topics, { id: topics.length + 1, title: '', content: '' }]);
   };
 
+  const deleteTopic = (id) => {
+    // Eliminar el tema basado en el ID
+    setTopics(topics.filter((topic) => topic.id !== id));
+  };
+
   const handleSave = async () => {
     const acta = {
       meetingNumber,
@@ -43,7 +52,6 @@ export default function App() {
       attendees,
       topics,
       comments,
-      //approved,
     };
   
     try {
@@ -67,7 +75,6 @@ export default function App() {
     }
   };
   
-
   const handleGoBack = () => {
     window.history.back();
   };
@@ -75,48 +82,48 @@ export default function App() {
   return (
     <div className="acta-container">
       <header className="acta-header">
-  <h1>Actas de reuniones de equipo de desarrollo</h1>
-  <div className="acta-header-info">
-    <div className="acta-info-group">
-      <label htmlFor="meetingNumber">Número de acta:</label>
-      <input
-        id="meetingNumber"
-        type="text"
-        value={meetingNumber}
-        onChange={(e) => setMeetingNumber(e.target.value)}
-        placeholder="Número de acta"
-        className="acta-input"
-      />
-    </div>
-    <div className="acta-info-group">
-      <label htmlFor="meetingDate">Fecha de acta:</label>
-      <input
-        id="meetingDate"
-        type="date"
-        value={meetingDate}
-        onChange={(e) => setMeetingDate(e.target.value)}
-        className="acta-input"
-      />
-    </div>
-  </div>
-</header>
+        <h1>Actas de reuniones de equipo de desarrollo</h1>
+        <div className="acta-header-info">
+          <div className="acta-info-group">
+            <label htmlFor="meetingNumber">Número de acta:</label>
+            <input
+              id="meetingNumber"
+              type="text"
+              value={meetingNumber}
+              onChange={(e) => setMeetingNumber(e.target.value)}
+              placeholder="Número de acta"
+              className="acta-input"
+            />
+          </div>
+          <div className="acta-info-group">
+            <label htmlFor="meetingDate">Fecha de acta:</label>
+            <input
+              id="meetingDate"
+              type="date"
+              value={meetingDate}
+              onChange={(e) => setMeetingDate(e.target.value)}
+              className="acta-input"
+            />
+          </div>
+        </div>
+      </header>
       <section className="acta-section">
-  <h2>Asistentes:</h2>
-  <div className="attendee-grid">
-    {attendees.map((attendee) => (
-      <div key={attendee.id} className="attendee-cell">
-        <label>
-          <input
-            type="checkbox"
-            checked={attendee.attended}
-            onChange={() => handleAttendeeChange(attendee.id)}
-          />
-          {attendee.name}
-        </label>
-      </div>
-    ))}
-  </div>
-</section>
+        <h2>Asistentes:</h2>
+        <div className="attendee-grid">
+          {attendees.map((attendee) => (
+            <div key={attendee.id} className="attendee-cell">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={attendee.attended}
+                  onChange={() => handleAttendeeChange(attendee.id)}
+                />
+                {attendee.name}
+              </label>
+            </div>
+          ))}
+        </div>
+      </section>
       <section className="acta-section">
         <h2>Registro:</h2>
         <p>
@@ -148,9 +155,19 @@ export default function App() {
               className="acta-textarea"
               rows={4}
             />
+            {topics.length > 1 && ( // Solo muestra el botón eliminar si hay más de un tema
+              <button
+                className="acta-delete-button"
+                onClick={() => deleteTopic(topic.id)}
+              >
+                Eliminar Tema
+              </button>
+            )}
           </div>
         ))}
-        <button onClick={addTopic} className="acta-add-button">Añadir Tema</button>
+        <div className="acta-topic-buttons">
+          <button onClick={addTopic} className="acta-add-button">Añadir Tema</button>
+        </div>
       </section>
 
       <section className="acta-section">
