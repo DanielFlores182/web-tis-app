@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Habilitar CORS
-header("Access-Control-Allow-Origin: http://localhost:3000"); // Permite solicitudes desde tu frontend
+header("Access-Control-Allow-Origin: https://webtismanager.netlify.app"); // Permite solicitudes desde tu frontend
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");   // Métodos permitidos
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Encabezados permitidos
 
@@ -53,6 +53,7 @@ try {
         // Ejecutar la declaración
         if ($stmt->execute()) {
             echo json_encode(['message' => 'Estudiante registrado con éxito.']);
+
         } else {
             throw new Exception('Error al registrar estudiante.');
         }

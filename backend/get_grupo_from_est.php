@@ -22,32 +22,33 @@ header('Content-Type: application/json'); // Establece el tipo de contenido a JS
 try {
     // Verifica si es una solicitud POST
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Obtener el contenido JSON de la solicitud
-        $data = json_decode(file_get_contents("php://input"));
+        // Obtener el username desde la solicitud POST
+        $data = json_decode(file_get_contents('php://input'), true);
+        $username = $data['username'] ?? null;
 
-        // Validar que se reciban todos los datos necesarios
-        if (!isset($data->groupName) || !isset($data->groupLeader) || !isset($data->groupDescription)) {
-            throw new Exception('Datos incompletos.');
+        if (!$username) {
+            throw new Exception('El campo "username" es obligatorio.');
         }
 
-        // Extraer datos
-        $groupName = $data->groupName;
-        $groupLeaderNames = $data->groupLeader->nombres; // Nombre del docente
-        $groupLeaderApellidos = $data->groupLeader->apellidos; // Apellido del docente
-        $groupDescription = $data->groupDescription;
-
-        // Llamar al procedimiento almacenado para agregar el grupo
-        $query = "CALL add_grupo(:nombres, :apellidos, :grupo, :descripcion)";
+        // Llamar al stored procedure para obtener el grupo del estudiante
+        $query = "SELECT public.get_grupo_by_username(:username)";
         $stmt = $pdo->prepare($query);
-        $stmt->execute([
-            ':nombres' => $groupLeaderNames,
-            ':apellidos' => $groupLeaderApellidos,
-            ':grupo' => $groupName,
-            ':descripcion' => $groupDescription
-        ]);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
 
-        // Retornar una respuesta exitosa
-        echo json_encode(['success' => true, 'message' => 'Grupo agregado exitosamente.']);
+        // Obtener el resultado
+        $grupo = $stmt->fetchColumn();
+
+        if ($grupo === false) {
+            throw new Exception('No se pudo obtener el grupo.');
+        }
+
+        // Verificar si el resultado es un mensaje de error o un grupo válido
+        if ($grupo == 'No se encontró un estudiante con ese username.' || $grupo == 'El estudiante no está registrado en ningún grupo.') {
+            echo json_encode(['error' => $grupo]);
+        } else {
+            echo json_encode(['grupo' => $grupo]);
+        }
     } else {
         throw new Exception('Método HTTP no permitido.'); // Manejo de métodos no permitidos
     }

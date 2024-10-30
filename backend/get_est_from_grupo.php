@@ -20,22 +20,36 @@ require 'db_conection.php'; // Asegúrate de que la ruta a tu archivo de conexi�
 header('Content-Type: application/json'); // Establece el tipo de contenido a JSON
 
 try {
-    // Verifica si es una solicitud GET
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        // Llamar al stored procedure para obtener todos los docentes
-        $query = "SELECT * FROM get_all_estudiantes();";
+    // Verifica si es una solicitud POST
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Obtener el nombre del grupo desde el cuerpo de la solicitud
+        $input = json_decode(file_get_contents('php://input'), true);
+        $grupo_nombre = $input['grupo_nombre'] ?? null;
+
+        if (!$grupo_nombre) {
+            throw new Exception('El nombre del grupo no ha sido proporcionado.');
+        }
+
+        // Llamar a la función almacenada para obtener los estudiantes del grupo
+        $query = "SELECT * FROM get_estudiantes_by_grupo(:grupo_nombre)";
         $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':grupo_nombre', $grupo_nombre, PDO::PARAM_STR);
         $stmt->execute();
 
         // Obtener los resultados
         $estudiantes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Enumerar los resultados y agregar un id
+        // Verificar si hay resultados
+        if (count($estudiantes) === 0) {
+            throw new Exception('No se encontraron estudiantes para el grupo proporcionado.');
+        }
+
+        // Enumerar los resultados y agregar un id, además de formatear los nombres
         $estudiantesConId = array_map(function($estudiante, $index) {
             return [
                 'id' => $index + 1, // Enumeración comenzando desde 1
-                'nombres_e' => $estudiante['nombres_e'],
-                'apellidos_e' => $estudiante['apellidos_e']
+                'nombres_e' => $estudiante['nombres'],
+                'apellidos_e' => $estudiante['apellidos']
             ];
         }, $estudiantes, array_keys($estudiantes));
 

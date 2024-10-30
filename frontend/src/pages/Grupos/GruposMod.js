@@ -17,7 +17,6 @@ function GruposMod() {
     setGroupDescription('Ana Saenz');
     handleLiderChange({ target: { value: 'Ana Saenz' } }); 
   }, []); // Se ejecuta solo una vez
-
   // Función para manejar el cambio del líder
   const handleLiderChange = async (e) => {
     const liderSeleccionado = e.target.value;
@@ -34,7 +33,7 @@ function GruposMod() {
   };
 
   // Función para eliminar un estudiante
-  
+
 
   return (
     <div className="menu-container">

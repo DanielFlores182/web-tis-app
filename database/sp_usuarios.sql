@@ -375,3 +375,209 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+---------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION public.get_grupo_by_username(
+	p_username character varying)
+    RETURNS character varying
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+DECLARE
+    estudiante_id INTEGER;
+    grupo_nombre VARCHAR;
+BEGIN
+    -- Buscar el id_usuario del estudiante en la tabla user_n
+    SELECT id_usuario INTO estudiante_id
+    FROM user_n
+    WHERE username = p_username
+    AND tipo = 2; -- Aseguramos que sea un estudiante (tipo = 2)
+    
+    -- Verificamos si se encontró el estudiante
+    IF NOT FOUND THEN
+        RETURN 'No se encontró un estudiante con ese username.';
+    END IF;
+    
+    -- Buscar el grupo al que está registrado en la tabla grupo_estudiante
+    SELECT ga.nombre INTO grupo_nombre
+    FROM grupo_estudiante AS ge
+    JOIN grupo AS ga ON ga.nombre = ge.grupo_nombre
+    WHERE ge.id_estudiante = estudiante_id;
+    
+    -- Verificamos si está registrado en algún grupo
+    IF NOT FOUND THEN
+        RETURN 'El estudiante no está registrado en ningún grupo.';
+    ELSE
+        RETURN  grupo_nombre;
+    END IF;
+END;
+$BODY$;
+----------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION public.get_estudiantes_by_grupo(
+	p_grupo_nombre character varying)
+    RETURNS TABLE(nombres character varying, apellidos character varying) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+BEGIN
+    RETURN QUERY
+    SELECT u.nombres, u.apellidos
+    FROM grupo AS ga
+    JOIN grupo_estudiante AS ge ON ga.nombre = ge.grupo_nombre
+    JOIN user_n AS u ON ge.id_estudiante = u.id_usuario
+    WHERE ga.nombre = p_grupo_nombre
+    AND u.tipo = 2;  -- Aseguramos que solo obtengamos estudiantes (tipo = 2)
+END;
+$BODY$;
+-------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE crear_plan(
+    p_grupo_nombre VARCHAR,
+    p_grupo_id_docente INTEGER,
+    p_objetivo VARCHAR(255),
+    p_fecha_ini DATE,
+    p_fecha_fin DATE
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Comprobamos si el grupo existe antes de insertar el plan
+    IF EXISTS (SELECT 1 FROM grupo WHERE nombre = p_grupo_nombre AND id_docente = p_grupo_id_docente) THEN
+        -- Insertamos el nuevo plan en la tabla "plan"
+        INSERT INTO plan (grupo_nombre, grupo_id_docente, objetivo, fecha_ini, fecha_fin)
+        VALUES (p_grupo_nombre, p_grupo_id_docente, p_objetivo, p_fecha_ini, p_fecha_fin);
+        
+        RAISE NOTICE 'Plan creado exitosamente para el grupo % y docente %', p_grupo_nombre, p_grupo_id_docente;
+    ELSE
+        -- Si el grupo no existe, mostramos un mensaje de error
+        RAISE EXCEPTION 'El grupo con nombre % y docente % no existe', p_grupo_nombre, p_grupo_id_docente;
+    END IF;
+END;
+$$;
+---------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION obtener_tareas_estudiante(p_id_estudiante INTEGER)
+RETURNS TABLE (
+    estudiante_nombre VARCHAR,
+    tarea_id BIGINT,
+    tarea_detalle VARCHAR,
+    entregado BOOLEAN
+) 
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Retornamos los datos solicitados
+    RETURN QUERY
+    SELECT
+        CAST(u.nombres || ' ' || u.apellidos AS VARCHAR) AS estudiante_nombre,  -- Nombre completo del estudiante
+        t.id_tarea,        -- ID de la tarea
+        t.detalle,         -- Nombre/detalle de la tarea
+        t.entregado        -- Estado de entrega
+    FROM
+        tarea t
+    INNER JOIN
+        estudiante e ON t.id_estudiante = e.id_usuario
+    INNER JOIN
+        user_n u ON e.id_usuario = u.id_usuario
+    WHERE
+        t.id_estudiante = p_id_estudiante;
+END;
+$$;
+---------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION obtener_grupos_materia()
+RETURNS TABLE(grupos INTEGER)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Retornamos los valores únicos de grupo_materia
+    RETURN QUERY
+    SELECT DISTINCT grupo_materia
+    FROM docente
+    WHERE grupo_materia IS NOT NULL;
+END;
+$$;
+---------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION obtener_estado_evaluacion_grupo(
+    p_grupo_materia INTEGER
+)
+RETURNS TABLE(
+    grupo_nombre VARCHAR,
+    estado_evaluacion VARCHAR,
+    fecha_acta_actual DATE
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        g.nombre AS grupo_nombre,
+        
+        -- Estado de la evaluación
+        CAST(
+            CASE
+                WHEN COUNT(t.id_tarea) FILTER (WHERE t.entregado = TRUE) = COUNT(t.id_tarea) THEN 'completado'
+                WHEN COUNT(t.id_tarea) FILTER (WHERE t.entregado = TRUE) > 0 THEN 'pendiente'
+                ELSE 'atrasado'
+            END
+        AS VARCHAR) AS estado_evaluacion,
+        
+        -- Fecha del acta más reciente
+        (SELECT MAX(a.fecha)
+         FROM acta a
+         WHERE a.plan_grupo_nombre = g.nombre
+         AND a.plan_grupo_id_docente = g.id_docente) AS fecha_acta_actual
+
+    FROM grupo g
+    INNER JOIN docente d ON g.id_docente = d.id_usuario
+    LEFT JOIN tarea t ON g.nombre = t.plan_grupo_nombre AND g.id_docente = t.plan_grupo_id_docente
+    WHERE d.grupo_materia = p_grupo_materia
+    GROUP BY g.nombre, g.id_docente;
+END;
+$$;
+
+---------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE crear_tarea(
+    p_plan_grupo_nombre VARCHAR,
+    p_id_estudiante INTEGER,
+    p_detalle VARCHAR,
+    p_archivo BYTEA DEFAULT NULL,
+    p_path VARCHAR DEFAULT NULL
+)
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    v_id_docente INTEGER;  -- Variable para almacenar el ID del docente
+BEGIN
+    -- Buscar el id_docente asociado al nombre del grupo
+    SELECT g.id_docente
+    INTO v_id_docente
+    FROM grupo g
+    WHERE g.nombre = p_plan_grupo_nombre;
+
+    -- Si no se encuentra un docente para el grupo, arrojar un error
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'No se encontró un docente para el grupo %', p_plan_grupo_nombre;
+    END IF;
+
+    -- Realizamos la inserción dependiendo de si los valores de archivo y path son nulos o no
+    IF p_archivo IS NULL AND p_path IS NULL THEN
+        INSERT INTO tarea (plan_grupo_nombre, plan_grupo_id_docente, id_estudiante, detalle)
+        VALUES (p_plan_grupo_nombre, v_id_docente, p_id_estudiante, p_detalle);
+    
+    ELSIF p_archivo IS NULL THEN
+        INSERT INTO tarea (plan_grupo_nombre, plan_grupo_id_docente, id_estudiante, detalle, path)
+        VALUES (p_plan_grupo_nombre, v_id_docente, p_id_estudiante, p_detalle, p_path);
+    
+    ELSIF p_path IS NULL THEN
+        INSERT INTO tarea (plan_grupo_nombre, plan_grupo_id_docente, id_estudiante, detalle, archivo)
+        VALUES (p_plan_grupo_nombre, v_id_docente, p_id_estudiante, p_detalle, p_archivo);
+    
+    ELSE
+        INSERT INTO tarea (plan_grupo_nombre, plan_grupo_id_docente, id_estudiante, detalle, archivo, path)
+        VALUES (p_plan_grupo_nombre, v_id_docente, p_id_estudiante, p_detalle, p_archivo, p_path);
+    END IF;
+    
+END;
+$$;
+---------------------------------------------------------------------------------------------------------------------------

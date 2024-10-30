@@ -1,0 +1,190 @@
+body {
+  background-color: #1e2342;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal */
+.acta-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+/* Cabecera */
+.acta-header {
+  margin-bottom: 20px;
+}
+
+.acta-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #CC1616;
+}
+
+.acta-header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.acta-info-group {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.acta-info-group label {
+  font-size: 14px;
+  color: #495057;
+  margin-bottom: 5px;
+}
+
+/* Inputs generales */
+.acta-input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* Secciones */
+.acta-section {
+  margin-bottom: 20px;
+}
+
+.acta-section h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1e2342;
+  margin-bottom: 10px;
+}
+
+/* Tabla */
+.acta-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.acta-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  color: #1e2342;
+}
+
+/* Grid de asistentes */
+.attendee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.attendee-cell {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+}
+
+.attendee-cell label {
+  display: flex;
+  align-items: center;
+}
+
+.attendee-cell input {
+  margin-right: 10px;
+}
+
+/* Temas tratados */
+.acta-topic {
+  margin-bottom: 15px;
+}
+
+.acta-topic input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Textarea */
+.acta-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #495057;
+  font-size: 14px;
+}
+
+/* Botones para añadir y eliminar temas */
+.acta-topic-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.acta-add-button,
+.acta-delete-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.acta-add-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.acta-add-button:hover {
+  background-color: #218838;
+}
+
+.acta-delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.acta-delete-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Footer de los botones */
+.acta-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.acta-save-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.acta-back {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.acta-back-button {
+  padding: 10px 20px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

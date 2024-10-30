@@ -9,7 +9,7 @@ const StudentAutocomplete = () => {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await fetch('http://localhost:8081/web-tis-app/backend/obtener_estudiantes.php');
+                const response = await fetch('http://web-tis-app-production.up.railway.app/obtener_estudiantes.php');
                 const data = await response.json();
                 setStudentsList(data.map(student => student.username)); // Extraer solo los nombres
             } catch (error) {

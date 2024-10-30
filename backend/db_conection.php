@@ -1,9 +1,9 @@
 <?php
- $host = 'isabelle.db.elephantsql.com'; 
- $port = '5432'; // Puerto por defecto de PostgreSQL
- $dbname = 'bymbbrry';
- $user = 'bymbbrry';
- $password = 'vwqXSm7GuRBcQLjfNubKMWNer-Jek6PG';
+ $host = 'aws-0-sa-east-1.pooler.supabase.com'; 
+ $port = '6543'; // Puerto por defecto de PostgreSQL
+ $dbname = 'postgres';
+ $user = 'postgres.yofxxjpkfxwicvnonvna';
+ $password = 'SodacorpDBpassword';
 
 try {
     $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;";
