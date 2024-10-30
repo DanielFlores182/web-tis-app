@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Login from './pages/Login.js';
 import Menudoc from './pages/Menu_doc.js';
 import Menuest from './pages/Menu_est.js';
@@ -29,6 +29,7 @@ function App() {
         <Route path="/agregar_estudiante" element={<AgregarEst />} />
         <Route path="/select_grupo" element={<SelectGrupo />} />
         <Route path="/ver_tarea" element={<VerTarea />} />
+        <Route path="/ver_tarea/:idTarea" element={<VerTarea />} />
         <Route path="/planilla" element={<VerPlanilla />} />
         <Route path="/ver_perfil" element={<VerPerfil />} />
         <Route path="/editar_est_grupo" element={<EditarEstGrupo />} />

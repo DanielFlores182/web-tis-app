@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'; // Importa useEffect
-import { useNavigate /*,useParams */} from 'react-router-dom'; // Importa useParams y useNavigate
+import { useNavigate ,useParams} from 'react-router-dom'; // Importa useParams y useNavigate
 import './ver_perfil.css';
 
 function VerPerfil() {
     const navigate = useNavigate();
-    //const { idEstudiante } = useParams(); // Obtener el ID del estudiante desde la URL
-    const idEstudiante = 4;
+    const { idEstudiante } = useParams();
+    //const idEstudiante = 21;
     const [estudiante, setEstudiante] = useState({ nombre: '', apellido: '' });
     const [tareas, setTareas] = useState([]);
 

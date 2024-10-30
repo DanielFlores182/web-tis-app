@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom';
 import './ver_tarea.css';
 
 function VerTarea() {
-  const idTarea = 3;
-  //const { idTarea } = useParams();
+  const { idTarea } = useParams();
   const [tarea, setTarea] = useState({
     descripcion: '',
     entregado: false,
