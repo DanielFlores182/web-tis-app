@@ -1,4 +1,4 @@
-import React, { useState, toggleRegisterOptions, showRegisterOptions } from 'react';
+import React, { useState} from 'react';
 import './registro_est_ind.css'; // Asegúrate de crear y ajustar los estilos
 
 function RegistroEstInd() {
@@ -8,7 +8,10 @@ function RegistroEstInd() {
     codsis: '',
     carrera: '' // Este campo se mantendrá como string, pero será un select
   });
-
+  const [showRegisterOptions, setShowRegisterOptions] = useState(false);
+  const toggleRegisterOptions = () => {
+    setShowRegisterOptions(!showRegisterOptions); // Cambiar entre mostrar y ocultar
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -24,7 +27,7 @@ function RegistroEstInd() {
     const carreraValue = formData.carrera === "Ing. Informatica" ? 1 : 2;
 
     try {
-      const response = await fetch('http://localhost:8081/web-tis-app/backend/reg_est_ind.php', {
+      const response = await fetch('http://web-tis-app-production.up.railway.app/reg_est_ind.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +56,9 @@ function RegistroEstInd() {
 
   return (
     <div className="menu-container">
+
       <aside className="sidebar">
+
         <nav>
           <ul>
             <li>
