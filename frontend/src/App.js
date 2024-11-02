@@ -15,6 +15,8 @@ import VerPlanilla from './pages/planilla.js';
 import VerPerfil from './pages/ver_perfil.js';
 import { UserProvider } from './controller/userContex';
 import EditarEstGrupo from './pages/Grupos/edit_est_grupo.js';
+import RegistroEvaluacion from './pages/registro_eva.js';
+import RegCriterios from './pages/Reg_criterios.js';
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
         <Route path="/planilla" element={<VerPlanilla />} />
         <Route path="/ver_perfil_tareas" element={<VerPerfil />} />
         <Route path="/editar_est_grupo" element={<EditarEstGrupo />} />
+        <Route path="/registro_eva" element={<RegistroEvaluacion />} />
+        <Route path="/Reg_criterios" element={<RegCriterios/>}/>
       </Routes>
     </Router>
     </UserProvider>
