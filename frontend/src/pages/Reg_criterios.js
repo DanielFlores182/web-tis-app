@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Reg_criterios.css';
 import logo from '../images/logo.png';
 import { FaEdit, FaTrash } from 'react-icons/fa';
@@ -11,75 +11,88 @@ const RegCriterios = () => {
         { nombre: 'Funcionalidad', descripcion: 'Cumplimiento de los requisitos funcionales', porcentaje: 50 },
         { nombre: 'Diseño', descripcion: 'Desc. del diseño', porcentaje: 50 }
     ]);
-
     const [tareas, setTareas] = useState(5);
     const [sprints, setSprints] = useState(5);
     const [faltas, setFaltas] = useState(0);
-
-    // Estado para el nuevo o el criterio que se va a editar
     const [criterioActual, setCriterioActual] = useState({ nombre: '', descripcion: '', porcentaje: 0 });
-    const [editIndex, setEditIndex] = useState(null); // Guarda el índice del criterio a editar
+    const [editIndex, setEditIndex] = useState(null); 
+    useEffect(() => {
+        cargarCriterios();
+    }, []);
 
-    const toggleRegisterOptions = () => {
-        setShowRegisterOptions(!showRegisterOptions);
-    };
-
-    const agregarCriterio = () => {
-        setCriterioActual({ nombre: '', descripcion: '', porcentaje: 0 });
-        setEditMode(false); // Establece el modo a agregar
-        setShowModal(true);
+    const cargarCriterios = async () => {
+        try {
+            const response = await fetch('http://web-tis-app-production.up.railway.app/cargar_criterios.php');
+            const data = await response.json();
+            setCriterios(data.criterios || []);
+            setTareas(data.tareas || 5);
+            setSprints(data.sprints || 5);
+            setFaltas(data.faltas || 0);
+        } catch (error) {
+            console.error("Error al cargar los criterios:", error);
+        }
     };
 
     const handleGuardarCriterio = () => {
-        if (criterioActual.index >= 0) {
-            // Editar criterio existente
-            const nuevosCriterios = [...criterios];
-            nuevosCriterios[criterioActual.index] = {
-                nombre: criterioActual.nombre,
-                descripcion: criterioActual.descripcion,
-                porcentaje: Math.min(criterioActual.porcentaje, 100) // Limitar porcentaje a 100
-            };
-            setCriterios(nuevosCriterios);
+        const nuevosCriterios = [...criterios];
+        if (editMode) {
+            nuevosCriterios[editIndex] = criterioActual;
         } else {
-            // Agregar nuevo criterio
-            setCriterios([
-                ...criterios,
-                {
-                    nombre: criterioActual.nombre,
-                    descripcion: criterioActual.descripcion,
-                    porcentaje: Math.min(criterioActual.porcentaje, 100) // Limitar porcentaje a 100
-                }
-            ]);
+            nuevosCriterios.push(criterioActual);
         }
+        setCriterios(nuevosCriterios);
         setShowModal(false);
+    };
+
+    const handleGuardar = async () => {
+        try {
+            const response = await fetch('http://web-tis-app-production.up.railway.app/guardar_criterios.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    criterios,
+                    tareas,
+                    sprints,
+                    faltas,
+                }),
+            });
+
+            if (response.ok) {
+                alert('Datos guardados exitosamente');
+            } else {
+                console.error('Error al guardar los datos');
+            }
+        } catch (error) {
+            console.error('Error de conexión:', error);
+        }
+    };
+
+    const toggleRegisterOptions = () => setShowRegisterOptions(!showRegisterOptions);
+    const agregarCriterio = () => {
+        setCriterioActual({ nombre: '', descripcion: '', porcentaje: 0 });
+        setEditMode(false);
+        setShowModal(true);
     };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setCriterioActual({
             ...criterioActual,
-            [name]: name === 'porcentaje' ? Math.min(parseInt(value, 10) || 0, 100) : value
+            [name]: name === 'porcentaje' ? Math.min(parseInt(value, 10) || 0, 100) : value,
         });
     };
 
-    const handleCancel = () => {
-        setShowModal(false);
-    };
-
+    const handleCancel = () => setShowModal(false);
     const handleEditarCriterio = (index) => {
-        setCriterioActual(criterios[index]); // Carga el criterio en el modal para editar
+        setCriterioActual(criterios[index]);
         setEditIndex(index);
-        setEditMode(true); // Cambia a modo edición
+        setEditMode(true);
         setShowModal(true);
     };
 
-    const handleGuardar = () => {
-        // Lógica para guardar toda la configuración
-    };
+    const eliminarCriterio = (index) => setCriterios(criterios.filter((_, i) => i !== index));
 
-    const eliminarCriterio = (index) => {
-        setCriterios(criterios.filter((_, i) => i !== index));
-    };
+
 
     return (
         <div className="menu-container">
