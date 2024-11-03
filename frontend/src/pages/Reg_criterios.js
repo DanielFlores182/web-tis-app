@@ -22,7 +22,7 @@ const RegCriterios = () => {
 
     const cargarCriterios = async () => {
         try {
-            const response = await fetch('http://web-tis-app-production.up.railway.app/cargar_criterios.php');
+            const response = await fetch('https://web-tis-app-production.up.railway.app/cargar_criterios.php');
             const data = await response.json();
             setCriterios(data.criterios || []);
             setTareas(data.tareas || 5);
@@ -46,7 +46,7 @@ const RegCriterios = () => {
 
     const handleGuardar = async () => {
         try {
-            const response = await fetch('http://web-tis-app-production.up.railway.app/guardar_criterios.php', {
+            const response = await fetch('https://web-tis-app-production.up.railway.app/guardar_criterios.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
