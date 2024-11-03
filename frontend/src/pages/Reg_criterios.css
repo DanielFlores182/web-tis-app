@@ -1,0 +1,108 @@
+.menu-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .header-logo {
+    width: 50%; /* Ancho completo */
+    height: auto; /* Mantiene la proporción de la imagen */
+    display: block; /* Asegura que no haya espacio extra */
+  }
+  
+  .sidebar {
+    width: 400px;
+    background-color: #1e2342;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Coloca los elementos en columna */
+    justify-content: flex-end;
+    height: 100vh;
+  }
+  
+  .sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar nav ul li {
+    margin: 20px 0;
+  }
+  
+  .sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: 14px;
+  }
+
+  .sidebar nav ul li a:hover {
+    color: red; /* Cambia a rojo al pasar el cursor */
+  }
+
+  .submenu {
+    margin-left: 20px;
+    color: #CC1616;
+  }
+  
+  .submenu li a {
+    color: #CC1616; /* Cambiar color para submenú */
+    text-decoration:dashed;
+  }
+  .content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f1f1f1;
+  }
+  h1{
+    color: #CC1616
+  }
+  .background{
+    background-color: #1e2342;
+  }
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .input-label {
+    font-weight: bold;
+    margin-right: 10px; /* Espacio entre la etiqueta y el campo de entrada */
+  }
+
+  .input-small {
+    width: 60px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white; /* Fondo blanco */
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}

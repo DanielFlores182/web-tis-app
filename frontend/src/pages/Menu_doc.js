@@ -28,7 +28,7 @@ function MenuDoc() {
             </li>
             <li><a href="/perfil">Ver grupos</a></li>
             <li><a href="/perfil">Ver evaluaciones</a></li>
-            <li><a href="/perfil">Programar evaluaciones</a></li>
+            <li><a href="/registro_evaluacion">Programar evaluaciones</a></li>
             <li><a href="/perfil">Perfil</a></li>
             <li><a href="/doc_config">Configuraciones</a></li>
             <li><a href="/">Cerrar Sesion</a></li>
