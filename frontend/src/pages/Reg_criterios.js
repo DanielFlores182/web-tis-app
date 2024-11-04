@@ -6,7 +6,7 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 const RegCriterios = () => {
     const [showRegisterOptions, setShowRegisterOptions] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [editMode, setEditMode] = useState(false); // Nuevo estado para controlar el modo de edición
+    const [editMode, setEditMode] = useState(false);
     const [criterios, setCriterios] = useState([
         { nombre: 'Funcionalidad', descripcion: 'Cumplimiento de los requisitos funcionales', porcentaje: 50 },
         { nombre: 'Diseño', descripcion: 'Desc. del diseño', porcentaje: 50 }
@@ -16,13 +16,15 @@ const RegCriterios = () => {
     const [faltas, setFaltas] = useState(0);
     const [criterioActual, setCriterioActual] = useState({ nombre: '', descripcion: '', porcentaje: 0 });
     const [editIndex, setEditIndex] = useState(null); 
+
     useEffect(() => {
         cargarCriterios();
     }, []);
 
     const cargarCriterios = async () => {
         try {
-            const response = await fetch('https://web-tis-app-production.up.railway.app/cargar_criterios.php');
+
+            const response = await fetch('https://web-tis-app-production.up.railway.app/cargar_criterios_json.php');
             const data = await response.json();
             setCriterios(data.criterios || []);
             setTareas(data.tareas || 5);
@@ -46,7 +48,7 @@ const RegCriterios = () => {
 
     const handleGuardar = async () => {
         try {
-            const response = await fetch('https://web-tis-app-production.up.railway.app/guardar_criterios.php', {
+            const response = await fetch('https://web-tis-app-production.up.railway.app/guardar_criterios_json.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -58,7 +60,7 @@ const RegCriterios = () => {
             });
 
             if (response.ok) {
-                alert('Datos guardados exitosamente');
+                alert('Datos guardados exitosamente en JSON y enviados a la base de datos');
             } else {
                 console.error('Error al guardar los datos');
             }
@@ -91,7 +93,6 @@ const RegCriterios = () => {
     };
 
     const eliminarCriterio = (index) => setCriterios(criterios.filter((_, i) => i !== index));
-
 
 
     return (

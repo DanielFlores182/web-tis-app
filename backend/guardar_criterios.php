@@ -8,40 +8,39 @@ header("Access-Control-Allow-Origin: https://webtismanager.netlify.app"); // Per
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");   // Métodos permitidos
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Encabezados permitidos
 header('Content-Type: application/json');
-include 'db_connection.php';
 
-// Lee los datos JSON enviados en el cuerpo de la solicitud
+// Obtiene los datos enviados desde el frontend
 $data = json_decode(file_get_contents("php://input"), true);
 
 if (!isset($data['criterios'])) {
-    echo json_encode(['error' => 'No se recibieron datos de criterios']);
+    echo json_encode(['success' => false, 'message' => 'No se recibieron datos de criterios']);
     exit();
 }
 
+// Ruta del archivo JSON
+$file_path = 'criterios.json';
+
 try {
-    // Inicia una transacción
-    $conn->beginTransaction();
+    // Guardar los datos en el archivo JSON
+    file_put_contents($file_path, json_encode($data['criterios'], JSON_PRETTY_PRINT));
 
-    // Limpia la tabla actual (opcional)
-    $conn->exec("DELETE FROM criterios");
+    // Conectar a la base de datos PostgreSQL
+    $host = 'aws-0-sa-east-1.pooler.supabase.com';
+    $port = '6543';
+    $dbname = 'postgres';
+    $user = 'postgres.yofxxjpkfxwicvnonvna';
+    $password = 'SodacorpDBpassword';
+    $conn = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $user, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Inserta los nuevos criterios
-    $stmt = $conn->prepare("INSERT INTO criterios (nombre, descripcion, porcentaje) VALUES (:nombre, :descripcion, :porcentaje)");
+    // Llamar al procedimiento almacenado para guardar los datos
+    $stmt = $conn->prepare("CALL guardar_criterios(:criterios_json)");
+    $stmt->bindValue(':criterios_json', json_encode($data['criterios'])); // Pasa el JSON al procedimiento
+    $stmt->execute();
 
-    foreach ($data['criterios'] as $criterio) {
-        $stmt->execute([
-            ':nombre' => $criterio['nombre'],
-            ':descripcion' => $criterio['descripcion'],
-            ':porcentaje' => $criterio['porcentaje']
-        ]);
-    }
+    echo json_encode(['success' => true, 'message' => 'Criterios guardados en JSON y base de datos exitosamente']);
 
-    // Confirmar transacción
-    $conn->commit();
-    echo json_encode(['success' => true, 'message' => 'Criterios guardados exitosamente']);
 } catch (Exception $e) {
-    // Revertir transacción si ocurre un error
-    $conn->rollBack();
-    echo json_encode(['success' => false, 'message' => 'Error al guardar criterios', 'error' => $e->getMessage()]);
+    echo json_encode(['success' => false, 'message' => 'Error al guardar datos', 'error' => $e->getMessage()]);
 }
 ?>
