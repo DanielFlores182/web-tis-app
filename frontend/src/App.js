@@ -42,7 +42,7 @@ function App() {
         <Route path="/ver_perfil_tareas" element={<VerPerfil />} />
         <Route path="/editar_est_grupo" element={<EditarEstGrupo />} />
         <Route path="/registro_eva" element={<RegistroEvaluacion />} />
-        <Route path="/Reg_criterios" element={<RegCriterios/>}/>
+        <Route path="/reg_criterios" element={<RegCriterios/>}/>
       </Routes>
     </Router>
     </UserProvider>
