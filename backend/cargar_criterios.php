@@ -1,24 +1,27 @@
 <?php
 header('Content-Type: application/json');
-include 'db_connection.php';
 
 try {
-    // Recupera los criterios de la base de datos
-    $stmt = $conn->query("SELECT nombre, descripcion, porcentaje FROM criterios");
-    $criterios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Conectar a la base de datos PostgreSQL
+    $host = 'aws-0-sa-east-1.pooler.supabase.com';
+    $port = '6543';
+    $dbname = 'postgres';
+    $user = 'postgres.yofxxjpkfxwicvnonvna';
+    $password = 'SodacorpDBpassword';
+    $conn = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $user, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Define los valores predeterminados para tareas, sprints y faltas
-    $tareas = 5;
-    $sprints = 5;
-    $faltas = 0;
+    // Llamar al procedimiento almacenado para cargar los datos
+    $stmt = $conn->prepare("CALL cargar_criterios()");
+    $stmt->execute();
 
-    echo json_encode([
-        'criterios' => $criterios,
-        'tareas' => $tareas,
-        'sprints' => $sprints,
-        'faltas' => $faltas
-    ]);
+    // Obtener los datos en formato JSON
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Enviar los datos al frontend
+    echo json_encode($result['criterios_json']);
+
 } catch (Exception $e) {
-    echo json_encode(['error' => 'Error al cargar criterios', 'message' => $e->getMessage()]);
+    echo json_encode(['success' => false, 'message' => 'Error al cargar datos', 'error' => $e->getMessage()]);
 }
 ?>
