@@ -1,0 +1,63 @@
+/* Estilo del contenedor general */
+.autoevaluacion-container {
+    background-color: #0A0B29;
+    color: white;
+    width: 340px;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+}
+
+.autoevaluacion-container h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* Estilo de los grupos de formulario */
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+/* Estilos para las etiquetas y campos de entrada */
+.form-group label {
+    font-size: 0.9em;
+    flex: 1;
+    text-align: left;
+}
+
+.form-group input,
+.form-group select {
+    background-color: #D3D3D3;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 0.9em;
+    text-align: center;
+    width: 45%;
+}
+
+.form-group select {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Estilo del botón */
+.start-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.start-button:hover {
+    background-color: #45A049;
+}

@@ -37,7 +37,7 @@ function MenuDoc() {
                <ul className="submenu">
               <li><a href="#!">Ver Criterios de Evaluación</a></li>
               <li><a href="/Reg_criterios">Registrar Criterios de Evaluación</a></li>
-              <li><a href="/Val_criterios_eval">Validar Criterios de Evaluación</a></li>
+              <li><a href="/Val_criterios_eval">Validar Criterios de Evaluación de pares</a></li>
               <li><a href="/Val_criterios_auto">Validar Criterios de Autoevaluacion</a></li>
         </ul>
       )}

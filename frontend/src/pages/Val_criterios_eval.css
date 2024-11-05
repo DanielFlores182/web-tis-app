@@ -1,0 +1,69 @@
+/* Estilo del contenedor general */
+.evaluacion-pares-container {
+    background-color: #0A0B29;
+    color: white;
+    width: 360px;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+}
+
+.evaluacion-pares-container h2 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+}
+
+/* Estilo de los grupos de formulario */
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.form-group div {
+    width: 45%;
+    text-align: left;
+}
+
+/* Estilos para las etiquetas y campos de entrada */
+.form-group label {
+    font-size: 0.85em;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    background-color: #D3D3D3;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 0.9em;
+    text-align: center;
+    width: 100%;
+}
+
+/* Estilo de la nota */
+.note {
+    font-size: 0.85em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Estilo del botón */
+.start-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.start-button:hover {
+    background-color: #45A049;
+}
