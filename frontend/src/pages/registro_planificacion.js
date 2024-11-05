@@ -9,7 +9,6 @@ const PlanificacionForm = () => {
     const [sprints, setSprints] = useState([{ nombre: 'Sprint 0', fechaInicio: '', fechaFin: '' }]);
     const [showRegisterPlanningOptions, setShowRegisterPlanningOptions] = useState(false);
 
-
     const toggleRegisterPlanningOptions = () => {
         setShowRegisterPlanningOptions(!showRegisterPlanningOptions);
     };
@@ -39,11 +38,26 @@ const PlanificacionForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validación: Asegúrate de que no haya campos vacíos en los sprints
-        for (let sprint of sprints) {
-            if (!sprint.nombre || !sprint.fechaInicio || !sprint.fechaFin) {
+        // Validación de fechas: asegurarse de que no haya solapamientos entre los sprints
+        for (let i = 0; i < sprints.length; i++) {
+            const sprint = sprints[i];
+            if (!sprint.fechaInicio || !sprint.fechaFin) {
                 alert('Por favor, completa todos los campos de los sprints.');
                 return;
+            }
+            for (let j = i + 1; j < sprints.length; j++) {
+                const otroSprint = sprints[j];
+                // Comparar las fechas de inicio y fin de los sprints
+                const fechaInicio1 = new Date(sprint.fechaInicio);
+                const fechaFin1 = new Date(sprint.fechaFin);
+                const fechaInicio2 = new Date(otroSprint.fechaInicio);
+                const fechaFin2 = new Date(otroSprint.fechaFin);
+
+                // Verificar si las fechas se solapan
+                if ((fechaInicio1 < fechaFin2 && fechaInicio2 < fechaFin1)) {
+                    alert(`El Sprint ${sprint.nombre} se solapa con el Sprint ${otroSprint.nombre}.`);
+                    return;
+                }
             }
         }
 
