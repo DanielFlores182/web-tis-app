@@ -3,30 +3,66 @@ import './asignar_tareas.css';
 import logo from '../images/logo.png';
 
 const AsignarTareas = () => {
+    const [grupoNombre, setGrupoNombre] = useState(''); // Estado para almacenar el grupo seleccionado
+    const [grupos, setGrupos] = useState([]); // Estado para almacenar los grupos disponibles
     const [tareas, setTareas] = useState([{ nombre: '', responsable: '', fechaEntrega: '', entregable: '' }]);
     const [sprints, setSprints] = useState([]); // Estado para almacenar los sprints
+    const [miembros, setMiembros] = useState([]); // Estado para almacenar los miembros del grupo
     const [sprintSeleccionado, setSprintSeleccionado] = useState(''); // Estado para el sprint seleccionado
     const [showRegisterOptions, setShowRegisterOptions] = useState(false);
     const [showRegisterPlanningOptions, setShowRegisterPlanningOptions] = useState(false);
 
+    // Simular la carga de grupos desde una API o base de datos
     useEffect(() => {
-        // Llamada al backend para obtener los sprints
-        const fetchSprints = async () => {
-            try {
-                const response = await fetch('http://localhost:8081/web-tis-app/backend/get_sprints.php'); // Cambiar URL según corresponda
-                const result = await response.json();
-                if (result.success) {
-                    setSprints(result.sprints); // Supone que el resultado es un array de nombres de sprints
-                } else {
-                    console.error('Error al obtener sprints:', result.error);
-                }
-            } catch (error) {
-                console.error('Error al conectar con el servidor:', error);
-            }
+        const fetchGrupos = async () => {
+            // Aquí puedes hacer una solicitud a la API para obtener los grupos
+            const gruposDisponibles = ['SodaCorp', 'grupo de prueba', 'pepito', 'tonto']; // Ejemplo de grupos
+            setGrupos(gruposDisponibles);
         };
 
-        fetchSprints();
+        fetchGrupos();
     }, []);
+
+    useEffect(() => {
+        // Llamada al backend para obtener los sprints cuando un grupo ha sido seleccionado
+        if (grupoNombre) {
+            const fetchSprints = async () => {
+                try {
+                    const response = await fetch(`http://localhost:8081/web-tis-app/backend/asig_tarea.php?grupo_nombre=${grupoNombre}`);
+                    const result = await response.json();
+                    if (result.success) {
+                        setSprints(result.sprints); // Supone que el resultado es un array de nombres de sprints
+                    } else {
+                        console.error('Error al obtener sprints:', result.error);
+                    }
+                } catch (error) {
+                    console.error('Error al conectar con el servidor:', error);
+                }
+            };
+
+            fetchSprints();
+        }
+    }, [grupoNombre]); // Actualizar los sprints cada vez que se seleccione un grupo
+
+    // Obtener los miembros del grupo cuando se selecciona un sprint
+    useEffect(() => {
+        if (sprintSeleccionado) {
+            const fetchMiembros = async () => {
+                try {
+                    const response = await fetch(`http://localhost:8081/web-tis-app/backend/asig_tarea.php?grupo_nombre_estudiantes=${grupoNombre}`);
+                    const result = await response.json();
+                    if (result.success) {
+                        setMiembros(result.miembros); // Guardar los miembros obtenidos
+                    } else {
+                        console.error('Error al obtener miembros:', result.error);
+                    }
+                } catch (error) {
+                    console.error('Error al conectar con el servidor:', error);
+                }
+            };
+            fetchMiembros();
+        }
+    }, [sprintSeleccionado, grupoNombre]); // Actualizar los miembros cuando se selecciona un sprint o grupo
 
     const toggleRegisterOptions = () => {
         setShowRegisterOptions(!showRegisterOptions);
@@ -59,7 +95,7 @@ const AsignarTareas = () => {
         }
 
         const data = {
-            sprint_nombre: sprintSeleccionado,
+            sprintId: sprintSeleccionado,
             tareas: tareas,
         };
 
@@ -121,8 +157,26 @@ const AsignarTareas = () => {
             </aside>
 
             <div className="tareas-container">
-                <h2>Asignar Tareas a un Sprint</h2>
+                <h2>Seleccionar Grupo</h2>
+                {/* Selector de Grupo */}
+                <label>
+                    Seleccionar Grupo:
+                    <select
+                        value={grupoNombre}
+                        onChange={(e) => setGrupoNombre(e.target.value)}
+                        required
+                    >
+                        <option value="">Seleccionar Grupo</option>
+                        {grupos.map((grupo, index) => (
+                            <option key={index} value={grupo}>
+                                {grupo}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+
                 {/* Selector de Sprint */}
+                <h2>Asignar Tareas a un Sprint</h2>
                 <label>
                     Seleccionar Sprint:
                     <select
@@ -132,12 +186,13 @@ const AsignarTareas = () => {
                     >
                         <option value="">Seleccionar Sprint</option>
                         {sprints.map((sprint, index) => (
-                            <option key={index} value={sprint.nombre}>
-                                {sprint.nombre}
+                            <option key={index} value={sprint.id}>
+                                {sprint.nombre} {/* Mostrar el nombre del sprint */}
                             </option>
                         ))}
                     </select>
                 </label>
+
                 <form onSubmit={handleSubmit}>
                     {tareas.map((tarea, index) => (
                         <div key={index} className="tarea-row">
@@ -159,8 +214,11 @@ const AsignarTareas = () => {
                                     required
                                 >
                                     <option value="">Miembro de equipo</option>
-                                    <option value="miembro1">Miembro 1</option>
-                                    <option value="miembro2">Miembro 2</option>
+                                    {miembros.map((miembro) => (
+                                        <option key={miembro.id_estudiante} value={miembro.id_estudiante}>
+                                            {miembro.id_estudiante} {/* o miembro.nombre si existe */}
+                                        </option>
+                                    ))}
                                 </select>
                             </label>
                             <label>

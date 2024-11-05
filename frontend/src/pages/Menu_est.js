@@ -80,6 +80,6 @@ function MenuEst() {
       </main>
     </div>
   );
+ } 
 }
-
 export default MenuEst;
