@@ -7,12 +7,8 @@ const PlanificacionForm = () => {
     const [grupoDocente, setGrupoDocente] = useState('');
     const [objetivo, setObjetivo] = useState('');
     const [sprints, setSprints] = useState([{ nombre: 'Sprint 0', fechaInicio: '', fechaFin: '' }]);
-    const [showRegisterOptions, setShowRegisterOptions] = useState(false);
     const [showRegisterPlanningOptions, setShowRegisterPlanningOptions] = useState(false);
 
-    const toggleRegisterOptions = () => {
-        setShowRegisterOptions(!showRegisterOptions);
-    };
 
     const toggleRegisterPlanningOptions = () => {
         setShowRegisterPlanningOptions(!showRegisterPlanningOptions);
@@ -93,15 +89,6 @@ const PlanificacionForm = () => {
                 <nav>
                     <ul>
                         <li>
-                            <a href="#!" onClick={toggleRegisterOptions}>Registrar Grupo</a>
-                            {showRegisterOptions && (
-                                <ul className="submenu">
-                                    <li><a href="/registrar_grupo">Nuevo Grupo</a></li>
-                                    <li><a href="/agregar_est">Agregar Estudiantes</a></li>
-                                </ul>
-                            )}
-                        </li>
-                        <li>
                             <a href="#!" onClick={toggleRegisterPlanningOptions}>Registrar Planificación</a>
                             {showRegisterPlanningOptions && (
                                 <ul className="submenu">
@@ -110,13 +97,6 @@ const PlanificacionForm = () => {
                                 </ul>
                             )}
                         </li>
-                        <li><a href="/perfil">Tareas pendientes</a></li>
-                        <li><a href="/perfil">Cronograma de actividades</a></li>
-                        <li><a href="/perfil">Historial de evaluaciones</a></li>
-                        <li><a href="/perfil">Ver grupo</a></li>
-                        <li><a href="/perfil">Darse de baja</a></li>
-                        <li><a href="/configuracion">Configuraciones</a></li>
-                        <li><a href="/">Cerrar Sesión</a></li>
                     </ul>
                 </nav>
             </aside>

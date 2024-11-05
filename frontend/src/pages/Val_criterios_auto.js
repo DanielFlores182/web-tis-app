@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './Val_criterios_eval,css';
+//import './Val_criterios_eval.css';
+
 
 const AutoevaluacionForm = () => {
     const [fechaInicio, setFechaInicio] = useState('');

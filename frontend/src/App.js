@@ -16,8 +16,9 @@ import VerTarea from './pages/ver_tarea.js';
 import VerPlanilla from './pages/planilla.js';
 import VerPerfil from './pages/ver_perfil.js';
 import { UserProvider } from './controller/userContex';
-import EditarEstGrupo from './pages/Grupos/edit_est_grupo.js';
-
+import VerCriterios from './pages/Ver_criterio';
+import ValCriterioPares from './pages/Val_criterios_eval';
+import ValCriterioAuto from './pages/Val_criterios_auto';
 
 function App() {
   return (
@@ -43,7 +44,9 @@ function App() {
         <Route path="/ver_tarea" element={<VerTarea />} />
         <Route path="/planilla" element={<VerPlanilla />} />
         <Route path="/ver_perfil_tareas" element={<VerPerfil />} />
-        <Route path="/editar_est_grupo" element={<EditarEstGrupo />} />
+        <Route path="/Ver_criterio" element={<VerCriterios />} />
+        <Route path="/Val_criterios_eval" element={<ValCriterioPares />} />
+        <Route path="/Val_criterios_auto" element={<ValCriterioAuto/>} />
       </Routes>
     </Router>
     </UserProvider>
