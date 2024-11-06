@@ -19,6 +19,9 @@ import { UserProvider } from './controller/userContex';
 import VerCriterios from './pages/Ver_criterio';
 import ValCriterioPares from './pages/Val_criterios_eval';
 import ValCriterioAuto from './pages/Val_criterios_auto';
+import EditarEstGrupo from './pages/Grupos/edit_est_grupo.js';
+import RegistroEvaluacion from './pages/registro_eva.js';
+import RegCriterios from './pages/Reg_criterios.js';
 
 function App() {
   return (
@@ -47,6 +50,9 @@ function App() {
         <Route path="/Ver_criterio" element={<VerCriterios />} />
         <Route path="/Val_criterios_eval" element={<ValCriterioPares />} />
         <Route path="/Val_criterios_auto" element={<ValCriterioAuto/>} />
+        <Route path="/editar_est_grupo" element={<EditarEstGrupo />} />
+        <Route path="/registro_eva" element={<RegistroEvaluacion />} />
+        <Route path="/reg_criterios" element={<RegCriterios/>}/>
       </Routes>
     </Router>
     </UserProvider>

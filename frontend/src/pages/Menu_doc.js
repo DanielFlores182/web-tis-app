@@ -42,6 +42,7 @@ function MenuDoc() {
         </ul>
       )}
     </div>
+            <li><a href="/reg_criterios">Ver Criterios de evaiacion</a></li>
             <li><a href="/perfil">Ver evaluaciones</a></li>
             <li><a href="/registro_evaluacion">Programar evaluaciones</a></li>
             <li><a href="/perfil">Perfil</a></li>

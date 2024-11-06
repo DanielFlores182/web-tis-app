@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './Menu_est.css';
 import logo from '../images/logo.png';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../controller/userContex'; // Importar el contexto
+import { useUser } from '../controller/userContex.js'; // Importar el contexto
 
 function MenuEst() {
   const { username } = useUser(); // Extraer username del contexto
