@@ -8,11 +8,16 @@ import { useUser } from '../controller/userContex.js'; // Importar el contexto
 function MenuEst() {
   const { username } = useUser(); // Extraer username del contexto
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
+  const [showRegisterPlanningOptions, setShowRegisterPlanningOptions] = useState(false);
   const [showTaskOptions, setShowTaskOptions] = useState(false); // Estado para las opciones de Tareas
   const navigate = useNavigate();
 
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions);
+  };
+
+  const toggleRegisterPlanningOptions = () => {
+    setShowRegisterPlanningOptions(!showRegisterPlanningOptions);
   };
 
   const toggleTaskOptions = () => {
@@ -22,7 +27,7 @@ function MenuEst() {
   const handleModifyGroup = () => {
     navigate('/select_grupo');
   };
-
+  
   return (
     <div className="menu-container">
       <aside className="sidebar">
@@ -47,11 +52,21 @@ function MenuEst() {
                   <li><a href="/ver_perfil_tareas">Tareas publicadas</a></li>
                 </ul>
               )}
-            </li>
-            <li><a href="/perfin">Cronograma de actividades</a></li>
-            <li><a href="/perfin">Historial de evaluaciones</a></li>
+            </li>  
+            <li>
+              <a href="#!" onClick={toggleRegisterPlanningOptions}>Registrar Planificacion</a>
+              {showRegisterPlanningOptions && (
+                <ul className="submenu">
+                  <li><a href="/registro_planificacion">Crear Plan</a></li>
+                  <li><a href="/asignar_tareas">Asignar Tareas</a></li>
+                </ul>
+              )}
+            </li>  
+           <li><a href="/perfin">Tareas pendientes</a></li>
+           <li><a href="/perfin">Cronograma de actividades</a></li>
+           <li><a href="/perfin">Historial de evaluaciones</a></li>
+           <li><a href="/perfin">Ver grupo</a></li>
             <li><a href="/evaluacion_semanal/actas_semanales">Actas Semanales</a></li>
-            <li><a href="/perfin">Ver grupo</a></li>
             <li><a href="/perfin">Perfil</a></li>
             <li><a href="/perfin">Darse de baja</a></li>
             <li><a href="/est_config">Configuraciones</a></li>
@@ -67,5 +82,6 @@ function MenuEst() {
       </main>
     </div>
   );
-}
+ } 
+
 export default MenuEst;
