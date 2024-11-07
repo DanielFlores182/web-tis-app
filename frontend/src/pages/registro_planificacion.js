@@ -75,7 +75,7 @@ const PlanificacionForm = () => {
 
         try {
             console.log(data, sprints)
-            const response = await fetch('http://localhost:8081/web-tis-app/backend/reg_planificacion.php', {
+            const response = await fetch('https://web-tis-app-production.up.railway.app/reg_planificacion.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

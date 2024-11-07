@@ -32,7 +32,7 @@ const RegistroEvaluacion = () => {
       e.preventDefault();
   
       try {
-          const response = await fetch('http://localhost:8081/web-tis-app/backend/reg_tipo_eva.php', {
+          const response = await fetch('https://web-tis-app-production.up.railway.app/reg_tipo_eva.php', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',

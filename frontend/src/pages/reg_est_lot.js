@@ -35,7 +35,7 @@ const RegEstLot = () => {
                     carrera: row[3]
                 };
 
-                await fetch('http://web-tis-app-production.up.railway.app/reg_est_ind.php', {
+                await fetch('https://web-tis-app-production.up.railway.app/reg_est_ind.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

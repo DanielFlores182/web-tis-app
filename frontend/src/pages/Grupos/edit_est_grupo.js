@@ -25,7 +25,7 @@ const EditEstGrupoView = () => {
         const fetchRegisteredStudents = async () => {
             if (grupo_nombre) {
                 try {
-                    const response = await fetch('http://localhost:8081/web-tis-app/backend/get_est_from_grupo.php', {
+                    const response = await fetch('https://web-tis-app-production.up.railway.app/get_est_from_grupo.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ const EditEstGrupoView = () => {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await fetch('http://localhost:8081/web-tis-app/backend/get_estudiantes.php');
+                const response = await fetch('https://web-tis-app-production.up.railway.app/get_estudiantes.php');
                 const data = await response.json();
 
                 if (Array.isArray(data)) {
@@ -95,7 +95,7 @@ const EditEstGrupoView = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:8081/web-tis-app/backend/add_estu_to_group.php', {
+            const response = await fetch('https://web-tis-app-production.up.railway.app/add_estu_to_group.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -132,7 +132,7 @@ const EditEstGrupoView = () => {
 
     const handleDeleteStudent = async (student) => {
         try {
-            const response = await fetch('http://web-tis-app-production.up.railway.app/eliminar_estudiante.php', {
+            const response = await fetch('https://web-tis-app-production.up.railway.app/eliminar_estudiante.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -28,7 +28,7 @@ const AsignarTareas = () => {
         if (grupoNombre) {
             const fetchSprints = async () => {
                 try {
-                    const response = await fetch(`http://localhost:8081/web-tis-app/backend/asig_tarea.php?grupo_nombre=${grupoNombre}`);
+                    const response = await fetch(`https://web-tis-app-production.up.railway.app/asig_tarea.php?grupo_nombre=${grupoNombre}`);
                     const result = await response.json();
                     if (result.success) {
                         setSprints(result.sprints); // Supone que el resultado es un array de nombres de sprints

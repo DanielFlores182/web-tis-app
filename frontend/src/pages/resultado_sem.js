@@ -15,7 +15,7 @@ function ResultadoSem() {
     // Función para obtener la evaluación del grupo
     const fetchEstadoEvaluacion = async (grupoMateria) => {
         try {
-            const response = await fetch('http://web-tis-app-production.up.railway.app/get_todas_las_actas.php', {
+            const response = await fetch('https://web-tis-app-production.up.railway.app/get_todas_las_actas.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ function ResultadoSem() {
     useEffect(() => {
         const fetchGrupos = async () => {
             try {
-                const response = await fetch('http://web-tis-app-production.up.railway.app/get_grupo_mat.php');
+                const response = await fetch('https://web-tis-app-production.up.railway.app/get_grupo_mat.php');
                 const data = await response.json();
                 setGrupos(data); // Guardar los grupos obtenidos
             } catch (error) {

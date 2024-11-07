@@ -14,7 +14,7 @@ const GruposView = () => {
     useEffect(() => {
         const fetchTeachers = async () => {
             try {
-                const response = await fetch('http://web-tis-app-production.up.railway.app/get_docentes.php');
+                const response = await fetch('https://web-tis-app-production.up.railway.app/get_docentes.php');
                 const data = await response.json();
                 setTeachers(data);
             } catch (error) {
@@ -35,7 +35,7 @@ const GruposView = () => {
         }
 
         try {
-            const response = await fetch('http://web-tis-app-production.up.railway.app/registrar_grupo.php', {
+            const response = await fetch('https://web-tis-app-production.up.railway.app/registrar_grupo.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
