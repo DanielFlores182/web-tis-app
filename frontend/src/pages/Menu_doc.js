@@ -10,6 +10,11 @@ function MenuDoc() {
     setShowRegisterOptions(!showRegisterOptions); // Cambiar entre mostrar y ocultar
   };
 
+  const [showCriteriosOptions, setShowCriteriosOptions] = useState(false);
+
+  const toggleCriteriosOptions = () => {
+    setShowCriteriosOptions(!showCriteriosOptions);
+  };
   return (
     <div className="menu-container">
       <aside className="sidebar">
@@ -26,6 +31,17 @@ function MenuDoc() {
                 </ul>
               )}
             </li>
+            <div>
+      <a href="#!" onClick={toggleCriteriosOptions}>Criterios de Evaluación</a>
+             {showCriteriosOptions && (
+               <ul className="submenu">
+              <li><a href="#!">Ver Criterios de Evaluación</a></li>
+              <li><a href="/Reg_criterios">Registrar Criterios de Evaluación</a></li>
+              <li><a href="/Val_criterios_eval">Validar Criterios de Evaluación de pares</a></li>
+              <li><a href="/Val_criterios_auto">Validar Criterios de Autoevaluacion</a></li>
+        </ul>
+      )}
+    </div>
             <li><a href="/reg_criterios">Ver Criterios de evaiacion</a></li>
             <li><a href="/perfil">Ver evaluaciones</a></li>
             <li><a href="/registro_eva">Programar evaluaciones</a></li>

@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS public.evaluacion_pares
     id_estudiante integer NOT NULL,
     evaluado integer NOT NULL,
     CONSTRAINT evaluacion_pares_pkey PRIMARY KEY (evaluacion_plan_grupo_nombre, evaluacion_plan_grupo_id_docente, id_estudiante, evaluado)
+
 );
 
 CREATE TABLE IF NOT EXISTS public.evaluacion_pro
