@@ -8,9 +8,7 @@ import { useUser } from '../controller/userContex.js'; // Importar el contexto
 function MenuEst() {
   const { username } = useUser(); // Extraer username del contexto
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
-  const [showRegisterPlanningOptions, setShowRegisterPlanningOptions] = useState(false);   
-  const toggleRegisterPlanningOptions = () => {
-    setShowRegisterPlanningOptions(!showRegisterPlanningOptions); // Cambiar entre mostrar y ocultar
+  const [showRegisterPlanningOptions, setShowRegisterPlanningOptions] = useState(false);
   const [showTaskOptions, setShowTaskOptions] = useState(false); // Estado para las opciones de Tareas
   const navigate = useNavigate();
 
@@ -85,5 +83,5 @@ function MenuEst() {
     </div>
   );
  } 
-}
+
 export default MenuEst;
