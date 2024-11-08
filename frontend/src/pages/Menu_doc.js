@@ -35,18 +35,15 @@ function MenuDoc() {
       <a href="#!" onClick={toggleCriteriosOptions}>Criterios de Evaluación</a>
              {showCriteriosOptions && (
                <ul className="submenu">
-              <li><a href="#!">Ver Criterios de Evaluación</a></li>
+              <li><a href="/Ver_criterios">Ver Criterios de Evaluación</a></li>
               <li><a href="/Reg_criterios">Registrar Criterios de Evaluación</a></li>
               <li><a href="/Val_criterios_eval">Validar Criterios de Evaluación de pares</a></li>
               <li><a href="/Val_criterios_auto">Validar Criterios de Autoevaluacion</a></li>
         </ul>
       )}
     </div>
-            <li><a href="/reg_criterios">Ver Criterios de evaiacion</a></li>
             <li><a href="/perfil">Ver evaluaciones</a></li>
             <li><a href="/registro_eva">Programar evaluaciones</a></li>
-            <li><a href="/perfil">Perfil</a></li>
-            <li><a href="/doc_config">Configuraciones</a></li>
             <li><a href="/">Cerrar Sesion</a></li>
           </ul>
         </nav>
