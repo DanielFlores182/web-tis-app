@@ -1,48 +1,98 @@
+/* Estilo general del contenedor */
 .menu-container {
     display: flex;
     height: 100vh;
-  }
-  .header-logo {
-    width: 50%; /* Ancho completo */
-    height: auto; /* Mantiene la proporción de la imagen */
-    display: block; /* Asegura que no haya espacio extra */
-  }
-  .sidebar {
-    width: 250px;
-    background-color: #1e2342;
-    color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column; /* Coloca los elementos en columna */
-    justify-content: flex-end;
-    height: 100vh;
+    background-color: #ffffff;
   }
   
-  .sidebar nav ul {
+  /* Barra lateral */
+  .sidebar {
+    width: 200px;
+    background-color: var(--secondary-color);
+    padding: 15px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinea el contenido a la izquierda */
+    height: 100vh;
+    overflow-y: auto;
+    position: fixed; /* Fija la barra lateral */
+    left: 0; /* Asegura que se quede en el borde izquierdo */
+  }
+  
+  /* Logo en la barra lateral */
+  .header-logo {
+    width: 80%;
+    margin-bottom: 15px;
+  }
+  
+  /* Título en la barra lateral */
+  .header-title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  /* Enlaces de navegación */
+  nav ul {
     list-style-type: none;
     padding: 0;
   }
   
-  .sidebar nav ul li {
-    margin: 20px 0;
+  nav ul li {
+    margin-bottom: 12px;
   }
   
-  .sidebar nav ul li a {
+  nav ul li a {
     color: white;
     text-decoration: none;
-    transition: color 0.3s;
-    font-size: 14px;
+    font-size: 1rem;
+    padding: 8px 0;
   }
   
-  .sidebar nav ul li a:hover {
-    color: red; /* Cambia a rojo al pasar el cursor */
+  nav ul li a:hover {
+    color: #e74c3c;
   }
   
+  /* Submenú */
+  .submenu {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 20px;
+  }
+  
+  .submenu li {
+    margin-bottom: 8px;
+  }
+  
+  .submenu li a {
+    color: white;
+    font-size: 0.9rem;
+  }
+  
+  .submenu li a:hover {
+    color: #e74c3c;
+  }
+  
+  /* Estilo del contenido principal */
   .content {
     flex-grow: 1;
-    padding: 20px;
-    background-color: #f1f1f1;
+    padding: 30px;
+    color: #333;
   }
-  h1{
-    color: #CC1616
+  
+  .content h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
   }
+  
+  .content h3 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+  }
+  
+  .content p {
+    font-size: 1rem;
+    color: #666;
+  }
+  

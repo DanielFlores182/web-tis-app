@@ -1,38 +1,54 @@
-.App {
-  text-align: center;
+/* Resetear márgenes y paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Variables globales */
+:root {
+  --primary-color: #cc1616 ;
+  --secondary-color: #1e2342 ;
+  --font-family: 'Arial', sans-serif;
+  --font-size-base: 2vw;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Estilo básico para el body */
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  background-color: #1e2342 ;
+  color: #333;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+/* Estilos de encabezados */
+h1, h2, h3 {
+  color: var(--primary-color);
+  font-size: 4vw; /* tamaño relativo basado en el ancho de la pantalla */
+}
+
+/* Botones */
+button {
+  background-color: var(--secondary-color);
   color: white;
+  border: none;
+  padding: 2vw 5vw; /* unidades relativas */
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+button:hover {
+  background-color: darkgreen;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Layout de contenedor principal */
+.container {
+  width: 90%; /* ancho relativo */
+  max-width: 1200px;
+  margin: 0 auto; /* centrar */
+}
+
+/* Estilo de las imágenes */
+img {
+  width: 100%;
+  height: auto;
 }

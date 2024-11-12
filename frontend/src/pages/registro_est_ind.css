@@ -1,69 +1,63 @@
-.menu-container {
-    display: flex;
-    height: 100vh;
-  }
-  
-  .sidebar {
-    width: 250px;
-    background-color: #1e2342;
-    color: white;
-    padding: 20px;
-  }
-  
-  .sidebar nav ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar nav ul li {
-    margin: 20px 0;
-  }
-  
-  .sidebar nav ul li a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .content {
-    flex-grow: 1;
-    padding: 20px;
-    background-color: #f1f1f1;
-  }
-  
-  .register-form {
-    display: flex;
-    flex-direction: column;
+/* Estilo general del contenedor del formulario */
+.form-container {
     width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
+  /* Burbuja de fondo */
+  .bubble-background {
+    background-color: #f0f8ff;
+    padding: 30px;
+    border-radius: 15px;
+  }
+  
+  /* Campos de entrada */
   .form-group {
     margin-bottom: 15px;
   }
   
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
+  .form-label {
+    font-size: 1rem;
+    color: #555;
   }
   
-  .form-group input {
+  .form-input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 15px;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
   }
   
+  .form-input:focus {
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* Botón de envío */
   .submit-button {
-    background-color: #1e2342;
+    background-color: #cc1616;
     color: white;
-    padding: 10px 15px;
+    padding: 12px 0;
+    font-size: 1rem;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
   }
   
   .submit-button:hover {
-    background-color: #343a52;
+    background-color: #ff4d4d;
+  }
+  
+  /* Ajuste del tamaño de fuente */
+  body, .form-label, .submit-button {
+    font-size: 0.85rem; /* Fuente más pequeña */
   }
   

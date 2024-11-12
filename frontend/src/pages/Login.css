@@ -1,110 +1,122 @@
-
-.login-container {
+/* Reset de márgenes y paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Variables globales de color */
+  :root {
+    --primary-color: #1e2342; /* Azul marino (fondo) */
+    --secondary-color: #cc1616; /* Verde */
+    --background-color: #ffffff; /* Blanco */
+    --form-background: #ffffff; /* Blanco */
+    --error-color: #cc1616; /* Rojo intenso */
+    --font-family: 'Arial', sans-serif;
+  }
+  
+  /* Estilos generales del body */
+  body {
+    font-family: var(--font-family);
+    background-color: var(--primary-color); /* Fondo azul marino */
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    height: 100vh; /* Mantiene la altura del viewport */
-    background-color: #1e2342 ; /* Azul marino */
-    color: #1e2342 ; /* Color de texto blanco */
+    align-items: center;
+    height: 100vh;
+    margin: 0;
   }
   
-  .bubble {
-    background-color: white; /* Fondo blanco para la burbuja */
-    padding: 5%; /* Espaciado interno usando porcentaje */
-    border-radius: 10%; /* Bordes redondeados en porcentaje */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra suave */
-    width: 50%; /* Ancho de la burbuja en porcentaje */
-
-    max-width: 400px; /* Ancho máximo para pantallas grandes */
-  }
-
-  .form-label {
-    color: #CC1616; /* Rojo */
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+  /* Contenedor del formulario */
+  .login-container {
+    width: 90%;
+    max-width: 400px;
+    background-color: var(--form-background); /* Fondo blanco para el formulario */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .form-input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border-radius: 5px;
-    border: 1px solid #CC1616; /* Borde rojo */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .form-input:focus {
-    border-color: #CC1616; /* Borde rojo más intenso al hacer foco */
-    box-shadow: 0 0 8px rgba(204, 22, 22, 0.5); /* Sombra roja al enfocar */
-    outline: none;
-  }
-
+  /* Título */
   .login-title {
-    font-size: 2rem; /* Tamaño de fuente grande */
-    margin-bottom: 5%; /* Espaciado inferior usando porcentaje */
-    color: #CC1616; /* Color de título rojo */
-    text-align: center; /* Centrar el texto */
+    font-size: 3vw;
+    text-align: center;
+    color: var(--primary-color); /* Azul marino */
   }
   
+  /* Subtítulo */
   .login-subtitle {
-    color: white; /* Color blanco */
-    font-size: 0.65rem; /* Tamaño de fuente más pequeño (14px aprox) */
-    margin-bottom: 1rem; /* Espacio debajo del subtítulo */
-    margin-top: -20px;
-    text-align: center; /* Centra el texto */
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #555;
   }
-
+  
+  /* Burbuja de fondo */
+  .bubble {
+    background-color: #e0f7fa;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  /* Estilo del formulario */
   .login-form {
     display: flex;
     flex-direction: column;
-    width: 100%; /* Ancho completo dentro de la burbuja */
   }
   
+  /* Estilo de los campos de entrada */
   .form-group {
-    margin-bottom: 5%; /* Espaciado inferior usando porcentaje */
+    margin-bottom: 15px;
   }
   
-  label {
-    margin-bottom: 2%; /* Espaciado inferior usando porcentaje */
-    font-weight: bold;
+  .form-label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #333;
   }
   
-  input {
-    padding: 3%; /* Espaciado interno en porcentaje */
-    border: 1px solid #1e2342 ; /* Borde azul marino */
-    border-radius: 2%; /* Bordes redondeados en porcentaje */
-    background-color: transparent; /* Fondo transparente */
-    color: #1e2342 ; /* Color de texto azul marino */
-    width: 100%; /* Ancho completo */
+  .form-input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
   }
   
-  input::placeholder {
-    color: #1e2342 ; /* Color del placeholder azul marino */
-  }
-  
+  /* Botón de submit */
   .login-button {
-    padding: 3%; /* Espaciado interno en porcentaje */
-    background-color: #CC1616; /* Color de botón rojo */
-    color: white; /* Color de texto blanco en el botón */
+    background-color: var(--error-color); /* Botón rojo */
+    color: white;
+    padding: 12px;
     border: none;
-    border-radius: 2%; /* Bordes redondeados en porcentaje */
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    width: 100%; /* Ancho completo */
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
   }
   
   .login-button:hover {
-    background-color: #3498db; /* Color más oscuro al pasar el ratón */
+    background-color: #e74c3c; /* Rojo más claro */
   }
   
-  .forgot-password {
-    margin-top: 5%; /* Espaciado superior usando porcentaje */
+  /* Mensaje de error */
+  .error-message {
+    color: var(--error-color); /* Mensaje de error en rojo */
     text-align: center;
+    margin-top: 10px;
   }
   
-  .forgot-password a {
-    color: #1e2342 ; /* Color del enlace azul marino */
-    text-decoration: underline;
-  }
+  /* Media queries para hacerlo responsive */
+  @media (max-width: 600px) {
+    .login-title {
+      font-size: 4vw;
+    }
   
+    .login-subtitle {
+      font-size: 1rem;
+    }
+  
+    .login-button {
+      font-size: 1rem;
+      padding: 10px;
+    }
+  }

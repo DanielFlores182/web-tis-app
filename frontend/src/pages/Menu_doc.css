@@ -1,59 +1,96 @@
+/* Estilo general del contenedor */
 .menu-container {
     display: flex;
     height: 100vh;
+    background-color: #ffffff;
+  }
+  
+  /* Barra lateral */
+  .sidebar {
+    width: 200px; /* Reducir el ancho */
+    background-color: var(--secondary-color);
+    padding: 15px;
+    font-size: 1rem; /* Fuente más pequeña */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh; /* Altura completa de la ventana */
+    overflow-y: auto; /* Agrega scroll cuando el contenido es más grande que el contenedor */
   }
   
   .header-logo {
-    width: 50%; /* Ancho completo */
-    height: auto; /* Mantiene la proporción de la imagen */
-    display: block; /* Asegura que no haya espacio extra */
+    width: 80%;
+    margin-bottom: 20px;
   }
   
-  .sidebar {
-    width: 400px;
-    background-color: #1e2342;
-    color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column; /* Coloca los elementos en columna */
-    justify-content: flex-end;
-    height: 100vh;
+  .header-title {
+    font-size: 1.5rem; /* Reducir el tamaño del título */
+    text-align: center;
+    margin-bottom: 10px;
   }
   
-  .sidebar nav ul {
+  nav ul {
     list-style-type: none;
     padding: 0;
   }
   
-  .sidebar nav ul li {
-    margin: 20px 0;
+  nav ul li {
+    margin-bottom: 15px;
   }
   
-  .sidebar nav ul li a {
+  nav ul li a {
     color: white;
     text-decoration: none;
-    transition: color 0.3s;
-    font-size: 14px;
+    font-size: 1rem; /* Reducir tamaño de fuente */
+    padding: 8px 0; /* Ajustar padding */
   }
-
-  .sidebar nav ul li a:hover {
-    color: red; /* Cambia a rojo al pasar el cursor */
+  
+  nav ul li a:hover {
+    color: #e74c3c;
   }
-
+  
+  /* Submenú */
   .submenu {
+    list-style-type: none;
+    padding: 0;
     margin-left: 20px;
-    color: #CC1616;
+    max-height: 400px; /* Altura máxima para los submenús */
+    overflow-y: auto; /* Permite que los submenús tengan su propio scroll si son muy largos */
+  }
+  
+  .submenu li {
+    margin-bottom: 10px;
   }
   
   .submenu li a {
-    color: #CC1616; /* Cambiar color para submenú */
-    text-decoration:dashed;
+    color: white;
+    font-size: 0.9rem; /* Fuente aún más pequeña para submenú */
   }
+  
+  .submenu li a:hover {
+    color: #e74c3c;
+  }
+  
+  /* Estilo del contenido principal */
   .content {
     flex-grow: 1;
-    padding: 20px;
-    background-color: #f1f1f1;
+    padding: 30px;
+    color: #333;
   }
-  h1{
-    color: #CC1616
+  
+  .content h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
   }
+  
+  .content h3 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+  }
+  
+  .content p {
+    font-size: 1rem;
+    color: #666;
+  }
+  
