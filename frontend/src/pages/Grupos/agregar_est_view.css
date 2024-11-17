@@ -1,0 +1,5 @@
+.content {
+    margin: 0 auto; /* Centra el contenido horizontalmente */
+    max-width: 800px; /* Limita el ancho */
+    padding: 15px; /* Añade un poco de espacio interior */
+}

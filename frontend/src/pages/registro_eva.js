@@ -29,7 +29,7 @@ const RegistroEvaluacion = () => {
     };
 
     const handleEvaluationSubmit = async (e) => {
-      e.preventDefault();
+    e.preventDefault();
   
       try {
           const response = await fetch('https://web-tis-app-production.up.railway.app/reg_tipo_eva.php', {
