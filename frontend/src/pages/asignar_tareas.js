@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './asignar_tareas.css';
 import logo from '../images/logo.png';
+import { useNavigate } from 'react-router-dom';
 
 const AsignarTareas = () => {
     const [grupoNombre, setGrupoNombre] = useState(''); // Estado para almacenar el grupo seleccionado
@@ -11,6 +12,8 @@ const AsignarTareas = () => {
     const [sprintSeleccionado, setSprintSeleccionado] = useState(''); // Estado para el sprint seleccionado
     const [showRegisterOptions, setShowRegisterOptions] = useState(false);
     const [showRegisterPlanningOptions, setShowRegisterPlanningOptions] = useState(false);
+    const [showTaskOptions, setShowTaskOptions] = useState(false); // Estado para las opciones de Tareas
+    const navigate = useNavigate();
 
     // Simular la carga de grupos desde una API o base de datos
     useEffect(() => {
@@ -93,7 +96,7 @@ const AsignarTareas = () => {
             alert('Por favor, selecciona un sprint.');
             return;
         }
-
+       
         const data = {
             sprintId: sprintSeleccionado,
             tareas: tareas,
@@ -119,42 +122,53 @@ const AsignarTareas = () => {
             alert('Error al conectar con el servidor');
         }
     };
+    const toggleTaskOptions = () => {
+        setShowTaskOptions(!showTaskOptions);
+      };
+    
+      const handleModifyGroup = () => {
+        navigate('/select_grupo');
+      };
 
     return (
         <div className="app-container">
-            <aside className="sidebar">
-                <img src={logo} alt="Logo de la Empresa" className="header-logo" />
-                <h1 className="header-title">Estudiante</h1>
-                <nav>
-                    <ul>
-                        <li>
-                            <a href="#!" onClick={toggleRegisterOptions}>Registrar Grupo</a>
-                            {showRegisterOptions && (
-                                <ul className="submenu">
-                                    <li><a href="/registrar_grupo">Nuevo Grupo</a></li>
-                                    <li><a href="/agregar_est">Agregar Estudiantes</a></li>
-                                </ul>
-                            )}
-                        </li>
-                        <li>
-                            <a href="#!" onClick={toggleRegisterPlanningOptions}>Registrar Planificación</a>
-                            {showRegisterPlanningOptions && (
-                                <ul className="submenu">
-                                    <li><a href="/registro_planificacion">Crear Plan</a></li>
-                                    <li><a href="/asignar_tareas">Asignar Tareas</a></li>
-                                </ul>
-                            )}
-                        </li>
-                        <li><a href="/perfil">Tareas pendientes</a></li>
-                        <li><a href="/perfil">Cronograma de actividades</a></li>
-                        <li><a href="/perfil">Historial de evaluaciones</a></li>
-                        <li><a href="/perfil">Ver grupo</a></li>
-                        <li><a href="/perfil">Darse de baja</a></li>
-                        <li><a href="/configuracion">Configuraciones</a></li>
-                        <li><a href="/">Cerrar Sesión</a></li>
-                    </ul>
-                </nav>
-            </aside>
+           <aside className="sidebar">
+        <img src={logo} alt="Logo de la Empresa" className="header-logo"></img>
+        <h1 className="header-title">Estudiante</h1>
+        <nav>
+          <ul>
+            <li>
+              <a href="#!" onClick={toggleRegisterOptions}>Registrar Grupo</a>
+              {showRegisterOptions && (
+                <ul className="submenu">
+                  <li><a href="/registrar_grupo">Nuevo Grupo</a></li>
+                  <li><a href="#!" onClick={handleModifyGroup}>Modificar Grupo</a></li>
+                </ul>
+              )}
+            </li>
+            <li>
+              <a href="#!" onClick={toggleTaskOptions}>Tareas</a> {/* Modificado a "Tareas" */}
+              {showTaskOptions && (
+                <ul className="submenu">
+                  <li><a href="/planilla">Planilla de tareas</a></li>
+                  <li><a href="/ver_perfil_tareas">Tareas publicadas</a></li>
+                </ul>
+              )}
+            </li>  
+            <li>
+              <a href="#!" onClick={toggleRegisterPlanningOptions}>Registrar Planificacion</a>
+              {showRegisterPlanningOptions && (
+                <ul className="submenu">
+                  <li><a href="/registro_planificacion">Crear Plan</a></li>
+                  <li><a href="/asignar_tareas">Asignar Tareas</a></li>
+                </ul>
+              )}
+            </li>  
+            <li><a href="/evaluacion_semanal/actas_semanales">Actas Semanales</a></li>
+            <li><a href="/">Cerrar Sesión</a></li>
+          </ul>
+        </nav>
+      </aside>
 
             <div className="tareas-container">
                 <h2>Seleccionar Grupo</h2>

@@ -1,0 +1,140 @@
+/* Estilo del contenedor principal */
+body {
+    background-color: #f9f9f9;
+    margin: 0;
+}
+
+.container {
+    margin-left: 250px;
+    padding: 20px;
+    background-color: #fff; /* Fondo blanco */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #1e2342; /* Azul oscuro */
+    color: white;
+    padding: 20px;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar .header-logo {
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+}
+
+.sidebar .header-title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 20px 0;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin: 15px 0;
+}
+
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.sidebar nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Submenú */
+.submenu {
+    list-style: none;
+    padding-left: 15px;
+    margin-top: 10px;
+}
+
+.submenu li {
+    margin: 10px 0;
+}
+
+.submenu li a {
+    font-size: 0.9rem;
+}
+
+/* Títulos */
+.titulo {
+    text-align: center;
+    color: #1e2342; /* Azul oscuro */
+    margin-top: 20px;
+    font-size: 1.8rem;
+    padding: 10px 0;
+    border-bottom: 2px solid #e6e6e6; /* Línea divisoria */
+}
+
+.subtitulo {
+    text-align: center;
+    color: #555;
+    margin: 10px 0 20px;
+    font-size: 1.2rem;
+    background-color: #f7f7f7; /* Fondo claro */
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Tabla */
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tabla th, .tabla td {
+    padding: 15px;
+    text-align: left;
+}
+
+.tabla th {
+    background-color: #1e2342; /* Azul oscuro */
+    color: white;
+}
+
+.tabla tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.tabla tr:hover {
+    background-color: #e6e6e6;
+}
+
+/* Botón */
+.btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007bff; /* Azul primario */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3; /* Azul más oscuro */
+}
