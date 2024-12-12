@@ -33,11 +33,13 @@ function ListaEstudiantes() {
         (estudiante) =>
           estudiante.nombres.toLowerCase().includes(term) ||
           estudiante.apellidos.toLowerCase().includes(term) ||
-          estudiante.correo.toLowerCase().includes(term) ||
-          estudiante.carrera.toLowerCase().includes(term) ||
-          estudiante.cod_sis.toString().includes(term)
+          estudiante.correo.toLowerCase().includes(term)
       )
     );
+  };
+  const careerMapping = {
+    1: "Informática",
+    2: "Sistemas",
   };
 
   return (
@@ -69,6 +71,7 @@ function ListaEstudiantes() {
               <th>Correo</th>
               <th>Carrera</th>
               <th>Cod SIS</th>
+              <th>Grupo</th>
             </tr>
           </thead>
           <tbody>
@@ -78,8 +81,9 @@ function ListaEstudiantes() {
                 <td>{estudiante.nombres}</td>
                 <td>{estudiante.apellidos}</td>
                 <td>{estudiante.correo}</td>
-                <td>{estudiante.carrera}</td>
+                <td>{careerMapping[estudiante.carrera]|| "desconocido"}</td>
                 <td>{estudiante.cod_sis}</td>
+                <td>{estudiante.grupo_materia}</td>
               </tr>
             ))}
           </tbody>

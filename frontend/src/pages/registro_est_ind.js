@@ -46,17 +46,19 @@ function RegistroEstInd() {
       });
 
       const data = await response.json();
-      
-      // Maneja la respuesta del servidor
+     // Maneja la respuesta del servidor
       if (data.success) {
-        alert('Estudiante registrado exitosamente!');
+        const redirect = window.confirm('Estudiante registrado exitosamente! ¿Quieres ir a la lista de estudiantes?');
+        if (redirect) {
+          window.location.href = '/lista_estudiantes';
+        }
       } else {
         alert('Mensaje: ' + data.message);
       }
-    } catch (error) {
-      console.error('Error en el envío:', error);
-      alert('Ocurrió un error al enviar los datos.');
-    }
+      } catch (error) {
+        console.error('Error en el envío:', error);
+        alert('Ocurrió un error al enviar los datos.');
+      }
   };
 
   return (

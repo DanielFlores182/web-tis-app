@@ -38,7 +38,8 @@ try {
                 'apellidos' => $estudiante['apellidos'],
                 'correo' => $estudiante['correo'],
                 'carrera' => $estudiante['carrera'],
-                'cod_sis' => $estudiante['cod_sis']
+                'cod_sis' => $estudiante['cod_sis'],
+                'grupo_materia' => $estudiante['grupo_materia']
             ];
         }, $estudiantes, array_keys($estudiantes));
 
