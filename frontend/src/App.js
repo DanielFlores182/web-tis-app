@@ -6,6 +6,7 @@ import Menuest from './pages/Menu_est.js';
 //paginas de registro de estudiantes
 import RegEstInd from './pages/registro_est_ind.js';
 import RegEstLot from './pages/reg_est_lot.js'
+import ListEst from './pages/Reportes/Lista_estudiantes.js';
 //paginas de grupos 
 import GroupView from './pages/Grupos/GruposView.js';
 import SelectGrupo from './pages/Grupos/select_grupo.js';
@@ -60,6 +61,7 @@ function App() {
         <Route path="/editar_est_grupo" element={<EditarEstGrupo />} />
         <Route path="/registro_eva" element={<RegistroEvaluacion />} />
         <Route path="/reg_criterios" element={<RegCriterios/>}/>
+        <Route path="/lista_estudiantes" element={<ListEst/>}/>
       </Routes>
     </Router>
     </UserProvider>

@@ -93,4 +93,20 @@
     font-size: 1rem;
     color: #666;
   }
+  .central-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #169bcc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .central-button:hover {
+    background-color: #A01313;
+  }
   
