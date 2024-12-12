@@ -46,6 +46,7 @@ function RegistroEstInd() {
       });
   
       const data = await response.json();
+      if(data.response===true){console.log('true')}
         // Restablecer el formulario a su estado inicial
         setFormData({
           nombres: '',
