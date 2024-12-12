@@ -62,7 +62,11 @@ const RegEstLot = () => {
                 .catch(error => console.error('Error al registrar estudiante:', error));
             }
             setIsSubmitted(true);
-            alert('Archivo procesado y estudiantes registrados.');
+            setFile(null); // Limpia el archivo seleccionado
+            const redirect = window.confirm('Estudiante registrado exitosamente! ¿Quieres ir a la lista de estudiantes?');
+            if (redirect) {
+              window.location.href = '/lista_estudiantes';
+            }
         };
         reader.readAsArrayBuffer(file);
     };

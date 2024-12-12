@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 // Habilitar CORS
 header("Access-Control-Allow-Origin: *"); // Permite solicitudes desde tu frontend
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");   // Métodos permitidos
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS"); // Métodos permitidos
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Encabezados permitidos
 
 // Manejar preflight (solicitudes OPTIONS)
@@ -33,11 +33,11 @@ try {
         $apellidos = $data->apellidos;
         $codsis = $data->codsis;
         $carrera = $data->carrera;
-        
+
         // Valores predeterminados para correo, username y clave
         $username = ''; // Se establece como vacío
         $correo = '';   // Se establece como vacío
-        $clave = '';    // Se establece como vacío (puedes cambiar esto si deseas otro valor)
+        $clave = '';    // Se establece como vacío
 
         // Llamar al procedimiento add_student de PostgreSQL
         $query = "CALL add_student(:nombres, :apellidos, :username, :codsis, :correo, :carrera, :clave)";
@@ -48,20 +48,19 @@ try {
         $stmt->bindParam(':codsis', $codsis);
         $stmt->bindParam(':correo', $correo);
         $stmt->bindParam(':carrera', $carrera);
-        $stmt->bindParam(':clave', $clave); // También envías el valor vacío para la clave
+        $stmt->bindParam(':clave', $clave);
 
         // Ejecutar la declaración
         if ($stmt->execute()) {
-            echo json_encode(['message' => 'Estudiante registrado con éxito.']);
-
+            echo json_encode(['success' => true]);
         } else {
-            throw new Exception('Error al registrar estudiante.');
+            echo json_encode(['success' => false]);
         }
     } else {
         throw new Exception('Método HTTP no permitido.');
     }
 } catch (Exception $e) {
-    // Devolver un error JSON
-    echo json_encode(['error' => $e->getMessage()]);
+    // Devolver un error JSON con success false
+    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
 }
 ?>

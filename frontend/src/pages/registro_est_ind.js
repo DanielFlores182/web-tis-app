@@ -27,10 +27,10 @@ function RegistroEstInd() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+  
     // Transformar la carrera en un número antes de enviar
     const carreraValue = formData.carrera === "Ing. Informatica" ? 1 : 2;
-
+  
     try {
       const response = await fetch('https://web-tis-app-production.up.railway.app/reg_est_ind.php', {
         method: 'POST',
@@ -38,28 +38,32 @@ function RegistroEstInd() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          nombres: formData.nombres, // Enviar el nombre
-          apellidos: formData.apellidos, // Enviar el apellido
-          codsis: formData.codsis, // Enviar el código SIS
-          carrera: carreraValue, // Enviar el valor numérico
-        }) 
+          nombres: formData.nombres,
+          apellidos: formData.apellidos,
+          codsis: formData.codsis,
+          carrera: carreraValue,
+        }),
       });
-
+  
       const data = await response.json();
-     // Maneja la respuesta del servidor
-      if (data.success) {
+        // Restablecer el formulario a su estado inicial
+        setFormData({
+          nombres: '',
+          apellidos: '',
+          codsis: '',
+          carrera: '',
+        });
+  
         const redirect = window.confirm('Estudiante registrado exitosamente! ¿Quieres ir a la lista de estudiantes?');
         if (redirect) {
           window.location.href = '/lista_estudiantes';
         }
-      } else {
-        alert('Mensaje: ' + data.message);
-      }
-      } catch (error) {
-        console.error('Error en el envío:', error);
-        alert('Ocurrió un error al enviar los datos.');
-      }
+    } catch (error) {
+      console.error('Error en el envío:', error);
+      alert('Ocurrió un error al enviar los datos.');
+    }
   };
+  
 
   return (
     <div className="menu-container">
