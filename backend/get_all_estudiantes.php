@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// Incluir la conexión a la base de datos
+
 require 'db_conection.php'; // Asegúrate de que la ruta a tu archivo de conexión es correcta
 
 header('Content-Type: application/json'); // Establece el tipo de contenido a JSON
