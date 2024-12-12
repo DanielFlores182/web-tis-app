@@ -20,6 +20,10 @@ function MenuDoc() {
     navigate('/lista_estudiantes');
   };
 
+  const handleTablaAnuncios = () => {
+    navigate('/tabla_anuncios');
+  };
+
   return (
     <div className="menu-container">
       <aside className="sidebar">
@@ -57,9 +61,14 @@ function MenuDoc() {
         <h1 style={{ color: '#CC1616' }}>Bienvenido,</h1>
         <h3 style={{ color: '#333' }}>Esta es la página principal para Docentes para el control de la materia TIS</h3>
         <p style={{ color: '#666' }}>Selecciona una opción de la barra de navegación o verifica los reportes abajo</p>
-        <button className="central-button" onClick={handleListaEstudiantes}>
-          Lista de Estudiantes
-        </button>
+        <div className="button-group">
+          <button className="central-button" onClick={handleListaEstudiantes}>
+            Lista de Estudiantes
+          </button>
+          <button className="central-button" onClick={handleTablaAnuncios}>
+            Tabla de Anuncios
+          </button>
+        </div>
       </main>
     </div>
   );

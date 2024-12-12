@@ -27,14 +27,14 @@ const RegEstLot = () => {
             alert('Por favor, selecciona un archivo.');
             return;
         }
-
+    
         const reader = new FileReader();
         reader.onload = async (event) => {
             const data = new Uint8Array(event.target.result);
             const workbook = XLSX.read(data, { type: 'array' });
             const worksheet = workbook.Sheets[workbook.SheetNames[0]];
             const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-
+    
             for (let i = 1; i < jsonData.length; i++) {
                 const row = jsonData[i];
                 const studentData = {
@@ -43,7 +43,7 @@ const RegEstLot = () => {
                     codsis: row[2],
                     carrera: row[3]
                 };
-
+    
                 await fetch('https://web-tis-app-production.up.railway.app/reg_est_ind.php', {
                     method: 'POST',
                     headers: {
@@ -61,15 +61,17 @@ const RegEstLot = () => {
                 })
                 .catch(error => console.error('Error al registrar estudiante:', error));
             }
+    
             setIsSubmitted(true);
-            setFile(null); // Limpia el archivo seleccionado
-            const redirect = window.confirm('Estudiante registrado exitosamente! ¿Quieres ir a la lista de estudiantes?');
+            setFile(null); // Limpia el campo de archivo
+            const redirect = window.confirm('Estudiantes registrados exitosamente. ¿Quieres ir a la lista de estudiantes?');
             if (redirect) {
-              window.location.href = '/lista_estudiantes';
+                window.location.href = '/lista_estudiantes';
             }
         };
         reader.readAsArrayBuffer(file);
     };
+    
 
     return (
         <div className="menu-container">
