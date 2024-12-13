@@ -27,7 +27,8 @@ function NuevoAnuncio() {
       setError('Usuario no identificado. Por favor, inicia sesión.');
       return;
     }
-
+     const jsonprueba = JSON.stringify({ texto, id_docente: username });
+     console.log(jsonprueba);
     // Enviar los datos al backend con el formato solicitado
     fetch('https://web-tis-app-production.up.railway.app/add_anuncio.php', {
       method: 'POST',
