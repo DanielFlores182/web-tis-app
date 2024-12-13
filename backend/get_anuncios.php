@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// Incluir la conexión a la base de datos
 require 'db_conection.php'; // Asegúrate de que la ruta a tu archivo de conexión es correcta
 
 header('Content-Type: application/json'); // Establece el tipo de contenido a JSON
@@ -30,8 +29,19 @@ try {
         // Obtener los resultados
         $anuncios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        // Opcional: Enumerar los resultados
+        $anunciosConId = array_map(function($anuncio, $index) {
+            return [
+                'id' => $index + 1, // Enumeración comenzando desde 1
+                'docente_nombre' => $anuncio['docente_nombre'],
+                'texto' => $anuncio['texto'],
+                'grupo' => $anuncio['grupo'],
+                'fecha' => $anuncio['fecha']
+            ];
+        }, $anuncios, array_keys($anuncios));
+
         // Retornar los resultados en formato JSON
-        echo json_encode($anuncios);
+        echo json_encode($anunciosConId);
     } else {
         throw new Exception('Método HTTP no permitido.'); // Manejo de métodos no permitidos
     }
@@ -40,3 +50,4 @@ try {
     echo json_encode(['error' => $e->getMessage()]);
 }
 ?>
+

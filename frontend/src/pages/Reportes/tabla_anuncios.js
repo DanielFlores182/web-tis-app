@@ -18,7 +18,7 @@ function ListaAnuncios() {
       })
       .then((data) => {
         setAnuncios(data);
-        setFilteredAnuncios(data);
+        setFilteredAnuncios(data); // Establecer los anuncios originales al principio
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -58,8 +58,8 @@ function ListaAnuncios() {
           className="search-input"
         />
         <div className="anuncios-container">
-          {filteredAnuncios.map((anuncio, index) => (
-            <div key={index} className="anuncio-post">
+          {filteredAnuncios.map((anuncio) => (
+            <div key={anuncio.id} className="anuncio-post">
               <div className="anuncio-header">
                 <h2>{anuncio.docente_nombre}</h2>
                 <span>{new Date(anuncio.fecha).toLocaleString()}</span>
