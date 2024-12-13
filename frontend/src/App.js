@@ -9,6 +9,7 @@ import RegEstLot from './pages/reg_est_lot.js'
 //paginas de reportes 
 import TablaAnu from './pages/Reportes/tabla_anuncios.js';
 import ListEst from './pages/Reportes/Lista_estudiantes.js';
+import NuevoAnu from './pages/Reportes/nuevo_anuncio.js'
 //paginas de grupos 
 import GroupView from './pages/Grupos/GruposView.js';
 import SelectGrupo from './pages/Grupos/select_grupo.js';
@@ -65,6 +66,7 @@ function App() {
         <Route path="/reg_criterios" element={<RegCriterios/>}/>
         <Route path="/lista_estudiantes" element={<ListEst/>}/>
         <Route path="/tabla_anuncios" element={<TablaAnu/>}/>
+        <Route path="/nuevo_anuncio" element={<NuevoAnu/>}/>
       </Routes>
     </Router>
     </UserProvider>

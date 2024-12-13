@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './tabla_anuncios.css'; // Crea un archivo de estilos para los anuncios
 import logo from '../../images/logo.png';
+import { useNavigate } from 'react-router-dom';
 
 function ListaAnuncios() {
   const [anuncios, setAnuncios] = useState([]);
@@ -8,6 +9,7 @@ function ListaAnuncios() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
   const [showCriteriosOptions, setShowCriteriosOptions] = useState(false);
+  const navigate = useNavigate();
 
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions);
@@ -81,8 +83,16 @@ function ListaAnuncios() {
           </ul>
         </nav>
       </aside>
-      <main className="content">
-        <h1 style={{ color: '#CC1616' }}>Lista de Anuncios</h1>
+            <main className="content">
+        <div className="header-row">
+          <h1 style={{ color: '#CC1616' }}>Lista de Anuncios</h1>
+          <button
+            className="add-button"
+            onClick={() => navigate('/nuevo_anuncio')}
+          >
+            Añadir Nuevo Anuncio
+          </button>
+        </div>
         <input
           type="text"
           placeholder="Buscar anuncios..."
@@ -105,6 +115,7 @@ function ListaAnuncios() {
           ))}
         </div>
       </main>
+
     </div>
   );
 }
