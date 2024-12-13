@@ -6,6 +6,16 @@ function ListaEstudiantes() {
   const [estudiantes, setEstudiantes] = useState([]);
   const [filteredEstudiantes, setFilteredEstudiantes] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showRegisterOptions, setShowRegisterOptions] = useState(false);
+  const [showCriteriosOptions, setShowCriteriosOptions] = useState(false);
+
+  const toggleRegisterOptions = () => {
+    setShowRegisterOptions(!showRegisterOptions);
+  };
+
+  const toggleCriteriosOptions = () => {
+    setShowCriteriosOptions(!showCriteriosOptions);
+  };
 
   useEffect(() => {
     // Fetch para obtener la lista de estudiantes
@@ -46,10 +56,33 @@ function ListaEstudiantes() {
     <div className="menu-container">
       <aside className="sidebar">
         <img src={logo} alt="Logo de la Empresa" className="header-logo" />
-        <h1 className="header-title">Lista de Estudiantes</h1>
+        <h1 className="header-title">Docente</h1>
         <nav>
           <ul>
-            <li><a href="/menu_doc">Volver al Menú Principal</a></li>
+          <li><a href="/menu_doc">Volver al Menú Principal</a></li>
+            <li>
+              <a href="#!" onClick={toggleRegisterOptions}>Registrar Estudiante</a>
+              {showRegisterOptions && (
+                <ul className="submenu">
+                  <li><a href="/registro_est_ind">Registro Individual</a></li>
+                  <li><a href="/registro_est_lot">Registrar Por Lote</a></li>
+                </ul>
+              )}
+            </li>
+            <li>
+              <a href="#!" onClick={toggleCriteriosOptions}>Criterios de Evaluación</a>
+              {showCriteriosOptions && (
+                <ul className="submenu">
+                  <li><a href="/Ver_criterios">Ver Criterios de Evaluación</a></li>
+                  <li><a href="/Reg_criterios">Registrar Criterios de Evaluación</a></li>
+                  <li><a href="/Val_criterios_eval">Validar Criterios de Evaluación de pares</a></li>
+                  <li><a href="/Val_criterios_auto">Validar Criterios de Autoevaluacion</a></li>
+                </ul>
+              )}
+            </li>
+            <li><a href="/perfil">Ver evaluaciones</a></li>
+            <li><a href="/registro_eva">Programar evaluaciones</a></li>
+            <li><a href="/">Cerrar Sesión</a></li>
           </ul>
         </nav>
       </aside>
