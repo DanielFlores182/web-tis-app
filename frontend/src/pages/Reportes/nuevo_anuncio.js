@@ -28,11 +28,11 @@ function NuevoAnuncio() {
       return;
     }
 
-    // Enviar los datos al backend
-    fetch('https://web-tis-app-production.up.railway.app/add_anuncio.php', {
+    // Enviar los datos al backend con el formato solicitado
+    fetch('https://web-tis-app-production.up.railway.app/agregar_anuncio.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ texto, id_docente: username }),
+      body: JSON.stringify({ texto, id_docente: username }), // Formato JSON requerido
     })
       .then((response) => {
         if (!response.ok) {
