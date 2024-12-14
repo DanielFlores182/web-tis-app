@@ -104,7 +104,7 @@ function ListaAnuncios() {
           {filteredAnuncios.map((anuncio) => (
             <div key={anuncio.id} className="anuncio-post">
               <div className="anuncio-header">
-                <h2>{anuncio.docente_nombre}</h2>
+                <h5>{anuncio.docente_nombre}</h5>
                 <span>{new Date(anuncio.fecha).toLocaleString()}</span>
               </div>
               <p className="anuncio-text">{anuncio.texto}</p>
