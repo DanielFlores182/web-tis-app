@@ -11,7 +11,14 @@ function MenuEst() {
   const [showRegisterPlanningOptions, setShowRegisterPlanningOptions] = useState(false);
   const [showTaskOptions, setShowTaskOptions] = useState(false); // Estado para las opciones de Tareas
   const navigate = useNavigate();
+  
+  const handleListaEstudiantes = () => {
+    navigate('/lista_grupo');
+  };
 
+  const handleTablaAnuncios = () => {
+    navigate('/tabla_anuncios_est');
+  };
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions);
   };
@@ -72,6 +79,14 @@ function MenuEst() {
         <h1>Bienvenido, {username}</h1> {/* Mostrar el username */}
         <h3>Esta es la página principal para Estudiante para la materia TIS</h3>
         <p>Selecciona una opción de la barra de navegación.</p>
+        <div className="button-group">
+          <button className="central-button" onClick={handleListaEstudiantes}>
+            Lista de Estudiantes del Grupo
+          </button>
+          <button className="central-button" onClick={handleTablaAnuncios}>
+            Tabla de Anuncios
+          </button>
+        </div>
       </main>
     </div>
   );
