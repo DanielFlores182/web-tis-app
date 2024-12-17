@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './tabla_anuncios.css'; // Crea un archivo de estilos para los anuncios
 import logo from '../../images/logo.png';
-import { useNavigate } from 'react-router-dom';
 
 function ListaAnuncios() {
   const [anuncios, setAnuncios] = useState([]);
@@ -9,7 +8,7 @@ function ListaAnuncios() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
   const [showCriteriosOptions, setShowCriteriosOptions] = useState(false);
-  const navigate = useNavigate();
+  
 
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions);
@@ -56,7 +55,7 @@ function ListaAnuncios() {
         <h1 className="header-title">Docente</h1>
         <nav>
           <ul>
-          <li><a href="/menu_doc">Volver al Menú Principal</a></li>
+          <li><a href="/menu_est">Volver al Menú Principal</a></li>
             <li>
               <a href="#!" onClick={toggleRegisterOptions}>Registrar Estudiante</a>
               {showRegisterOptions && (
