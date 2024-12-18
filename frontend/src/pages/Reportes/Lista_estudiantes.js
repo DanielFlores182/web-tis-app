@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './Lista_estudiantes.css'; // Reutilizamos los estilos de Menu_doc
 import logo from '../../images/logo.png';
+import { useUser } from '../../controller/userContex'; // Ajusta la ruta según tu proyecto
 
 function ListaEstudiantes() {
   const [estudiantes, setEstudiantes] = useState([]);
   const [filteredEstudiantes, setFilteredEstudiantes] = useState([]);
+  const [docenteEstudiantes, setDocenteEstudiantes] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
   const [showCriteriosOptions, setShowCriteriosOptions] = useState(false);
+  const { username } = useUser(); // Obtén el usuario actual desde el contexto
 
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions);
@@ -18,7 +21,27 @@ function ListaEstudiantes() {
   };
 
   useEffect(() => {
-    // Fetch para obtener la lista de estudiantes
+    // Obtener estudiantes específicos para el docente
+    fetch('https://web-tis-app-production.up.railway.app/get_est_by_doc.php?username=username')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Error al obtener los estudiantes del docente');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.error) {
+          console.error('Error:', data.error);
+          setDocenteEstudiantes([]);
+        } else {
+          setDocenteEstudiantes(data); // Guardar estudiantes de este docente
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    // Fetch para obtener la lista de todos los estudiantes
     fetch('https://web-tis-app-production.up.railway.app/get_all_estudiantes.php')
       .then((response) => {
         if (!response.ok) {
@@ -47,6 +70,7 @@ function ListaEstudiantes() {
       )
     );
   };
+
   const careerMapping = {
     1: "Informática",
     2: "Sistemas",
@@ -59,7 +83,7 @@ function ListaEstudiantes() {
         <h1 className="header-title">Docente</h1>
         <nav>
           <ul>
-          <li><a href="/menu_doc">Volver al Menú Principal</a></li>
+            <li><a href="/menu_doc">Volver al Menú Principal</a></li>
             <li>
               <a href="#!" onClick={toggleRegisterOptions}>Registrar Estudiante</a>
               {showRegisterOptions && (
@@ -87,6 +111,34 @@ function ListaEstudiantes() {
         </nav>
       </aside>
       <main className="content">
+        <h1 style={{ color: '#CC1616' }}>Estudiantes del Docente</h1>
+        <table className="student-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Correo</th>
+              <th>Carrera</th>
+              <th>Cod SIS</th>
+              <th>Grupo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {docenteEstudiantes.map((estudiante, index) => (
+              <tr key={index}>
+                <td>{estudiante.id}</td>
+                <td>{estudiante.nombre_estudiante}</td>
+                <td>{estudiante.apellido_estudiante}</td>
+                <td>{estudiante.correo_estudiante}</td>
+                <td>{careerMapping[estudiante.carrera] || "desconocido"}</td>
+                <td>{estudiante.cod_sis}</td>
+                <td>{estudiante.grupo_nombre}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
         <h1 style={{ color: '#CC1616' }}>Lista de Estudiantes</h1>
         <input
           type="text"
@@ -114,7 +166,7 @@ function ListaEstudiantes() {
                 <td>{estudiante.nombres}</td>
                 <td>{estudiante.apellidos}</td>
                 <td>{estudiante.correo}</td>
-                <td>{careerMapping[estudiante.carrera]|| "desconocido"}</td>
+                <td>{careerMapping[estudiante.carrera] || "desconocido"}</td>
                 <td>{estudiante.cod_sis}</td>
                 <td>{estudiante.grupo_materia}</td>
               </tr>
