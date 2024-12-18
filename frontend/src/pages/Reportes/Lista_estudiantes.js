@@ -11,7 +11,7 @@ function ListaEstudiantes() {
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
   const [showCriteriosOptions, setShowCriteriosOptions] = useState(false);
   const { username } = useUser(); // Obtén el usuario actual desde el contexto
-
+  //const username2='corinaflores_doc'
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions);
   };
@@ -19,13 +19,15 @@ function ListaEstudiantes() {
   const toggleCriteriosOptions = () => {
     setShowCriteriosOptions(!showCriteriosOptions);
   };
-  if (!username) {
-    console.log('Usuario no identificado. Por favor, inicia sesión.');
-  }
+
   useEffect(() => {
-   
+    if (!username) {
+      console.log('Usuario no identificado. Por favor, inicia sesión.');
+      return; // Evita hacer las solicitudes si no hay usuario
+    }
+
     // Obtener estudiantes específicos para el docente
-    fetch('https://web-tis-app-production.up.railway.app/get_est_by_doc.php?username=username')
+    fetch(`https://web-tis-app-production.up.railway.app/get_est_by_doc.php?username=${username}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error al obtener los estudiantes del docente');
@@ -59,7 +61,7 @@ function ListaEstudiantes() {
       .catch((error) => {
         console.error('Error:', error);
       });
-  }, []);
+  }, [username]); // Ejecuta el efecto cuando cambia el username
 
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
