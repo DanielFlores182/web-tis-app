@@ -19,8 +19,11 @@ function ListaEstudiantes() {
   const toggleCriteriosOptions = () => {
     setShowCriteriosOptions(!showCriteriosOptions);
   };
-
+  if (!username) {
+    console.log('Usuario no identificado. Por favor, inicia sesión.');
+  }
   useEffect(() => {
+   
     // Obtener estudiantes específicos para el docente
     fetch('https://web-tis-app-production.up.railway.app/get_est_by_doc.php?username=username')
       .then((response) => {

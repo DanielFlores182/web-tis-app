@@ -29,7 +29,7 @@ try {
         $username_docente = $_GET['username']; // Obtiene el nombre de usuario del docente
 
         // Preparar la llamada a la función almacenada
-        $query = "SELECT * FROM obtener_estudiantes_por_grupo_docente(:username_docente);";
+        $query = "SELECT * FROM obtener_estudiantes_por_username_docente(:username_docente);";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':username_docente', $username_docente, PDO::PARAM_STR);
         $stmt->execute();
