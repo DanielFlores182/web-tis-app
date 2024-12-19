@@ -115,7 +115,7 @@ function ListaEstudiantes() {
                 </ul>
               )}
             </li>
-            <li><a href="/perfil">Ver evaluaciones</a></li>
+            <li><a href="/tabla_evaluaciones">Ver evaluaciones</a></li>
             <li><a href="/registro_eva">Programar evaluaciones</a></li>
             <li><a href="/">Cerrar Sesión</a></li>
           </ul>
