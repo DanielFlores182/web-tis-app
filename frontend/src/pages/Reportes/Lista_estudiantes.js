@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './Lista_estudiantes.css'; // Reutilizamos los estilos de Menu_doc
+import * as XLSX from 'xlsx'; // Importa XLSX para crear los archivos Excel
+import './Lista_estudiantes.css';
 import logo from '../../images/logo.png';
-import { useUser } from '../../controller/userContex'; // Ajusta la ruta según tu proyecto
+import { useUser } from '../../controller/userContex';
 
 function ListaEstudiantes() {
   const [estudiantes, setEstudiantes] = useState([]);
@@ -10,8 +11,8 @@ function ListaEstudiantes() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
   const [showCriteriosOptions, setShowCriteriosOptions] = useState(false);
-  const { username } = useUser(); // Obtén el usuario actual desde el contexto
-  //const username2='corinaflores_doc'
+  const { username } = useUser();
+  //const username ='corinaflores_doc';
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions);
   };
@@ -23,10 +24,9 @@ function ListaEstudiantes() {
   useEffect(() => {
     if (!username) {
       console.log('Usuario no identificado. Por favor, inicia sesión.');
-      return; // Evita hacer las solicitudes si no hay usuario
+      return;
     }
 
-    // Obtener estudiantes específicos para el docente
     fetch(`https://web-tis-app-production.up.railway.app/get_est_by_doc.php?username=${username}`)
       .then((response) => {
         if (!response.ok) {
@@ -39,14 +39,13 @@ function ListaEstudiantes() {
           console.error('Error:', data.error);
           setDocenteEstudiantes([]);
         } else {
-          setDocenteEstudiantes(data); // Guardar estudiantes de este docente
+          setDocenteEstudiantes(data);
         }
       })
       .catch((error) => {
         console.error('Error:', error);
       });
 
-    // Fetch para obtener la lista de todos los estudiantes
     fetch('https://web-tis-app-production.up.railway.app/get_all_estudiantes.php')
       .then((response) => {
         if (!response.ok) {
@@ -61,7 +60,7 @@ function ListaEstudiantes() {
       .catch((error) => {
         console.error('Error:', error);
       });
-  }, [username]); // Ejecuta el efecto cuando cambia el username
+  }, [username]);
 
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
@@ -79,6 +78,13 @@ function ListaEstudiantes() {
   const careerMapping = {
     1: "Informática",
     2: "Sistemas",
+  };
+
+  const downloadExcel = (data, filename) => {
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
+    XLSX.writeFile(workbook, `${filename}.xlsx`);
   };
 
   return (
@@ -143,6 +149,12 @@ function ListaEstudiantes() {
             ))}
           </tbody>
         </table>
+        <button
+          onClick={() => downloadExcel(docenteEstudiantes, 'Estudiantes_Docente')}
+          className="download-button"
+        >
+          Descargar en Excel
+        </button>
 
         <h1 style={{ color: '#CC1616' }}>Lista de Estudiantes</h1>
         <input
@@ -178,6 +190,12 @@ function ListaEstudiantes() {
             ))}
           </tbody>
         </table>
+        <button
+          onClick={() => downloadExcel(filteredEstudiantes, 'Lista_Estudiantes')}
+          className="download-button"
+        >
+          Descargar en Excel
+        </button>
       </main>
     </div>
   );

@@ -24,4 +24,22 @@
     background-color: #CC1616;
     color: white;
   }
+  .download-button {
+    background-color: #4CAF50; /* Color verde */
+    border: none; /* Sin borde */
+    color: white; /* Texto blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    text-align: center; /* Centrado del texto */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Para ajustar tamaño */
+    font-size: 16px; /* Tamaño del texto */
+    margin: 10px 0; /* Margen alrededor */
+    cursor: pointer; /* Cursor en forma de mano */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease; /* Efecto de transición */
+  }
+  
+  .download-button:hover {
+    background-color: #45a049; /* Color al pasar el cursor */
+  }
   
