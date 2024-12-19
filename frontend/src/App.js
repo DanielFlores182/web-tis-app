@@ -11,6 +11,7 @@ import TablaAnu from './pages/Reportes/tabla_anuncios.js';
 import TablaAnuEst from './pages/Reportes/tabla_anuncios_est.js'
 import ListEst from './pages/Reportes/Lista_estudiantes.js';
 import NuevoAnu from './pages/Reportes/nuevo_anuncio.js'
+import TablaEva from './pages/Reportes/tabla_evaluaciones.js'
 //paginas de grupos 
 import GroupView from './pages/Grupos/GruposView.js';
 import SelectGrupo from './pages/Grupos/select_grupo.js';
@@ -69,6 +70,7 @@ function App() {
         <Route path="/tabla_anuncios" element={<TablaAnu/>}/>
         <Route path="/tabla_anuncios_est" element={<TablaAnuEst/>}/>
         <Route path="/nuevo_anuncio" element={<NuevoAnu/>}/>
+        <Route path="/tabla_evaluaciones" element={<TablaEva/>}/>
       </Routes>
     </Router>
     </UserProvider>
