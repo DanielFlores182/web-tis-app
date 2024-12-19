@@ -29,39 +29,45 @@ const RegistroEvaluacion = () => {
     };
 
     const handleEvaluationSubmit = async (e) => {
-      e.preventDefault();
-  
-      try {
-          const response = await fetch('https://web-tis-app-production.up.railway.app/reg_tipo_eva.php', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                  tipo_eva: formData.tipo_eva,
-                  descripcion_eva: formData.descripcion_eva,
-                  fecha_ini: formData.fecha_ini,
-                  fecha_fin: formData.fecha_fin,
-              })
-          });
-  
-          if (!response.ok) {
-              throw new Error('Error en la respuesta del servidor');
-          }
-  
-          const data = await response.json();
-  
-          // Maneja la respuesta del servidor
-          if (data.success) {
-            alert('Evaluación registrada exitosamente!');
-        } else {
-            alert('Mensaje: ' + data.message); // Esto mostrará el campo "message" siempre
+        e.preventDefault();
+    
+        try {
+            const response = await fetch('https://web-tis-app-production.up.railway.app/reg_tipo_eva.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    tipo_eva: formData.tipo_eva,
+                    descripcion_eva: formData.descripcion_eva,
+                    fecha_ini: formData.fecha_ini,
+                    fecha_fin: formData.fecha_fin,
+                }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Error en la respuesta del servidor');
+            }
+    
+            const data = await response.json();
+    
+            // Maneja la respuesta del servidor
+            if (data.success) {
+                const confirmRedirect = window.confirm(
+                    '¡Evaluación registrada exitosamente! ¿Desea ir a la página de evaluaciones?'
+                );
+                if (confirmRedirect) {
+                    window.location.href = '/tabla_evaluaciones';
+                }
+            } else {
+                alert('Mensaje: ' + data.message); // Esto mostrará el campo "message" siempre
+            }
+        } catch (error) {
+            console.error('Error en el envío:', error);
+            alert('Ocurrió un error al enviar los datos.');
         }
-      } catch (error) {
-          console.error('Error en el envío:', error);
-          alert('Ocurrió un error al enviar los datos.');
-      }
-  };
+    };
+    
 
     return (
         <div className="menu-container">
