@@ -53,8 +53,18 @@ const RegistroEvaluacion = () => {
     
             // Maneja la respuesta del servidor
             if (data.success) {
+                alert('¡Evaluación registrada exitosamente!');
+    
+                // Limpia los campos del formulario
+                setFormData({
+                    tipo_eva: '',
+                    descripcion_eva: '',
+                    fecha_ini: '',
+                    fecha_fin: '',
+                });
+    
                 const confirmRedirect = window.confirm(
-                    '¡Evaluación registrada exitosamente! ¿Desea ir a la página de evaluaciones?'
+                    '¿Desea ir a la página de evaluaciones?'
                 );
                 if (confirmRedirect) {
                     window.location.href = '/tabla_evaluaciones';
@@ -67,6 +77,7 @@ const RegistroEvaluacion = () => {
             alert('Ocurrió un error al enviar los datos.');
         }
     };
+    
     
 
     return (
