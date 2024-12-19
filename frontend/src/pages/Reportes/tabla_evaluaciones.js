@@ -23,7 +23,7 @@ function ListaEvaluaciones() {
 
   useEffect(() => {
     // Fetch para obtener la lista de evaluaciones
-    fetch('https://web-tis-app-production.up.railway.app/get_evaluaciones.php')
+    fetch('https://web-tis-app-production.up.railway.app/ge_all_eval.php')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error al obtener las evaluaciones');
