@@ -1,0 +1,112 @@
+/* Estilo general del contenedor */
+.menu-container {
+    display: flex;
+    height: 100vh;
+    background-color: #98e9ff;
+  }
+  
+  /* Barra lateral */
+  .sidebar {
+    width: 300px; /* Reducir el ancho */
+    background-color: #98e9ff;
+    padding: 15px;
+    font-size: 1rem; /* Fuente más pequeña */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh; /* Altura completa de la ventana */
+    overflow-y: auto; /* Agrega scroll cuando el contenido es más grande que el contenedor */
+  }
+  .sidebar nav
+  .header-logo {
+    width: 60%;
+    margin-bottom: 20px;
+  }
+  
+  .header-title {
+    font-size: 1.5rem; /* Reducir el tamaño del título */
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  nav ul li {
+    margin-bottom: 15px;
+  }
+  
+  nav ul li a {
+    color: rgb(0, 255, 234);
+    text-decoration: none;
+    font-size: 1rem; /* Reducir tamaño de fuente */
+    padding: 8px 0; /* Ajustar padding */
+  }
+  
+  nav ul li a:hover {
+    color: #3c7777;
+  }
+  
+  /* Submenú */
+  .submenu {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 20px;
+    max-height: 400px; /* Altura máxima para los submenús */
+    overflow-y: auto; /* Permite que los submenús tengan su propio scroll si son muy largos */
+  }
+  
+  .submenu li {
+    margin-bottom: 10px;
+  }
+  
+  .submenu li a {
+    color: white;
+    font-size: 0.9rem; /* Fuente aún más pequeña para submenú */
+  }
+  
+  .submenu li a:hover {
+    color: #334545;
+  }
+  
+  /* Estilo del contenido principal */
+  .content {
+    flex-grow: 1;
+    padding: 30px;
+    color: #333;
+  }
+  
+  .content h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+  }
+  
+  .content h3 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+  }
+  
+  .content p {
+    font-size: 1rem;
+    color: #666;
+  }
+  .central-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #169bcc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .central-button:hover {
+    background-color: #A01313;
+  }
+  

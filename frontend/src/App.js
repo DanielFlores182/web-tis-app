@@ -3,9 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login.js';
 import Menudoc from './pages/Menu_doc.js';
 import Menuest from './pages/Menu_est.js';
+import MenuPrin from './pages/Menu.js';
 //paginas de registro de estudiantes
 import RegEstInd from './pages/registro_est_ind.js';
 import RegEstLot from './pages/reg_est_lot.js'
+import NuevaOrden from './pages/Trabajos/nueva_orden.js'
 //paginas de reportes 
 import TablaAnu from './pages/Reportes/tabla_anuncios.js';
 import TablaAnuEst from './pages/Reportes/tabla_anuncios_est.js'
@@ -71,6 +73,8 @@ function App() {
         <Route path="/tabla_anuncios_est" element={<TablaAnuEst/>}/>
         <Route path="/nuevo_anuncio" element={<NuevoAnu/>}/>
         <Route path="/tabla_evaluaciones" element={<TablaEva/>}/>
+        <Route path="/menu_principal" element={<MenuPrin/>}/>
+        <Route path="/nueva_orden" element={<NuevaOrden/>}/>
       </Routes>
     </Router>
     </UserProvider>

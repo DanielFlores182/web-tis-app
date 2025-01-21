@@ -7,8 +7,8 @@
 
 /* Variables globales */
 :root {
-  --primary-color: #cc1616 ;
-  --secondary-color: #1e2342 ;
+  --primary-color: #30363a ;
+  --secondary-color: #ffffff ;
   --font-family: 'Arial', sans-serif;
   --font-size-base: 2vw;
 }
@@ -17,7 +17,7 @@
 body {
   font-family: var(--font-family);
   font-size: var(--font-size-base);
-  background-color: #e5eeff ;
+  background-color: #ddf6fe ;
   color: #333;
 }
 

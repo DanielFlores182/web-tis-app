@@ -14,7 +14,7 @@ body {
 
 /* Sidebar */
 .sidebar {
-    background-color: #1e2342; /* Azul oscuro */
+    background-color: #98e9ff; /* Azul oscuro */
     color: white;
     padding: 20px;
     width: 250px;
@@ -47,13 +47,14 @@ body {
 }
 
 .sidebar nav ul li a {
-    color: white;
+    color: rgb(0, 0, 0);
     text-decoration: none;
     font-size: 1rem;
 }
 
 .sidebar nav ul li a:hover {
     text-decoration: underline;
+    color: #0078a7
 }
 
 /* Submenú */

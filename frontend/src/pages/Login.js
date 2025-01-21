@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../controller/userContex'; 
+import logo1 from '../images/dentall new 2.png'
+import logo2 from '../images/dentall 1.png'
 
 function Login() {
   const { setUsername } = useUser(); 
@@ -29,7 +31,7 @@ function Login() {
         setLoading(false); // Desactiva el loading
         if (data.role === 1) {
           setUsername(username);
-          navigate('/menu_doc');
+          navigate('/menu_principal');
         } else if (data.role === 2) {
           setUsername(username);
           navigate('/menu_est', { state: { username } });
@@ -44,6 +46,8 @@ function Login() {
   };
 
   return (
+  <div className="login-wrapper">
+   <img src={logo1} alt="Imagen izquierda" className="form-image left-image" />
     <div className="login-container">
       <h1 className="login-title">Iniciar Sesión</h1>
       <p className="login-subtitle">Inicia sesión en tu cuenta para continuar</p>
@@ -79,6 +83,8 @@ function Login() {
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </form>
       </div>
+    </div>
+    <img src={logo2} alt="Imagen derecha" className="form-image right-image" />
     </div>
   );
 }

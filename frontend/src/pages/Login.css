@@ -7,7 +7,7 @@
   
   /* Variables globales de color */
   :root {
-    --primary-color: #1e2342; /* Azul marino (fondo) */
+    --primary-color: #00b7f4; /* Azul marino (fondo) */
     --secondary-color: #cc1616; /* Verde */
     --background-color: #ffffff; /* Blanco */
     --form-background: #ffffff; /* Blanco */
@@ -79,12 +79,15 @@
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+    border-radius: 5  px;
+    width: 100%; /* Asegura que ambos textbox ocupen el mismo ancho */
+    box-sizing: border-box; /* Evita que el padding afecte el tamaño total */
+}
+
   
   /* Botón de submit */
   .login-button {
-    background-color: var(--error-color); /* Botón rojo */
+    background-color: #009fe3; /* Botón rojo */
     color: white;
     padding: 12px;
     border: none;
@@ -95,7 +98,7 @@
   }
   
   .login-button:hover {
-    background-color: #e74c3c; /* Rojo más claro */
+    background-color: #00ffea; /* Rojo más claro */
   }
   
   /* Mensaje de error */
@@ -120,3 +123,35 @@
       padding: 10px;
     }
   }
+  .login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* Espaciado entre los elementos */
+}
+
+.form-image {
+  width: 80px; /* Ajusta el tamaño según sea necesario */
+  height: auto;
+}
+
+.left-image {
+  margin-right: 1px;
+  margin-left: 1px;
+  width: 300px;
+}
+
+.right-image {
+  margin-left: 100px;
+  margin-right: 100px;
+  width: 120px;
+}
+
+.login-container {
+  width: 90%;
+  max-width: 400px;
+  background-color: var(--form-background);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
