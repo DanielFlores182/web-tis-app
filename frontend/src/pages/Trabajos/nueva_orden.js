@@ -211,28 +211,30 @@ function RegistroEstInd() {
             </label>
           </div>
 		  {/* Campo de clínica con autocompletado */}
-		  <div className="form-group">
+          <div className="form-group">
             <label htmlFor="clinica">Clínica:</label>
-            <input
-              type="text"
-              id="clinica"
-              name="clinica"
-              value={formData.clinica}
-              onChange={handleClinicaChange}
-              required
-            />
-            {clinicaSuggestions.length > 0 && (
-              <ul className="suggestions-list">
-                {clinicaSuggestions.map((clinica, index) => (
-                  <li
-                    key={index}
-                    onClick={() => handleSuggestionClick('clinica', clinica.nombre)}
-                  >
-                    {clinica.nombre}
-                  </li>
-                ))}
-              </ul>
-            )}
+            <div className="autocomplete-container">
+              <input
+                type="text"
+                id="clinica"
+                name="clinica"
+                value={formData.clinica}
+                onChange={handleClinicaChange}
+                required
+              />
+              {clinicaSuggestions.length > 0 && (
+                <ul className="suggestions-list">
+                  {clinicaSuggestions.map((clinica, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleSuggestionClick('clinica', clinica.nombre)}
+                    >
+                      {clinica.nombre}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
 
           {/* Campo de dentista con autocompletado */}
