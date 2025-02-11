@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './Menu.css';
 import logo from '../images/dentall 1.png';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 function Menu() {
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
   const [showCriteriosOptions, setShowCriteriosOptions] = useState(false);
-  const navigate = useNavigate();
+ // const navigate = useNavigate();
 
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions);
@@ -16,13 +16,6 @@ function Menu() {
     setShowCriteriosOptions(!showCriteriosOptions);
   };
 
-  const handleListaEstudiantes = () => {
-    navigate('/lista_estudiantes');
-  };
-
-  const handleTablaAnuncios = () => {
-    navigate('/tabla_anuncios');
-  };
 
   return (
     <div className="menu-container">
@@ -63,12 +56,7 @@ function Menu() {
         <h3 style={{ color: '#333' }}>Esta es la página principal para gestion de la pagina del laboratorio </h3>
         <p style={{ color: '#666' }}>Selecciona una opción de la barra de navegación o verifica los reportes abajo</p>
         <div className="button-group">
-          <button className="central-button" onClick={handleListaEstudiantes}>
-            Lista de Estudiantes
-          </button>
-          <button className="central-button" onClick={handleTablaAnuncios}>
-            Tabla de Anuncios
-          </button>
+          
         </div>
       </main>
     </div>
