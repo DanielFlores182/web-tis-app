@@ -22,24 +22,24 @@ header('Content-Type: application/json'); // Establece el tipo de contenido a JS
 try {
     // Verifica si es una solicitud GET
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        // Llamar a la función para obtener los nombres de los dentistas
-        $query = "SELECT * FROM obtener_nombres_dentistas();";
+        // Llamar a la función para obtener los nombres de los pacientes
+        $query = "SELECT * FROM obtener_nombres_pacientes();";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
 
         // Obtener los resultados
-        $dentistas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $pacientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Enumerar los resultados y agregar un id
-        $dentistasConId = array_map(function($dentista, $index) {
+        $pacientesConId = array_map(function($paciente, $index) {
             return [
                 'id' => $index + 1, // Enumeración comenzando desde 1
-                'nombre' => $dentista['nombre']
+                'nombre' => $paciente['nombre']
             ];
-        }, $dentistas, array_keys($dentistas));
+        }, $pacientes, array_keys($pacientes));
 
         // Retornar los resultados en formato JSON
-        echo json_encode($dentistasConId);
+        echo json_encode($pacientesConId);
     } else {
         throw new Exception('Método HTTP no permitido.'); // Manejo de métodos no permitidos
     }

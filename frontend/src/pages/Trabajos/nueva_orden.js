@@ -211,55 +211,59 @@ function RegistroEstInd() {
             </label>
           </div>
 		  {/* Campo de clínica con autocompletado */}
+      <div className="form-group">
+          <label htmlFor="clinica">Clínica:</label>
+          <div className="autocomplete-container">
+            <input
+              type="text"
+              id="clinica"
+              name="clinica"
+              value={formData.clinica}
+              onChange={handleClinicaChange}
+              required
+            />
+            {clinicaSuggestions.length > 0 && (
+              <ul className="list-group mt-1">
+                {clinicaSuggestions.map((clinica, index) => (
+                  <li
+                    key={index}
+                    className="list-group-item list-group-item-action"
+                    onClick={() => handleSuggestionClick('clinica', clinica.nombre)}
+                  >
+                    {clinica.nombre}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+
+          {/* Campo de dentista con autocompletado */}
           <div className="form-group">
-            <label htmlFor="clinica">Clínica:</label>
+            <label htmlFor="odontologo">Odontólogo:</label>
             <div className="autocomplete-container">
               <input
                 type="text"
-                id="clinica"
-                name="clinica"
-                value={formData.clinica}
-                onChange={handleClinicaChange}
+                id="odontologo"
+                name="odontologo"
+                value={formData.odontologo}
+                onChange={handleDentistaChange}
                 required
               />
-              {clinicaSuggestions.length > 0 && (
-                <ul className="suggestions-list">
-                  {clinicaSuggestions.map((clinica, index) => (
+              {dentistaSuggestions.length > 0 && (
+                <ul className="list-group mt-1">
+                  {dentistaSuggestions.map((dentista, index) => (
                     <li
                       key={index}
-                      onClick={() => handleSuggestionClick('clinica', clinica.nombre)}
+                      className="list-group-item list-group-item-action"
+                      onClick={() => handleSuggestionClick('dentista', dentista.nombre)}
                     >
-                      {clinica.nombre}
+                      {dentista.nombre}
                     </li>
                   ))}
                 </ul>
               )}
             </div>
-          </div>
-
-          {/* Campo de dentista con autocompletado */}
-          <div className="form-group">
-            <label htmlFor="odontologo">Odontólogo:</label>
-            <input
-              type="text"
-              id="odontologo"
-              name="odontologo"
-              value={formData.odontologo}
-              onChange={handleDentistaChange}
-              required
-            />
-            {dentistaSuggestions.length > 0 && (
-              <ul className="suggestions-list">
-                {dentistaSuggestions.map((dentista, index) => (
-                  <li
-                    key={index}
-                    onClick={() => handleSuggestionClick('dentista', dentista.nombre)}
-                  >
-                    {dentista.nombre}
-                  </li>
-                ))}
-              </ul>
-            )}
           </div>
            <div className="form-group">
             <label htmlFor="direccion">Dirección:</label>
@@ -275,28 +279,31 @@ function RegistroEstInd() {
           </div>
           {/* Campo de paciente con autocompletado */}
           <div className="form-group">
-            <label htmlFor="paciente">Paciente:</label>
-            <input
-              type="text"
-              id="paciente"
-              name="paciente"
-              value={formData.paciente}
-              onChange={handlePacienteChange}
-              required
-            />
-            {pacienteSuggestions.length > 0 && (
-              <ul className="suggestions-list">
-                {pacienteSuggestions.map((paciente, index) => (
-                  <li
-                    key={index}
-                    onClick={() => handleSuggestionClick('paciente', paciente.nombre)}
-                  >
-                    {paciente.nombre}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+              <label htmlFor="paciente">Paciente:</label>
+              <div className="autocomplete-container">
+                <input
+                  type="text"
+                  id="paciente"
+                  name="paciente"
+                  value={formData.paciente}
+                  onChange={handlePacienteChange}
+                  required
+                />
+                {pacienteSuggestions.length > 0 && (
+                  <ul className="list-group mt-1">
+                    {pacienteSuggestions.map((paciente, index) => (
+                      <li
+                        key={index}
+                        className="list-group-item list-group-item-action"
+                        onClick={() => handleSuggestionClick('paciente', paciente.nombre)}
+                      >
+                        {paciente.nombre}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
 		   {/* Edad y Sexo */}
            <div className="form-group">
             <label htmlFor="edad">Edad:</label>
