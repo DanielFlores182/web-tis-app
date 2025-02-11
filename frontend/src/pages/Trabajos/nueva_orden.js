@@ -71,17 +71,17 @@ function RegistroEstInd() {
     const fetchData = async () => {
       try {
         // Obtener clínicas
-        const clinicasResponse = await fetch('https://web-tis-app-production.up.railway.app/obtener_clinicas.php');
+        const clinicasResponse = await fetch('https://web-tis-app-production.up.railway.app/get_clinicas.php');
         const clinicasData = await clinicasResponse.json();
         setClinicas(clinicasData);
 
         // Obtener dentistas
-        const dentistasResponse = await fetch('https://web-tis-app-production.up.railway.app/obtener_dentistas.php');
+        const dentistasResponse = await fetch('https://web-tis-app-production.up.railway.app/get_dentistas.php');
         const dentistasData = await dentistasResponse.json();
         setDentistas(dentistasData);
 
         // Obtener pacientes
-        const pacientesResponse = await fetch('https://web-tis-app-production.up.railway.app/obtener_pacientes.php');
+        const pacientesResponse = await fetch('https://web-tis-app-production.up.railway.app/get_pacientes.php');
         const pacientesData = await pacientesResponse.json();
         setPacientes(pacientesData);
       } catch (error) {
