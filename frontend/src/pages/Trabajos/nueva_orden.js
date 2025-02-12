@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './nueva_orden.css';
 import logo from '../../images/dentall 1.png';
 
-function RegistroEstInd() {
+function NuevaOrden() {
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
   const [showCriteriosOptions, setShowCriteriosOptions] = useState(false);
+  const [direccionSuggestions, setDireccionSuggestions] = useState([]);
+  const [telefonoSuggestions, setTelefonoSuggestions] = useState([]);
 
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions);
@@ -102,6 +104,16 @@ function RegistroEstInd() {
       clinica.nombre.toLowerCase().includes(value.toLowerCase())
     );
     setClinicaSuggestions(suggestions);
+
+    // Si se selecciona una clínica, mostrar sugerencias de direcciones y teléfonos
+    if (suggestions.length === 1) {
+      const clinicaSeleccionada = suggestions[0];
+      setDireccionSuggestions(clinicaSeleccionada.direccion || []);
+      setTelefonoSuggestions(clinicaSeleccionada.telefono || []);
+    } else {
+      setDireccionSuggestions([]);
+      setTelefonoSuggestions([]);
+    }
   };
 
   const handleDentistaChange = (e) => {
@@ -127,15 +139,20 @@ function RegistroEstInd() {
   };
 
   // Manejar clic en una sugerencia
-  const handleSuggestionClick = (field, value) => {
+  const handleSuggestionClick = (field, clinica) => {
     if (field === 'clinica') {
-      setFormData({ ...formData, clinica: value });
+      setFormData({
+        ...formData,
+        clinica: clinica.nombre,
+        direccion: clinica.direccion?.length > 0 ? clinica.direccion[0] : '',
+        telefono: clinica.telefono?.length > 0 ? clinica.telefono[0] : '',
+      });
       setClinicaSuggestions([]);
     } else if (field === 'dentista') {
-      setFormData({ ...formData, odontologo: value });
+      setFormData({ ...formData, odontologo: clinica.nombre });
       setDentistaSuggestions([]);
     } else if (field === 'paciente') {
-      setFormData({ ...formData, paciente: value });
+      setFormData({ ...formData, paciente: clinica.nombre });
       setPacienteSuggestions([]);
     }
   };
@@ -191,8 +208,8 @@ function RegistroEstInd() {
       <main className="content">
         <h1>Registrar Nueva Orden de Trabajo</h1>
         <form onSubmit={handleSubmit} className="register-form">
-            {/* Opciones adicionales */}
-           <div className="form-group">
+          {/* Opciones adicionales */}
+          <div className="form-group">
             <label>
               <input type="checkbox" name="urgente" checked={formData.urgente} onChange={handleInputChange} />
               Urgente
@@ -210,33 +227,43 @@ function RegistroEstInd() {
               Largo Plazo
             </label>
           </div>
-		  {/* Campo de clínica con autocompletado */}
-      <div className="form-group">
-          <label htmlFor="clinica">Clínica:</label>
-          <div className="autocomplete-container">
-            <input
-              type="text"
-              id="clinica"
-              name="clinica"
-              value={formData.clinica}
-              onChange={handleClinicaChange}
-              required
-            />
-            {clinicaSuggestions.length > 0 && (
-              <ul className="list-group mt-1">
-                {clinicaSuggestions.map((clinica, index) => (
-                  <li
-                    key={index}
-                    className="list-group-item list-group-item-action"
-                    onClick={() => handleSuggestionClick('clinica', clinica.nombre)}
-                  >
-                    {clinica.nombre}
-                  </li>
-                ))}
-              </ul>
-            )}
+
+          {/* Campo de clínica con autocompletado */}
+          <div className="form-group">
+            <label htmlFor="clinica">Clínica:</label>
+            <div className="autocomplete-container">
+              <input
+                type="text"
+                id="clinica"
+                name="clinica"
+                value={formData.clinica}
+                onChange={handleClinicaChange}
+                required
+              />
+              {clinicaSuggestions.length > 0 && (
+                <ul className="list-group mt-1">
+                  {clinicaSuggestions.map((clinica, index) => (
+                    <li
+                      key={index}
+                      className="list-group-item list-group-item-action"
+                      onClick={() => handleSuggestionClick('clinica', clinica)}
+                    >
+                      <strong>{clinica.nombre}</strong>
+                      <div>
+                        <small>Direcciones: {clinica.direccion?.join(', ')}</small>
+                      </div>
+                      <div>
+                        <small>Teléfonos: {clinica.telefono?.join(', ')}</small>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {clinicaSuggestions.length === 0 && formData.clinica && (
+                <div className="text-muted small">No se encontraron clínicas.</div>
+              )}
+            </div>
           </div>
-        </div>
 
           {/* Campo de dentista con autocompletado */}
           <div className="form-group">
@@ -256,23 +283,71 @@ function RegistroEstInd() {
                     <li
                       key={index}
                       className="list-group-item list-group-item-action"
-                      onClick={() => handleSuggestionClick('dentista', dentista.nombre)}
+                      onClick={() => handleSuggestionClick('dentista', dentista)}
                     >
                       {dentista.nombre}
                     </li>
                   ))}
                 </ul>
               )}
+              {dentistaSuggestions.length === 0 && formData.odontologo && (
+                <div className="text-muted small">No se encontraron dentistas.</div>
+              )}
             </div>
           </div>
-           <div className="form-group">
+
+          {/* Campo de dirección con sugerencias */}
+          <div className="form-group">
             <label htmlFor="direccion">Dirección:</label>
-            <input type="text" id="direccion" name="direccion" value={formData.direccion} onChange={handleInputChange} required />
+            <input
+              type="text"
+              id="direccion"
+              name="direccion"
+              value={formData.direccion}
+              onChange={handleInputChange}
+              required
+            />
+            {direccionSuggestions.length > 0 && (
+              <ul className="list-group mt-1">
+                {direccionSuggestions.map((direccion, index) => (
+                  <li
+                    key={index}
+                    className="list-group-item list-group-item-action"
+                    onClick={() => setFormData({ ...formData, direccion })}
+                  >
+                    {direccion}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
+
+          {/* Campo de teléfono con sugerencias */}
           <div className="form-group">
             <label htmlFor="telefono">Teléfono:</label>
-            <input type="text" id="telefono" name="telefono" value={formData.telefono} onChange={handleInputChange} required />
+            <input
+              type="text"
+              id="telefono"
+              name="telefono"
+              value={formData.telefono}
+              onChange={handleInputChange}
+              required
+            />
+            {telefonoSuggestions.length > 0 && (
+              <ul className="list-group mt-1">
+                {telefonoSuggestions.map((telefono, index) => (
+                  <li
+                    key={index}
+                    className="list-group-item list-group-item-action"
+                    onClick={() => setFormData({ ...formData, telefono })}
+                  >
+                    {telefono}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
+
           <div className="form-group">
             <label htmlFor="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion" value={formData.descripcion} onChange={handleInputChange} required />
@@ -376,4 +451,4 @@ function RegistroEstInd() {
   );
 }
 
-export default RegistroEstInd;
+export default NuevaOrden;
