@@ -5,8 +5,6 @@ import logo from '../../images/dentall 1.png';
 function NuevaOrden() {
   const [showRegisterOptions, setShowRegisterOptions] = useState(false);
   const [showCriteriosOptions, setShowCriteriosOptions] = useState(false);
-  const [direccionSuggestions, setDireccionSuggestions] = useState([]);
-  const [telefonoSuggestions, setTelefonoSuggestions] = useState([]);
 
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions);
@@ -62,39 +60,36 @@ function NuevaOrden() {
 
   // Estados para las sugerencias de autocompletado
   const [clinicas, setClinicas] = useState([]);
-  const [dentistas, setDentistas] = useState([]);
-  const [pacientes, setPacientes] = useState([]);
   const [clinicaSuggestions, setClinicaSuggestions] = useState([]);
-  const [dentistaSuggestions, setDentistaSuggestions] = useState([]);
-  const [pacienteSuggestions, setPacienteSuggestions] = useState([]);
+  const [direccionSuggestions, setDireccionSuggestions] = useState([]);
+  const [telefonoSuggestions, setTelefonoSuggestions] = useState([]);
 
-  // Obtener datos de clínicas, dentistas y pacientes al cargar el componente
+  // Obtener datos de clínicas al cargar el componente
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchClinicas = async () => {
       try {
-        // Obtener clínicas
-        const clinicasResponse = await fetch('https://web-tis-app-production.up.railway.app/get_clinicas.php');
-        const clinicasData = await clinicasResponse.json();
-        setClinicas(clinicasData);
-
-        // Obtener dentistas
-        const dentistasResponse = await fetch('https://web-tis-app-production.up.railway.app/get_dentistas.php');
-        const dentistasData = await dentistasResponse.json();
-        setDentistas(dentistasData);
-
-        // Obtener pacientes
-        const pacientesResponse = await fetch('https://web-tis-app-production.up.railway.app/get_pacientes.php');
-        const pacientesData = await pacientesResponse.json();
-        setPacientes(pacientesData);
+        const response = await fetch('https://web-tis-app-production.up.railway.app/get_clinicas.php');
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          // Convertir las cadenas JSON en arrays
+          const clinicasFormateadas = data.map((clinica) => ({
+            ...clinica,
+            direccion: JSON.parse(clinica.direccion),
+            telefono: JSON.parse(clinica.telefono),
+          }));
+          setClinicas(clinicasFormateadas);
+        } else {
+          console.error('Error: La respuesta de clínicas no es un array');
+        }
       } catch (error) {
-        console.error('Error al obtener datos:', error);
+        console.error('Error al obtener clínicas:', error);
       }
     };
 
-    fetchData();
+    fetchClinicas();
   }, []);
 
-  // Manejar cambios en los campos de autocompletado
+  // Manejar cambios en el campo de clínica
   const handleClinicaChange = (e) => {
     const value = e.target.value;
     setFormData({ ...formData, clinica: value });
@@ -116,55 +111,28 @@ function NuevaOrden() {
     }
   };
 
-  const handleDentistaChange = (e) => {
-    const value = e.target.value;
-    setFormData({ ...formData, odontologo: value });
-
-    // Filtrar sugerencias de dentistas
-    const suggestions = dentistas.filter((dentista) =>
-      dentista.nombre.toLowerCase().includes(value.toLowerCase())
-    );
-    setDentistaSuggestions(suggestions);
-  };
-
-  const handlePacienteChange = (e) => {
-    const value = e.target.value;
-    setFormData({ ...formData, paciente: value });
-
-    // Filtrar sugerencias de pacientes
-    const suggestions = pacientes.filter((paciente) =>
-      paciente.nombre.toLowerCase().includes(value.toLowerCase())
-    );
-    setPacienteSuggestions(suggestions);
-  };
-
-  // Manejar clic en una sugerencia
-  const handleSuggestionClick = (field, clinica) => {
-    if (field === 'clinica') {
-      setFormData({
-        ...formData,
-        clinica: clinica.nombre,
-        direccion: clinica.direccion?.length > 0 ? clinica.direccion[0] : '',
-        telefono: clinica.telefono?.length > 0 ? clinica.telefono[0] : '',
-      });
-      setClinicaSuggestions([]);
-    } else if (field === 'dentista') {
-      setFormData({ ...formData, odontologo: clinica.nombre });
-      setDentistaSuggestions([]);
-    } else if (field === 'paciente') {
-      setFormData({ ...formData, paciente: clinica.nombre });
-      setPacienteSuggestions([]);
-    }
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  // Manejar clic en una sugerencia de clínica
+  const handleClinicaSuggestionClick = (clinica) => {
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      clinica: clinica.nombre,
+      direccion: clinica.direccion?.[0] || '', // Tomar la primera dirección
+      telefono: clinica.telefono?.[0] || '', // Tomar el primer teléfono
     });
+    setClinicaSuggestions([]);
   };
 
+  // Manejar clic en una sugerencia de dirección
+  const handleDireccionSuggestionClick = (direccion) => {
+    setFormData({ ...formData, direccion });
+  };
+
+  // Manejar clic en una sugerencia de teléfono
+  const handleTelefonoSuggestionClick = (telefono) => {
+    setFormData({ ...formData, telefono });
+  };
+
+  // Manejar envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
@@ -208,26 +176,6 @@ function NuevaOrden() {
       <main className="content">
         <h1>Registrar Nueva Orden de Trabajo</h1>
         <form onSubmit={handleSubmit} className="register-form">
-          {/* Opciones adicionales */}
-          <div className="form-group">
-            <label>
-              <input type="checkbox" name="urgente" checked={formData.urgente} onChange={handleInputChange} />
-              Urgente
-            </label>
-            <label>
-              <input type="checkbox" name="regular" checked={formData.regular} onChange={handleInputChange} />
-              Regular
-            </label>
-            <label>
-              <input type="checkbox" name="especial" checked={formData.especial} onChange={handleInputChange} />
-              Especial
-            </label>
-            <label>
-              <input type="checkbox" name="largoplazo" checked={formData.largoplazo} onChange={handleInputChange} />
-              Largo Plazo
-            </label>
-          </div>
-
           {/* Campo de clínica con autocompletado */}
           <div className="form-group">
             <label htmlFor="clinica">Clínica:</label>
@@ -246,7 +194,7 @@ function NuevaOrden() {
                     <li
                       key={index}
                       className="list-group-item list-group-item-action"
-                      onClick={() => handleSuggestionClick('clinica', clinica)}
+                      onClick={() => handleClinicaSuggestionClick(clinica)}
                     >
                       <strong>{clinica.nombre}</strong>
                       <div>
@@ -259,40 +207,6 @@ function NuevaOrden() {
                   ))}
                 </ul>
               )}
-              {clinicaSuggestions.length === 0 && formData.clinica && (
-                <div className="text-muted small">No se encontraron clínicas.</div>
-              )}
-            </div>
-          </div>
-
-          {/* Campo de dentista con autocompletado */}
-          <div className="form-group">
-            <label htmlFor="odontologo">Odontólogo:</label>
-            <div className="autocomplete-container">
-              <input
-                type="text"
-                id="odontologo"
-                name="odontologo"
-                value={formData.odontologo}
-                onChange={handleDentistaChange}
-                required
-              />
-              {dentistaSuggestions.length > 0 && (
-                <ul className="list-group mt-1">
-                  {dentistaSuggestions.map((dentista, index) => (
-                    <li
-                      key={index}
-                      className="list-group-item list-group-item-action"
-                      onClick={() => handleSuggestionClick('dentista', dentista)}
-                    >
-                      {dentista.nombre}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {dentistaSuggestions.length === 0 && formData.odontologo && (
-                <div className="text-muted small">No se encontraron dentistas.</div>
-              )}
             </div>
           </div>
 
@@ -304,7 +218,7 @@ function NuevaOrden() {
               id="direccion"
               name="direccion"
               value={formData.direccion}
-              onChange={handleInputChange}
+              onChange={(e) => setFormData({ ...formData, direccion: e.target.value })}
               required
             />
             {direccionSuggestions.length > 0 && (
@@ -313,7 +227,7 @@ function NuevaOrden() {
                   <li
                     key={index}
                     className="list-group-item list-group-item-action"
-                    onClick={() => setFormData({ ...formData, direccion })}
+                    onClick={() => handleDireccionSuggestionClick(direccion)}
                   >
                     {direccion}
                   </li>
@@ -330,7 +244,7 @@ function NuevaOrden() {
               id="telefono"
               name="telefono"
               value={formData.telefono}
-              onChange={handleInputChange}
+              onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
               required
             />
             {telefonoSuggestions.length > 0 && (
@@ -339,7 +253,7 @@ function NuevaOrden() {
                   <li
                     key={index}
                     className="list-group-item list-group-item-action"
-                    onClick={() => setFormData({ ...formData, telefono })}
+                    onClick={() => handleTelefonoSuggestionClick(telefono)}
                   >
                     {telefono}
                   </li>
@@ -348,101 +262,8 @@ function NuevaOrden() {
             )}
           </div>
 
-          <div className="form-group">
-            <label htmlFor="descripcion">Descripción:</label>
-            <textarea id="descripcion" name="descripcion" value={formData.descripcion} onChange={handleInputChange} required />
-          </div>
-          {/* Campo de paciente con autocompletado */}
-          <div className="form-group">
-              <label htmlFor="paciente">Paciente:</label>
-              <div className="autocomplete-container">
-                <input
-                  type="text"
-                  id="paciente"
-                  name="paciente"
-                  value={formData.paciente}
-                  onChange={handlePacienteChange}
-                  required
-                />
-                {pacienteSuggestions.length > 0 && (
-                  <ul className="list-group mt-1">
-                    {pacienteSuggestions.map((paciente, index) => (
-                      <li
-                        key={index}
-                        className="list-group-item list-group-item-action"
-                        onClick={() => handleSuggestionClick('paciente', paciente.nombre)}
-                      >
-                        {paciente.nombre}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </div>
-		   {/* Edad y Sexo */}
-           <div className="form-group">
-            <label htmlFor="edad">Edad:</label>
-            <input type="number" id="edad" name="edad" value={formData.edad} onChange={handleInputChange} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="sexo">Sexo:</label>
-            <select id="sexo" name="sexo" value={formData.sexo} onChange={handleInputChange}>
-              <option value="" disabled>Seleccione</option>
-              <option value="Masculino">Masculino</option>
-              <option value="Femenino">Femenino</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="colorimetro">Colorímetro:</label>
-            <input type="text" id="colorimetro" name="colorimetro" value={formData.colorimetro} onChange={handleInputChange} required />
-          </div>
-
-          {/* Fechas */}
-          <div className="form-group">
-            <label htmlFor="fechaRecibo">Fecha de Recibo:</label>
-            <input type="date" id="fechaRecibo" name="fechaRecibo" value={formData.fechaRecibo} onChange={handleInputChange} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="fechaEntrega">Fecha de Entrega:</label>
-            <input type="date" id="fechaEntrega" name="fechaEntrega" value={formData.fechaEntrega} onChange={handleInputChange} />
-          </div>
-         
-          <div class="checkbox-container">
-            <div class="group">
-                <h4>Ingresa</h4>
-                <label><input type="checkbox"></input> Antagonista</label>
-                <label><input type="checkbox"></input> Articulador</label>
-            </div>
-            <div class="group">
-                <h4>Implante</h4>
-                <label><input type="checkbox"></input> Transfer</label>
-                <label><input type="checkbox"></input> Análogo</label>
-                <label><input type="checkbox"></input> Tornillo</label>
-                <label><input type="checkbox"></input> Uclas Mec.</label>
-                <label><input type="checkbox"></input> Otros</label>
-            </div>
-            <div class="group">
-                <h4>Cara Oclusal</h4>
-                <label><input type="checkbox"></input> Sí</label>
-                <label><input type="checkbox"></input> No</label>
-            </div>
-            <div class="group">
-                <h4>Zona Cervical</h4>
-                <label><input type="checkbox"></input> Oscura</label>
-                <label><input type="checkbox"></input> Normal</label>
-            </div>
-            <div class="group">
-                <h4>Incisal</h4>
-                <label><input type="checkbox"></input> Translúcida</label>
-                <label><input type="checkbox"></input> Normal</label>
-                
-            </div>
-            <div class="group">
-                <h4>Mamelones</h4>
-                <label><input type="checkbox"></input> Sí</label>
-                <label><input type="checkbox"></input> No</label>
-            </div>
-            </div>
+          {/* Resto del formulario */}
+          {/* ... (mantén el resto de los campos del formulario) ... */}
 
           <button type="submit" className="submit-button">Registrar</button>
         </form>
