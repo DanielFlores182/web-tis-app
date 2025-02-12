@@ -17,7 +17,7 @@ try {
     // Verifica si es una solicitud GET
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         // Llamar a la función de Supabase para obtener todas las clínicas
-        $query = "SELECT * FROM obtener_clinicas();";
+        $query = "SELECT * FROM obtener_clinicas2();";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
 
