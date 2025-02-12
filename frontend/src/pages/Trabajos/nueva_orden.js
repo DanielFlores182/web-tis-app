@@ -65,7 +65,7 @@ function NuevaOrden() {
   const [clinicaSuggestions, setClinicaSuggestions] = useState([]);
   const [direccionSuggestions, setDireccionSuggestions] = useState([]);
   const [telefonoSuggestions, setTelefonoSuggestions] = useState([]);
-  const [clinicaSeleccionada, setClinicaSeleccionada] = useState(null); // Nueva variable de estado
+ // const [clinicaSeleccionada, setClinicaSeleccionada] = useState(null); // Nueva variable de estado
   const [dentistaSuggestions, setDentistaSuggestions] = useState([]);
   const [pacienteSuggestions, setPacienteSuggestions] = useState([]);
 
@@ -97,7 +97,7 @@ function NuevaOrden() {
         const pacientesData = await pacientesResponse.json();
         setPacientes(pacientesData);
       } catch (error) {
-        console.error('Error al obtener clínicas:', error);
+        console.error('Error al obtener datos:', error);
       }
     };
 
@@ -124,7 +124,7 @@ function NuevaOrden() {
       direccion: '', // Limpiar el campo de dirección
       telefono: '', // Limpiar el campo de teléfono
     });
-    setClinicaSeleccionada(clinica); // Guardar la clínica seleccionada
+   // setClinicaSeleccionada(clinica); // Guardar la clínica seleccionada
     setClinicaSuggestions([]); // Ocultar las sugerencias de clínicas
     setDireccionSuggestions(clinica.direccion || []); // Mostrar sugerencias de direcciones
     setTelefonoSuggestions(clinica.telefono || []); // Mostrar sugerencias de teléfonos
@@ -140,6 +140,16 @@ function NuevaOrden() {
   const handleTelefonoSuggestionClick = (telefono) => {
     setFormData({ ...formData, telefono });
     setTelefonoSuggestions([]); // Ocultar las sugerencias de teléfonos
+  };
+  const handleDentistaChange = (e) => {
+    const value = e.target.value;
+    setFormData({ ...formData, odontologo: value });
+
+    // Filtrar sugerencias de dentistas
+    const suggestions = dentistas.filter((dentista) =>
+      dentista.nombre.toLowerCase().includes(value.toLowerCase())
+    );
+    setDentistaSuggestions(suggestions);
   };
   const handlePacienteChange = (e) => {
     const value = e.target.value;
@@ -234,6 +244,30 @@ function NuevaOrden() {
               <input type="checkbox" name="largoplazo" checked={formData.largoplazo} onChange={handleInputChange} />
               Largo Plazo
             </label>
+          </div>
+           {/* Campo de dentista con autocompletado */}
+           <div className="form-group">
+            <label htmlFor="odontologo">Odontólogo:</label>
+            <input
+              type="text"
+              id="odontologo"
+              name="odontologo"
+              value={formData.odontologo}
+              onChange={handleDentistaChange}
+              required
+            />
+            {dentistaSuggestions.length > 0 && (
+              <ul className="suggestions-list">
+                {dentistaSuggestions.map((dentista, index) => (
+                  <li
+                    key={index}
+                    onClick={() => handleSuggestionClick('dentista', dentista.nombre)}
+                  >
+                    {dentista.nombre}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           {/* Campo de clínica con autocompletado */}
           <div className="form-group">
