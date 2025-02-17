@@ -94,7 +94,7 @@ function NuevaOrden() {
 
         const fetchDentistas = async () => {
           try {
-            const response = await fetch('https://tuservidor.com/obtener_dentistas.php');
+            const response = await fetch('https://web-tis-app-production.up.railway.app/obtener_dentistas.php');
             const data = await response.json();
             setDentistas(data); // Guardar los datos de los dentistas en el estado
           } catch (error) {
