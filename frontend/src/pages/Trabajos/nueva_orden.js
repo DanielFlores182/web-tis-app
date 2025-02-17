@@ -61,13 +61,13 @@ function NuevaOrden() {
   // Estados para las sugerencias de autocompletado
   const [clinicas, setClinicas] = useState([]);
   const [dentistas, setDentistas] = useState([]);
-  const [pacientes, setPacientes] = useState([]);
+ // const [pacientes, setPacientes] = useState([]);
   const [clinicaSuggestions, setClinicaSuggestions] = useState([]);
   const [direccionSuggestions, setDireccionSuggestions] = useState([]);
   const [telefonoSuggestions, setTelefonoSuggestions] = useState([]);
  // const [clinicaSeleccionada, setClinicaSeleccionada] = useState(null); // Nueva variable de estado
   const [dentistaSuggestions, setDentistaSuggestions] = useState([]);
-  const [pacienteSuggestions, setPacienteSuggestions] = useState([]);
+  //const [pacienteSuggestions, setPacienteSuggestions] = useState([]);
 
 
   // Obtener datos de clínicas al cargar el componente
@@ -154,30 +154,30 @@ function NuevaOrden() {
     );
     setDentistaSuggestions(suggestions);
   };
-  const handlePacienteChange = (e) => {
-    const value = e.target.value;
-    setFormData({ ...formData, paciente: value });
+  // const handlePacienteChange = (e) => {
+  //   const value = e.target.value;
+  //   setFormData({ ...formData, paciente: value });
 
-    // Filtrar sugerencias de pacientes
-    const suggestions = pacientes.filter((paciente) =>
-      paciente.nombre.toLowerCase().includes(value.toLowerCase())
-    );
-    setPacienteSuggestions(suggestions);
-  };
+  //   // Filtrar sugerencias de pacientes
+  //   const suggestions = pacientes.filter((paciente) =>
+  //     paciente.nombre.toLowerCase().includes(value.toLowerCase())
+  //   );
+  //   setPacienteSuggestions(suggestions);
+  // };
 
   // Manejar clic en una sugerencia
-  const handleSuggestionClick = (field, value) => {
-    if (field === 'clinica') {
-      setFormData({ ...formData, clinica: value });
-      setClinicaSuggestions([]);
-    } else if (field === 'dentista') {
-      setFormData({ ...formData, odontologo: value });
-      setDentistaSuggestions([]);
-    } else if (field === 'paciente') {
-      setFormData({ ...formData, paciente: value });
-      setPacienteSuggestions([]);
-    }
-  };
+  // const handleSuggestionClick = (field, value) => {
+  //   if (field === 'clinica') {
+  //     setFormData({ ...formData, clinica: value });
+  //     setClinicaSuggestions([]);
+  //   } else if (field === 'dentista') {
+  //     setFormData({ ...formData, odontologo: value });
+  //     setDentistaSuggestions([]);
+  //   } else if (field === 'paciente') {
+  //     setFormData({ ...formData, paciente: value });
+  //     setPacienteSuggestions([]);
+  //   }
+  // };
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -385,7 +385,7 @@ function NuevaOrden() {
             <textarea id="descripcion" name="descripcion" value={formData.descripcion} onChange={handleInputChange} required />
           </div>
           {/* Campo de paciente con autocompletado */}
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="paciente">Paciente:</label>
             <input
               type="text"
@@ -407,7 +407,7 @@ function NuevaOrden() {
                 ))}
               </ul>
             )}
-          </div>
+          </div> */}
 
 		   {/* Edad y Sexo */}
            <div className="form-group">
