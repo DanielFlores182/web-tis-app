@@ -84,9 +84,7 @@ function NuevaOrden() {
             telefono: JSON.parse(clinica.telefono),
           }));
           setClinicas(clinicasFormateadas);
-        } else {
-          console.error('Error: La respuesta de clínicas no es un array');
-        }
+        } 
        } catch (error) {
           console.error('Error al obtener datos de clínicas:', error);
         }
