@@ -16,8 +16,8 @@ require 'db_conection.php'; // Asegúrate de que la ruta a tu archivo de conexi�
 try {
     // Verifica si es una solicitud GET
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        // Llamar a la función de Supabase para obtener todos los dentistas
-        $query = "SELECT * FROM obtener_dentistas();";
+        // Llamar a la función de PostgreSQL para obtener todos los dentistas
+        $query = "SELECT * FROM public.get_all_dentistas();";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
 

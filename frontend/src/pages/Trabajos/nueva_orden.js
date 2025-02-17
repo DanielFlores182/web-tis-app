@@ -87,21 +87,24 @@ function NuevaOrden() {
         } else {
           console.error('Error: La respuesta de clínicas no es un array');
         }
-        // Obtener dentistas
-        const dentistasResponse = await fetch('https://tuservidor.com/obtener_dentistas.php');
-        const dentistasData = await dentistasResponse.json();
-        setDentistas(dentistasData);
+       } catch (error) {
+          console.error('Error al obtener datos de clínicas:', error);
+        }
+      };
 
-        // Obtener pacientes
-        const pacientesResponse = await fetch('https://tuservidor.com/obtener_pacientes.php');
-        const pacientesData = await pacientesResponse.json();
-        setPacientes(pacientesData);
-      } catch (error) {
-        console.error('Error al obtener datos:', error);
-      }
-    };
+        const fetchDentistas = async () => {
+          try {
+            const response = await fetch('https://tuservidor.com/obtener_dentistas.php');
+            const data = await response.json();
+            setDentistas(data); // Guardar los datos de los dentistas en el estado
+          } catch (error) {
+            console.error('Error al obtener dentistas:', error);
+          }
+        };
 
+       
     fetchClinicas();
+    fetchDentistas();
   }, []);
 
   // Manejar cambios en el campo de clínica
@@ -144,7 +147,7 @@ function NuevaOrden() {
   const handleDentistaChange = (e) => {
     const value = e.target.value;
     setFormData({ ...formData, odontologo: value });
-
+  
     // Filtrar sugerencias de dentistas
     const suggestions = dentistas.filter((dentista) =>
       dentista.nombre.toLowerCase().includes(value.toLowerCase())
@@ -196,7 +199,7 @@ function NuevaOrden() {
         <h1 className="header-title">Menu</h1>
         <nav>
           <ul>
-            <li><a href="/nueva_orden">Nueva Orden</a></li>
+            <li><a href="/menu_principal">Menu</a></li>
             <li>
               <a href="#!" onClick={toggleRegisterOptions}>Buscador</a>
               {showRegisterOptions && (
@@ -247,28 +250,50 @@ function NuevaOrden() {
           </div>
            {/* Campo de dentista con autocompletado */}
            <div className="form-group">
-            <label htmlFor="odontologo">Odontólogo:</label>
-            <input
-              type="text"
-              id="odontologo"
-              name="odontologo"
-              value={formData.odontologo}
-              onChange={handleDentistaChange}
-              required
-            />
-            {dentistaSuggestions.length > 0 && (
-              <ul className="suggestions-list">
-                {dentistaSuggestions.map((dentista, index) => (
-                  <li
-                    key={index}
-                    onClick={() => handleSuggestionClick('dentista', dentista.nombre)}
-                  >
-                    {dentista.nombre}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+              <label htmlFor="odontologo">Odontólogo:</label>
+              <input
+                type="text"
+                id="odontologo"
+                name="odontologo"
+                value={formData.odontologo}
+                onChange={handleDentistaChange}
+                required
+              />
+              {dentistaSuggestions.length > 0 && (
+                <ul className="suggestions-list">
+                  {dentistaSuggestions.map((dentista, index) => (
+                    <li
+                      key={index}
+                      onClick={() => {
+                        setFormData({
+                          ...formData,
+                          odontologo: dentista.nombre,
+                          telefono: dentista.telefono[0] || '', // Asignar el primer teléfono
+                        });
+                        setDentistaSuggestions([]); // Ocultar sugerencias
+                      }}
+                    >
+                      <strong>{dentista.nombre}</strong>
+                      <div>
+                        <small>Teléfono: {dentista.telefono?.join(', ')}</small>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="telefono">Teléfono Odont:</label>
+              <input
+                type="text"
+                id="telefono"
+                name="telefono"
+                value={formData.telefono}
+                onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
+                required
+              />
+            </div>
           {/* Campo de clínica con autocompletado */}
           <div className="form-group">
             <label htmlFor="clinica">Clínica:</label>
