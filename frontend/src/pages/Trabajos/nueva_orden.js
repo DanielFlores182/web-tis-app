@@ -94,7 +94,14 @@ function NuevaOrden() {
           try {
             const response = await fetch('https://web-tis-app-production.up.railway.app/get_dentistas.php');
             const data = await response.json();
-            setDentistas(data); // Guardar los datos de los dentistas en el estado
+            if (Array.isArray(data)) {
+              // Convertir las cadenas JSON en arrays
+              const dentistaFormateado = data.map((dentista) => ({
+                ...dentista,
+                 telefono: JSON.parse(dentista.telefono),
+              }));
+              setDentistas(dentistaFormateado);
+            } 
           } catch (error) {
             console.error('Error al obtener dentistas:', error);
           }
@@ -266,7 +273,7 @@ function NuevaOrden() {
                         setFormData({
                           ...formData,
                           odontologo: dentista.nombre,
-                          telefono: dentista.telefono[0] || '', // Asignar el primer teléfono
+                          telefono_o: dentista.telefono[0] || '', // Asignar el primer teléfono
                         });
                         setDentistaSuggestions([]); // Ocultar sugerencias
                       }}
@@ -285,9 +292,9 @@ function NuevaOrden() {
               <label htmlFor="telefono">Teléfono Odont:</label>
               <input
                 type="text"
-                id="telefono"
-                name="telefono"
-                value={formData.telefono}
+                id="telefono_o"
+                name="telefono_o"
+                value={formData.telefono_o}
                 onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
                 required
               />
