@@ -24,6 +24,9 @@ function NuevaOrden() {
     paciente: '',
     colorimetro: '',
     urgente: false,
+    regular: false,
+    especial: false,
+    largoplazo: false,
     entregado: false,
     fechaRecibo: '',
     fechaEntrega: '',
@@ -31,31 +34,31 @@ function NuevaOrden() {
     sexo: '',
     telefono_o: '', // Teléfono del odontólogo
     ingresa: {
-      Antagonista: false,
-      Articulador: false,
+      antagonista: false,
+      articulador: false,
     },
     implante: {
-      Transfer: false,
-      Análogo: false,
-      Tornillo: false,
-      Uclas: false,
-      Otros: false,
+      transfer: false,
+      analogo: false,
+      tornillo: false,
+      uclas: false,
+      otros: false,
     },
     caraoclusal: {
-      Si: false,
-      No: false,
+      si: false,
+      no: false,
     },
     zonacervical: {
-      Oscura: false,
-      Normal: false,
+      oscura: false,
+      normal: false,
     },
     incisal: {
-      Translucida: false,
-      Normal: false,
+      translucida: false,
+      normal: false,
     },
     mamelones: {
-      Si: false,
-      No: false,
+      si: false,
+      no: false,
     },
   });
 
@@ -72,14 +75,14 @@ function NuevaOrden() {
     e.preventDefault();
   
     try {
-      const response = await fetch('http://web-tis-app-production.up.railway.app/insertar_orden.php', {
+      const response = await fetch('https://web-tis-app-production.up.railway.app/insertar_orden.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData), // Envía el estado del formulario como JSON
       });
-  
+      //console.log(JSON.stringify(formData))
       const result = await response.json();
   
       if (result.success) {
@@ -225,7 +228,18 @@ function NuevaOrden() {
               required
             />
           </div>
-
+          {/* Campo de paciente */}
+          <div className="form-group">
+            <label htmlFor="paciente">Paciente:</label>
+            <input
+              type="text"
+              id="paciente"
+              name="paciente"
+              value={formData.paciente}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
           {/* Campo de edad */}
           <div className="form-group">
             <label htmlFor="edad">Edad:</label>
@@ -294,36 +308,36 @@ function NuevaOrden() {
           <div className="checkbox-container">
             <div className="group">
               <h4>Ingresa</h4>
-              <label><input type="checkbox" name="ingresa.Antagonista" checked={formData.ingresa.Antagonista} onChange={handleInputChange} /> Antagonista</label>
-              <label><input type="checkbox" name="ingresa.Articulador" checked={formData.ingresa.Articulador} onChange={handleInputChange} /> Articulador</label>
+              <label><input type="checkbox" name="ingresa.antagonista" checked={formData.ingresa.antagonista} onChange={handleInputChange} /> Antagonista</label>
+              <label><input type="checkbox" name="ingresa.articulador" checked={formData.ingresa.articulador} onChange={handleInputChange} /> Articulador</label>
             </div>
             <div className="group">
               <h4>Implante</h4>
-              <label><input type="checkbox" name="implante.Transfer" checked={formData.implante.Transfer} onChange={handleInputChange} /> Transfer</label>
-              <label><input type="checkbox" name="implante.Análogo" checked={formData.implante.Análogo} onChange={handleInputChange} /> Análogo</label>
-              <label><input type="checkbox" name="implante.Tornillo" checked={formData.implante.Tornillo} onChange={handleInputChange} /> Tornillo</label>
-              <label><input type="checkbox" name="implante.Uclas" checked={formData.implante.Uclas} onChange={handleInputChange} /> Uclas Mec.</label>
-              <label><input type="checkbox" name="implante.Otros" checked={formData.implante.Otros} onChange={handleInputChange} /> Otros</label>
+              <label><input type="checkbox" name="implante.transfer" checked={formData.implante.transfer} onChange={handleInputChange} /> Transfer</label>
+              <label><input type="checkbox" name="implante.analogo" checked={formData.implante.analogo} onChange={handleInputChange} /> Análogo</label>
+              <label><input type="checkbox" name="implante.tornillo" checked={formData.implante.tornillo} onChange={handleInputChange} /> Tornillo</label>
+              <label><input type="checkbox" name="implante.uclas" checked={formData.implante.uclas} onChange={handleInputChange} /> Uclas Mec.</label>
+              <label><input type="checkbox" name="implante.otros" checked={formData.implante.otros} onChange={handleInputChange} /> Otros</label>
             </div>
             <div className="group">
               <h4>Cara Oclusal</h4>
-              <label><input type="checkbox" name="caraoclusal.Si" checked={formData.caraoclusal.Si} onChange={handleInputChange} /> Sí</label>
-              <label><input type="checkbox" name="caraoclusal.No" checked={formData.caraoclusal.No} onChange={handleInputChange} /> No</label>
+              <label><input type="checkbox" name="caraoclusal.si" checked={formData.caraoclusal.si} onChange={handleInputChange} /> Sí</label>
+              <label><input type="checkbox" name="caraoclusal.no" checked={formData.caraoclusal.no} onChange={handleInputChange} /> No</label>
             </div>
             <div className="group">
               <h4>Zona Cervical</h4>
-              <label><input type="checkbox" name="zonacervical.Oscura" checked={formData.zonacervical.Oscura} onChange={handleInputChange} /> Oscura</label>
-              <label><input type="checkbox" name="zonacervical.Normal" checked={formData.zonacervical.Normal} onChange={handleInputChange} /> Normal</label>
+              <label><input type="checkbox" name="zonacervical.oscura" checked={formData.zonacervical.oscura} onChange={handleInputChange} /> Oscura</label>
+              <label><input type="checkbox" name="zonacervical.normal" checked={formData.zonacervical.normal} onChange={handleInputChange} /> Normal</label>
             </div>
             <div className="group">
               <h4>Incisal</h4>
-              <label><input type="checkbox" name="incisal.Translucida" checked={formData.incisal.Translucida} onChange={handleInputChange} /> Translúcida</label>
-              <label><input type="checkbox" name="incisal.Normal" checked={formData.incisal.Normal} onChange={handleInputChange} /> Normal</label>
+              <label><input type="checkbox" name="incisal.translucida" checked={formData.incisal.translucida} onChange={handleInputChange} /> Translúcida</label>
+              <label><input type="checkbox" name="incisal.normal" checked={formData.incisal.normal} onChange={handleInputChange} /> Normal</label>
             </div>
             <div className="group">
               <h4>Mamelones</h4>
-              <label><input type="checkbox" name="mamelones.Si" checked={formData.mamelones.Si} onChange={handleInputChange} /> Sí</label>
-              <label><input type="checkbox" name="mamelones.No" checked={formData.mamelones.No} onChange={handleInputChange} /> No</label>
+              <label><input type="checkbox" name="mamelones.si" checked={formData.mamelones.si} onChange={handleInputChange} /> Sí</label>
+              <label><input type="checkbox" name="mamelones.no" checked={formData.mamelones.no} onChange={handleInputChange} /> No</label>
             </div>
           </div>
 

@@ -4,9 +4,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Habilitar CORS
-header("Access-Control-Allow-Origin: *"); // Permite solicitudes desde tu frontend
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS"); // Métodos permitidos
-header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Encabezados permitidos
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 // Manejar preflight (solicitudes OPTIONS)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Incluir la conexión a la base de datos
-require 'db_conection.php'; // Asegúrate de que este archivo configure la conexión a PostgreSQL
+require 'db_conection.php'; // Asegúrate de que este archivo configure la conexión a Supabase
 
 header('Content-Type: application/json');
 
@@ -34,32 +34,42 @@ try {
         $clinica = $data->clinica ?? null;
         $odontologo = $data->odontologo ?? null;
         $direccion = $data->direccion ?? null;
-        $telefono_dentista = $data->telefono_o ?? null; // Usamos telefono_o del frontend
+        $telefono_dentista = $data->telefono_o ?? null;
         $descripcion = $data->descripcion ?? null;
         $paciente = $data->paciente ?? null;
         $colorimetro = $data->colorimetro ?? null;
-        $tipo = $data->tipo ?? null; // Puedes definir cómo se calcula o envía este campo desde el frontend
-        $fecha_inicio = $data->fechaRecibo ?? null; // Usamos fechaRecibo del frontend
+        $fecha_inicio = $data->fechaRecibo ?? null;
         $fecha_entrega = $data->fechaEntrega ?? null;
         $edad = $data->edad ?? null;
-        $genero = $data->sexo === 'Masculino' ? true : ($data->sexo === 'Femenino' ? false : null); // Convertir sexo a booleano
-        $telefono_clinica = $data->telefono ?? null; // Usamos telefono del frontend
+        $genero = $data->sexo ?? null; // Ahora es texto
+        $telefono_clinica = $data->telefono ?? null;
+        $urgente = $data->urgente ?? null;
+        $regular = $data->regular ?? null;
+        $especial = $data->especial ?? null;
+        $largoplazo = $data->largoplazo ?? null;
+        $antagonista = $data->ingresa->Antagonista ?? null;
+        $articulador = $data->ingresa->Articulador ?? null;
+        $transfer = $data->implante->Transfer ?? null;
+        $analogo = $data->implante->Análogo ?? null;
+        $tornillo = $data->implante->Tornillo ?? null;
+        $uclas = $data->implante->Uclas ?? null;
+        $otros = $data->implante->Otros ?? null;
+        $cara_oclusal_si = $data->caraoclusal->Si ?? null;
+        $cara_oclusal_no = $data->caraoclusal->No ?? null;
+        $zona_cervical_oscura = $data->zonacervical->Oscura ?? null;
+        $zona_cervical_normal = $data->zonacervical->Normal ?? null;
+        $incisal_translucida = $data->incisal->Translucida ?? null;
+        $incisal_normal = $data->incisal->Normal ?? null;
+        $mamelones_si = $data->mamelones->Si ?? null;
+        $mamelones_no = $data->mamelones->No ?? null;
 
         // Llamar a la función insertar_orden_de_trabajo
         $query = "SELECT public.insertar_orden_de_trabajo(
-            :clinica, 
-            :odontologo, 
-            :direccion, 
-            :telefono_dentista, 
-            :descripcion, 
-            :paciente, 
-            :colorimetro, 
-            :tipo, 
-            :fecha_inicio, 
-            :fecha_entrega, 
-            :edad, 
-            :genero, 
-            :telefono_clinica
+            :clinica, :odontologo, :direccion, :telefono_dentista, :descripcion, :paciente, :colorimetro,
+            :fecha_inicio, :fecha_entrega, :edad, :genero, :telefono_clinica, :urgente, :regular, :especial,
+            :largoplazo, :antagonista, :articulador, :transfer, :analogo, :tornillo, :uclas, :otros,
+            :cara_oclusal_si, :cara_oclusal_no, :zona_cervical_oscura, :zona_cervical_normal,
+            :incisal_translucida, :incisal_normal, :mamelones_si, :mamelones_no
         )";
         $stmt = $pdo->prepare($query);
 
@@ -71,12 +81,30 @@ try {
         $stmt->bindParam(':descripcion', $descripcion);
         $stmt->bindParam(':paciente', $paciente);
         $stmt->bindParam(':colorimetro', $colorimetro);
-        $stmt->bindParam(':tipo', $tipo);
         $stmt->bindParam(':fecha_inicio', $fecha_inicio);
         $stmt->bindParam(':fecha_entrega', $fecha_entrega);
         $stmt->bindParam(':edad', $edad);
         $stmt->bindParam(':genero', $genero);
         $stmt->bindParam(':telefono_clinica', $telefono_clinica);
+        $stmt->bindParam(':urgente', $urgente);
+        $stmt->bindParam(':regular', $regular);
+        $stmt->bindParam(':especial', $especial);
+        $stmt->bindParam(':largoplazo', $largoplazo);
+        $stmt->bindParam(':antagonista', $antagonista);
+        $stmt->bindParam(':articulador', $articulador);
+        $stmt->bindParam(':transfer', $transfer);
+        $stmt->bindParam(':analogo', $analogo);
+        $stmt->bindParam(':tornillo', $tornillo);
+        $stmt->bindParam(':uclas', $uclas);
+        $stmt->bindParam(':otros', $otros);
+        $stmt->bindParam(':cara_oclusal_si', $cara_oclusal_si);
+        $stmt->bindParam(':cara_oclusal_no', $cara_oclusal_no);
+        $stmt->bindParam(':zona_cervical_oscura', $zona_cervical_oscura);
+        $stmt->bindParam(':zona_cervical_normal', $zona_cervical_normal);
+        $stmt->bindParam(':incisal_translucida', $incisal_translucida);
+        $stmt->bindParam(':incisal_normal', $incisal_normal);
+        $stmt->bindParam(':mamelones_si', $mamelones_si);
+        $stmt->bindParam(':mamelones_no', $mamelones_no);
 
         // Ejecutar la consulta
         if ($stmt->execute()) {
@@ -92,6 +120,5 @@ try {
         throw new Exception('Método HTTP no permitido.');
     }
 } catch (Exception $e) {
-    // Devolver un error JSON con success false
     echo json_encode(['success' => false, 'error' => $e->getMessage()]);
 }
