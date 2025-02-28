@@ -18,6 +18,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 require 'db_conection.php'; // Asegúrate de que este archivo configure la conexión a Supabase
 
 header('Content-Type: application/json');
+function convertBooleansToStrings($data) {
+    foreach ($data as $key => $value) {
+        if (is_bool($value)) {
+            $data->$key = $value ? 'true' : 'false'; // Convierte booleanos a cadenas
+        } elseif (is_object($value) || is_array($value)) {
+            $data->$key = convertBooleansToStrings($value); // Recursión para objetos o arrays anidados
+        }
+    }
+    return $data;
+}
 
 try {
     // Verifica si es una solicitud POST
@@ -29,7 +39,8 @@ try {
         if (!$data) {
             throw new Exception('No se recibieron datos en el cuerpo de la solicitud.');
         }
-
+        // Convertir booleanos a cadenas
+        $data = convertBooleansToStrings($data);
         // Extraer los datos del JSON
         $clinica = $data->clinica ?? null;
         $odontologo = $data->odontologo ?? null;
