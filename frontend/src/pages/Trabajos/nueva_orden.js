@@ -82,7 +82,7 @@ function NuevaOrden() {
         },
         body: JSON.stringify(formData), // Envía el estado del formulario como JSON
       });
-      //console.log(JSON.stringify(formData))
+      console.log(JSON.stringify(formData))
       const result = await response.json();
   
       if (result.success) {

@@ -47,21 +47,21 @@ try {
         $regular = $data->regular ?? null;
         $especial = $data->especial ?? null;
         $largoplazo = $data->largoplazo ?? null;
-        $antagonista = $data->ingresa->Antagonista ?? null;
-        $articulador = $data->ingresa->Articulador ?? null;
-        $transfer = $data->implante->Transfer ?? null;
-        $analogo = $data->implante->Análogo ?? null;
-        $tornillo = $data->implante->Tornillo ?? null;
-        $uclas = $data->implante->Uclas ?? null;
-        $otros = $data->implante->Otros ?? null;
-        $cara_oclusal_si = $data->caraoclusal->Si ?? null;
-        $cara_oclusal_no = $data->caraoclusal->No ?? null;
-        $zona_cervical_oscura = $data->zonacervical->Oscura ?? null;
-        $zona_cervical_normal = $data->zonacervical->Normal ?? null;
-        $incisal_translucida = $data->incisal->Translucida ?? null;
-        $incisal_normal = $data->incisal->Normal ?? null;
-        $mamelones_si = $data->mamelones->Si ?? null;
-        $mamelones_no = $data->mamelones->No ?? null;
+        $antagonista = $data->ingresa->antagonista ?? null;
+        $articulador = $data->ingresa->articulador ?? null;
+        $transfer = $data->implante->transfer ?? null;
+        $analogo = $data->implante->analogo ?? null;
+        $tornillo = $data->implante->tornillo ?? null;
+        $uclas = $data->implante->uclas ?? null;
+        $otros = $data->implante->otros ?? null;
+        $cara_oclusal_si = $data->caraoclusal->si ?? null;
+        $cara_oclusal_no = $data->caraoclusal->no ?? null;
+        $zona_cervical_oscura = $data->zonacervical->oscura ?? null;
+        $zona_cervical_normal = $data->zonacervical->normal ?? null;
+        $incisal_translucida = $data->incisal->translucida ?? null;
+        $incisal_normal = $data->incisal->tormal ?? null;
+        $mamelones_si = $data->mamelones->si ?? null;
+        $mamelones_no = $data->mamelones->no ?? null;
 
         // Llamar a la función insertar_orden_de_trabajo
         $query = "SELECT public.insertar_orden_de_trabajo(
