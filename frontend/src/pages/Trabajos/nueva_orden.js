@@ -23,43 +23,39 @@ function NuevaOrden() {
     descripcion: '',
     paciente: '',
     colorimetro: '',
+
     urgente: false,
     regular: false,
     especial: false,
     largoplazo: false,
     entregado: false,
+    
     fechaRecibo: '',
     fechaEntrega: '',
     edad: '',
     sexo: '',
     telefono_o: '', // Teléfono del odontólogo
-    ingresa: {
-      antagonista: false,
-      articulador: false,
-    },
-    implante: {
-      transfer: false,
-      analogo: false,
-      tornillo: false,
-      uclas: false,
-      otros: false,
-    },
-    caraoclusal: {
-      si: false,
-      no: false,
-    },
-    zonacervical: {
-      oscura: false,
-      normal: false,
-    },
-    incisal: {
-      translucida: false,
-      normal: false,
-    },
-    mamelones: {
-      si: false,
-      no: false,
-    },
+
+    ingresa_antagonista: false,
+    ingresa_articulador: false,
+    
+    implante_transfer: false,
+    implante_analogo: false,
+    implante_tornillo: false,
+    implante_uclas: false,
+    implante_otros: false,
+    
+    caraoclusal_si: false,
+    caraoclusal_no: false,
+    
+    zonacervical_oscura: false,
+    zonacervical_normal: false,
+    
+    incisal_translucida: false,
+    incisal_normal: false,
+    
+    mamelones_si: false,
+    mamelones_no: false,
   });
 
   // Manejar cambios en los inputs
@@ -308,36 +304,36 @@ function NuevaOrden() {
           <div className="checkbox-container">
             <div className="group">
               <h4>Ingresa</h4>
-              <label><input type="checkbox" name="ingresa.antagonista" checked={formData.ingresa.antagonista} onChange={handleInputChange} /> Antagonista</label>
-              <label><input type="checkbox" name="ingresa.articulador" checked={formData.ingresa.articulador} onChange={handleInputChange} /> Articulador</label>
+              <label><input type="checkbox" name="ingresa_antagonista" checked={formData.ingresa_antagonista} onChange={handleInputChange} /> Antagonista</label>
+              <label><input type="checkbox" name="ingresa_articulador" checked={formData.ingresa_articulador} onChange={handleInputChange} /> Articulador</label>
             </div>
             <div className="group">
               <h4>Implante</h4>
-              <label><input type="checkbox" name="implante.transfer" checked={formData.implante.transfer} onChange={handleInputChange} /> Transfer</label>
-              <label><input type="checkbox" name="implante.analogo" checked={formData.implante.analogo} onChange={handleInputChange} /> Análogo</label>
-              <label><input type="checkbox" name="implante.tornillo" checked={formData.implante.tornillo} onChange={handleInputChange} /> Tornillo</label>
-              <label><input type="checkbox" name="implante.uclas" checked={formData.implante.uclas} onChange={handleInputChange} /> Uclas Mec.</label>
-              <label><input type="checkbox" name="implante.otros" checked={formData.implante.otros} onChange={handleInputChange} /> Otros</label>
+              <label><input type="checkbox" name="implante_transfer" checked={formData.implante_transfer} onChange={handleInputChange} /> Transfer</label>
+              <label><input type="checkbox" name="implante_analogo" checked={formData.implante_analogo} onChange={handleInputChange} /> Análogo</label>
+              <label><input type="checkbox" name="implante_tornillo" checked={formData.implante_tornillo} onChange={handleInputChange} /> Tornillo</label>
+              <label><input type="checkbox" name="implante_uclas" checked={formData.implante_uclas} onChange={handleInputChange} /> Uclas Mec.</label>
+              <label><input type="checkbox" name="implante_otros" checked={formData.implante_otros} onChange={handleInputChange} /> Otros</label>
             </div>
             <div className="group">
               <h4>Cara Oclusal</h4>
-              <label><input type="checkbox" name="caraoclusal.si" checked={formData.caraoclusal.si} onChange={handleInputChange} /> Sí</label>
-              <label><input type="checkbox" name="caraoclusal.no" checked={formData.caraoclusal.no} onChange={handleInputChange} /> No</label>
+              <label><input type="checkbox" name="caraoclusal_si" checked={formData.caraoclusal_si} onChange={handleInputChange} /> Sí</label>
+              <label><input type="checkbox" name="caraoclusal_no" checked={formData.caraoclusal_no} onChange={handleInputChange} /> No</label>
             </div>
             <div className="group">
               <h4>Zona Cervical</h4>
-              <label><input type="checkbox" name="zonacervical.oscura" checked={formData.zonacervical.oscura} onChange={handleInputChange} /> Oscura</label>
-              <label><input type="checkbox" name="zonacervical.normal" checked={formData.zonacervical.normal} onChange={handleInputChange} /> Normal</label>
+              <label><input type="checkbox" name="zonacervical_oscura" checked={formData.zonacervical_oscura} onChange={handleInputChange} /> Oscura</label>
+              <label><input type="checkbox" name="zonacervical_normal" checked={formData.zonacervical_normal} onChange={handleInputChange} /> Normal</label>
             </div>
             <div className="group">
               <h4>Incisal</h4>
-              <label><input type="checkbox" name="incisal.translucida" checked={formData.incisal.translucida} onChange={handleInputChange} /> Translúcida</label>
-              <label><input type="checkbox" name="incisal.normal" checked={formData.incisal.normal} onChange={handleInputChange} /> Normal</label>
+              <label><input type="checkbox" name="incisal_translucida" checked={formData.incisal_translucida} onChange={handleInputChange} /> Translúcida</label>
+              <label><input type="checkbox" name="incisal_normal" checked={formData.incisal_normal} onChange={handleInputChange} /> Normal</label>
             </div>
             <div className="group">
               <h4>Mamelones</h4>
-              <label><input type="checkbox" name="mamelones.si" checked={formData.mamelones.si} onChange={handleInputChange} /> Sí</label>
-              <label><input type="checkbox" name="mamelones.no" checked={formData.mamelones.no} onChange={handleInputChange} /> No</label>
+              <label><input type="checkbox" name="mamelones_si" checked={formData.mamelones_si} onChange={handleInputChange} /> Sí</label>
+              <label><input type="checkbox" name="mamelones_no" checked={formData.mamelones_no} onChange={handleInputChange} /> No</label>
             </div>
           </div>
 

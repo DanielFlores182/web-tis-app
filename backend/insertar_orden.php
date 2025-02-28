@@ -58,21 +58,21 @@ try {
         $regular = $data->regular ?? null;
         $especial = $data->especial ?? null;
         $largoplazo = $data->largoplazo ?? null;
-        $antagonista = $data->ingresa->antagonista ?? null;
-        $articulador = $data->ingresa->articulador ?? null;
-        $transfer = $data->implante->transfer ?? null;
-        $analogo = $data->implante->analogo ?? null;
-        $tornillo = $data->implante->tornillo ?? null;
-        $uclas = $data->implante->uclas ?? null;
-        $otros = $data->implante->otros ?? null;
-        $cara_oclusal_si = $data->caraoclusal->si ?? null;
-        $cara_oclusal_no = $data->caraoclusal->no ?? null;
-        $zona_cervical_oscura = $data->zonacervical->oscura ?? null;
-        $zona_cervical_normal = $data->zonacervical->normal ?? null;
-        $incisal_translucida = $data->incisal->translucida ?? null;
-        $incisal_normal = $data->incisal->normal ?? null;
-        $mamelones_si = $data->mamelones->si ?? null;
-        $mamelones_no = $data->mamelones->no ?? null;
+        $antagonista = $data->ingresa_antagonista ?? null;
+        $articulador = $data->ingresa_articulador ?? null;
+        $transfer = $data->implante_transfer ?? null;
+        $analogo = $data->implante_analogo ?? null;
+        $tornillo = $data->implante_tornillo ?? null;
+        $uclas = $data->implante_uclas ?? null;
+        $otros = $data->implante_otros ?? null;
+        $cara_oclusal_si = $data->caraoclusal_si ?? null;
+        $cara_oclusal_no = $data->caraoclusal_no ?? null;
+        $zona_cervical_oscura = $data->zonacervical_oscura ?? null;
+        $zona_cervical_normal = $data->zonacervical_normal ?? null;
+        $incisal_translucida = $data->incisal_translucida ?? null;
+        $incisal_normal = $data->incisal_normal ?? null;
+        $mamelones_si = $data->mamelones_si ?? null;
+        $mamelones_no = $data->mamelones_no ?? null;
 
         // Llamar a la función insertar_orden_de_trabajo
         $query = "SELECT public.insertar_orden_de_trabajo(
