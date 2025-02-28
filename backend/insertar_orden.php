@@ -18,12 +18,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 require 'db_conection.php'; // Asegúrate de que este archivo configure la conexión a Supabase
 
 header('Content-Type: application/json');
+
 function convertBooleansToStrings($data) {
     foreach ($data as $key => $value) {
         if (is_bool($value)) {
             $data->$key = $value ? 'true' : 'false'; // Convierte booleanos a cadenas
         } elseif (is_object($value) || is_array($value)) {
             $data->$key = convertBooleansToStrings($value); // Recursión para objetos o arrays anidados
+        }
+    }
+    return $data;
+}
+
+// Función para convertir cadenas vacías a null
+function convertEmptyStringsToNull($data) {
+    foreach ($data as $key => $value) {
+        if ($value === "") {
+            $data->$key = null; // Convierte cadenas vacías a null
+        } elseif (is_object($value) || is_array($value)) {
+            $data->$key = convertEmptyStringsToNull($value); // Recursión para objetos o arrays anidados
         }
     }
     return $data;
@@ -41,6 +54,9 @@ try {
         }
         // Convertir booleanos a cadenas
         $data = convertBooleansToStrings($data);
+        
+        // Convertir cadenas vacías a null
+        $data = convertEmptyStringsToNull($data);
         // Extraer los datos del JSON
         $clinica = $data->clinica ?? null;
         $odontologo = $data->odontologo ?? null;

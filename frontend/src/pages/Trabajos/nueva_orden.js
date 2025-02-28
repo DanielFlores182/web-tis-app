@@ -66,7 +66,7 @@ function NuevaOrden() {
       [name]: type === 'checkbox' ? checked : value,
     });
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -83,6 +83,16 @@ function NuevaOrden() {
   
       if (result.success) {
         alert('Orden de trabajo registrada con éxito. ID: ' + result.id);
+        // Mostrar confirmación
+        const confirmarNuevaOrden = window.confirm('¿Quieres registrar una nueva orden?');
+
+        if (confirmarNuevaOrden) {
+          // Limpiar el formulario
+          window.location.href = '/nueva_orden';
+        } else {
+          // Redirigir al menú principal
+          window.location.href = '/menu_principal';
+        }
       } else {
         alert('Error: ' + result.error);
       }
