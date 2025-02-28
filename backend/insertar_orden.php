@@ -70,7 +70,7 @@ try {
         $zona_cervical_oscura = $data->zonacervical->oscura ?? null;
         $zona_cervical_normal = $data->zonacervical->normal ?? null;
         $incisal_translucida = $data->incisal->translucida ?? null;
-        $incisal_normal = $data->incisal->tormal ?? null;
+        $incisal_normal = $data->incisal->normal ?? null;
         $mamelones_si = $data->mamelones->si ?? null;
         $mamelones_no = $data->mamelones->no ?? null;
 
