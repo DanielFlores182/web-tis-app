@@ -78,7 +78,7 @@ function NuevaOrden() {
         },
         body: JSON.stringify(formData), // Envía el estado del formulario como JSON
       });
-      console.log(JSON.stringify(formData))
+      //console.log(JSON.stringify(formData))
       const result = await response.json();
   
       if (result.success) {
@@ -157,7 +157,6 @@ function NuevaOrden() {
               name="odontologo"
               value={formData.odontologo}
               onChange={handleInputChange}
-              required
             />
           </div>
 
@@ -170,7 +169,6 @@ function NuevaOrden() {
               name="telefono_o"
               value={formData.telefono_o}
               onChange={handleInputChange}
-              required
             />
           </div>
 
@@ -183,7 +181,6 @@ function NuevaOrden() {
               name="clinica"
               value={formData.clinica}
               onChange={handleInputChange}
-              required
             />
           </div>
 
@@ -196,7 +193,6 @@ function NuevaOrden() {
               name="direccion"
               value={formData.direccion}
               onChange={handleInputChange}
-              required
             />
           </div>
 
@@ -209,7 +205,6 @@ function NuevaOrden() {
               name="telefono"
               value={formData.telefono}
               onChange={handleInputChange}
-              required
             />
           </div>
 
@@ -233,7 +228,6 @@ function NuevaOrden() {
               name="paciente"
               value={formData.paciente}
               onChange={handleInputChange}
-              required
             />
           </div>
           {/* Campo de edad */}
@@ -272,7 +266,6 @@ function NuevaOrden() {
               name="colorimetro"
               value={formData.colorimetro}
               onChange={handleInputChange}
-              required
             />
           </div>
 
