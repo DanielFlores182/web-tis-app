@@ -4,6 +4,7 @@ import Login from './pages/Login.js';
 import Menudoc from './pages/Menu_doc.js';
 import Menuest from './pages/Menu_est.js';
 import MenuPrin from './pages/Menu.js';
+import BarraTrabajos from './pages/Trabajos/barra_trabajos.js';
 //paginas de registro de estudiantes
 import RegEstInd from './pages/registro_est_ind.js';
 import RegEstLot from './pages/reg_est_lot.js'
@@ -75,6 +76,7 @@ function App() {
         <Route path="/tabla_evaluaciones" element={<TablaEva/>}/>
         <Route path="/menu_principal" element={<MenuPrin/>}/>
         <Route path="/nueva_orden" element={<NuevaOrden/>}/>
+        <Route path="/barra_trabajos" element={<BarraTrabajos/>}/>
       </Routes>
     </Router>
     </UserProvider>

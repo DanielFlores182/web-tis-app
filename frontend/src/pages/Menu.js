@@ -25,6 +25,7 @@ function Menu() {
         <nav>
           <ul>
             <li><a href="/nueva_orden">Nueva Orden</a></li>
+            <li><a href="/barra_trabajos">Barra de Trabajos</a></li>
             <li>
               <a href="#!" onClick={toggleRegisterOptions}>Buscador</a>
               {showRegisterOptions && (

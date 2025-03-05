@@ -105,7 +105,7 @@ function NuevaOrden() {
     <div className="menu-container">
       <aside className="sidebar">
         <img src={logo} alt="Logo de la Empresa" className="header-logo" />
-        <h1 className="header-title">Menu</h1>
+        <h1 className="header-title">Nueva Orden</h1>
         <nav>
           <ul>
             <li><a href="/menu_principal">Menu</a></li>
