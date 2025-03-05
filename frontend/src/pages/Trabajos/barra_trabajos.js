@@ -28,17 +28,17 @@ function BarraTareas() {
         const pasadoManana = new Date(new Date().setDate(new Date().getDate() + 2)).toISOString().split('T')[0];
 
         // Obtener órdenes para hoy
-        const responseHoy = await fetch(`https://web-tis-app-production.up.railway.app/obtener_ordenes_no_entregadas.php?fecha_entrega=${hoy}`);
+        const responseHoy = await fetch(`https://web-tis-app-production.up.railway.app/get_ordenes_por_fecha.php?fecha_entrega=${hoy}`);
         const resultHoy = await responseHoy.json();
         setOrdenesHoy(resultHoy.data || []);
 
         // Obtener órdenes para mañana
-        const responseManana = await fetch(`https://web-tis-app-production.up.railway.app/obtener_ordenes_no_entregadas.php?fecha_entrega=${manana}`);
+        const responseManana = await fetch(`https://web-tis-app-production.up.railway.app/get_ordenes_por_fecha.php?fecha_entrega=${manana}`);
         const resultManana = await responseManana.json();
         setOrdenesManana(resultManana.data || []);
 
         // Obtener órdenes para pasado mañana
-        const responsePasadoManana = await fetch(`https://web-tis-app-production.up.railway.app/obtener_ordenes_no_entregadas.php?fecha_entrega=${pasadoManana}`);
+        const responsePasadoManana = await fetch(`https://web-tis-app-production.up.railway.app/get_ordenes_por_fecha.php?fecha_entrega=${pasadoManana}`);
         const resultPasadoManana = await responsePasadoManana.json();
         setOrdenesPasadoManana(resultPasadoManana.data || []);
       } catch (error) {
