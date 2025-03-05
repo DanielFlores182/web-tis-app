@@ -32,13 +32,13 @@ try {
         // Obtener los resultados
         $ordenes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Retornar los resultados en formato JSON
-        echo json_encode($ordenes);
+        // Retornar los resultados en formato JSON con la estructura esperada
+        echo json_encode(['success' => true, 'data' => $ordenes]);
     } else {
         throw new Exception('Método HTTP no permitido.');
     }
 } catch (Exception $e) {
-    // Devolver un error JSON
-    echo json_encode(['error' => $e->getMessage()]);
+    // Devolver un error JSON con la estructura esperada
+    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
 }
 ?>

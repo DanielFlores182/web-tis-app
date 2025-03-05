@@ -26,23 +26,37 @@ function BarraTareas() {
         const hoy = new Date().toISOString().split('T')[0];
         const manana = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
         const pasadoManana = new Date(new Date().setDate(new Date().getDate() + 2)).toISOString().split('T')[0];
+        console.log(hoy, manana, pasadoManana);
 
         // Obtener órdenes para hoy
         const responseHoy = await fetch(`https://web-tis-app-production.up.railway.app/get_ordenes_por_fecha.php?fecha_entrega=${hoy}`);
         const resultHoy = await responseHoy.json();
-        setOrdenesHoy(resultHoy.data || []);
+        if (resultHoy.success) {
+          setOrdenesHoy(resultHoy.data || []);
+        } else {
+          throw new Error(resultHoy.error || 'Error al obtener las órdenes para hoy');
+        }
 
         // Obtener órdenes para mañana
         const responseManana = await fetch(`https://web-tis-app-production.up.railway.app/get_ordenes_por_fecha.php?fecha_entrega=${manana}`);
         const resultManana = await responseManana.json();
-        setOrdenesManana(resultManana.data || []);
+        if (resultManana.success) {
+          setOrdenesManana(resultManana.data || []);
+        } else {
+          throw new Error(resultManana.error || 'Error al obtener las órdenes para mañana');
+        }
 
         // Obtener órdenes para pasado mañana
         const responsePasadoManana = await fetch(`https://web-tis-app-production.up.railway.app/get_ordenes_por_fecha.php?fecha_entrega=${pasadoManana}`);
         const resultPasadoManana = await responsePasadoManana.json();
-        setOrdenesPasadoManana(resultPasadoManana.data || []);
+        if (resultPasadoManana.success) {
+          setOrdenesPasadoManana(resultPasadoManana.data || []);
+        } else {
+          throw new Error(resultPasadoManana.error || 'Error al obtener las órdenes para pasado mañana');
+        }
       } catch (error) {
-        setError('Error al obtener las órdenes');
+        setError(error.message);
+        console.error('Error:', error);
       } finally {
         setLoading(false);
       }
@@ -100,7 +114,7 @@ function BarraTareas() {
         <div className="taskboard">
           {/* Columna para hoy */}
           <div className="column">
-            <h2>Entregar Hoy</h2>
+            <h5>Entregar Hoy</h5>
             {ordenesHoy.map((orden) => (
               <div key={orden.id} className="card">
                 <h3>{orden.paciente}</h3>
@@ -113,7 +127,7 @@ function BarraTareas() {
 
           {/* Columna para mañana */}
           <div className="column">
-            <h2>Entregar Mañana</h2>
+            <h5>Entregar Mañana</h5>
             {ordenesManana.map((orden) => (
               <div key={orden.id} className="card">
                 <h3>{orden.paciente}</h3>
@@ -126,7 +140,7 @@ function BarraTareas() {
 
           {/* Columna para pasado mañana */}
           <div className="column">
-            <h2>Entregar Pasado Mañana</h2>
+            <h5>Entregar P. Mañana</h5>
             {ordenesPasadoManana.map((orden) => (
               <div key={orden.id} className="card">
                 <h3>{orden.paciente}</h3>
