@@ -18,14 +18,19 @@ function BarraTareas() {
   const toggleCriteriosOptions = () => {
     setShowCriteriosOptions(!showCriteriosOptions);
   };
-
+  // Función para obtener la fecha local en formato YYYY-MM-DD
+  const getLocalDate = (offsetDays = 0) => {
+    const date = new Date();
+    date.setDate(date.getDate() + offsetDays); // Añadir días de desplazamiento
+    return date.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+  };
   // Obtener las órdenes no entregadas desde el backend
   useEffect(() => {
     const fetchOrdenes = async () => {
       try {
-        const hoy = new Date().toISOString().split('T')[0];
-        const manana = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
-        const pasadoManana = new Date(new Date().setDate(new Date().getDate() + 2)).toISOString().split('T')[0];
+        const hoy = getLocalDate(0); // Fecha de hoy
+        const manana = getLocalDate(1); // Fecha de mañana
+        const pasadoManana = getLocalDate(2); // Fecha de pasado mañana
         console.log(hoy, manana, pasadoManana);
 
         // Obtener órdenes para hoy
