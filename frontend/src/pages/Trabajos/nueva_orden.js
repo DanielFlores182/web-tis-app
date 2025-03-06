@@ -109,6 +109,7 @@ function NuevaOrden() {
         <nav>
           <ul>
             <li><a href="/menu_principal">Menu</a></li>
+            <li><a href="/barra_trabajos">Barra de Trabajos</a></li>
             <li>
               <a href="#!" onClick={toggleRegisterOptions}>Buscador</a>
               {showRegisterOptions && (
