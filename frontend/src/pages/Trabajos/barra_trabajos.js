@@ -188,10 +188,15 @@ function BarraTareas() {
           <div className="modal-overlay" onClick={closeModal}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               
-              <h2>Detalles de la Orden</h2>
+              <h3>Detalles de la Orden</h3>
               <div className="modal-body">
                 <table>
                   <tbody>
+                    <tr><td><strong>Urgente:</strong></td><td>{selectedOrden.urgente ? 'Sí' : 'No'}</td></tr>
+                    <tr><td><strong>Regular:</strong></td><td>{selectedOrden.regular ? 'Sí' : 'No'}</td></tr>
+                    <tr><td><strong>Estetico:</strong></td><td>{selectedOrden.especial ? 'Sí' : 'No'}</td></tr>
+                    <tr><td><strong>Largo Plazo:</strong></td><td>{selectedOrden.largoplazo ? 'Sí' : 'No'}</td></tr>
+                    <p>.</p>
                     <tr><td><strong>Paciente:</strong></td><td>{selectedOrden.paciente}</td></tr>
                     <tr><td><strong>Descripción:</strong></td><td>{selectedOrden.descripcion}</td></tr>
                     <tr><td><strong>Odontólogo:</strong></td><td>{selectedOrden.odontologo}</td></tr>
@@ -203,10 +208,29 @@ function BarraTareas() {
                     <tr><td><strong>Colorímetro:</strong></td><td>{selectedOrden.colorimetro}</td></tr>
                     <tr><td><strong>Edad:</strong></td><td>{selectedOrden.edad}</td></tr>
                     <tr><td><strong>Género:</strong></td><td>{selectedOrden.genero}</td></tr>
-                    <tr><td><strong>Urgente:</strong></td><td>{selectedOrden.urgente ? 'Sí' : 'No'}</td></tr>
-                    <tr><td><strong>Regular:</strong></td><td>{selectedOrden.regular ? 'Sí' : 'No'}</td></tr>
-                    <tr><td><strong>Especial:</strong></td><td>{selectedOrden.especial ? 'Sí' : 'No'}</td></tr>
-                    <tr><td><strong>Largo Plazo:</strong></td><td>{selectedOrden.largoplazo ? 'Sí' : 'No'}</td></tr>
+                    <p>.</p>
+                    <p>Ingresa</p>
+                    <tr><td><strong>Antagonista:</strong></td><td>{selectedOrden.antagonista ? 'Sí' : 'No'}</td></tr>
+                    <tr><td><strong>Articulador:</strong></td><td>{selectedOrden.articulador ? 'Sí' : 'No'}</td></tr>
+                    <p>.</p>
+                    <p>Implante</p>
+                    <tr><td><strong>Transfer:</strong></td><td>{selectedOrden.transfer ? 'Sí' : 'No'}</td></tr>
+                    <tr><td><strong>Analogo:</strong></td><td>{selectedOrden.analogo ? 'Sí' : 'No'}</td></tr>
+                    <tr><td><strong>Tornillo:</strong></td><td>{selectedOrden.tornillo ? 'Sí' : 'No'}</td></tr>
+                    <tr><td><strong>Uclas Mec:</strong></td><td>{selectedOrden.uclas ? 'Sí' : 'No'}</td></tr>
+                    <tr><td><strong>Otros:</strong></td><td>{selectedOrden.otros ? 'Sí (ver descripcion)' : 'No'}</td></tr>
+                    <p>.</p>
+                    <tr><td><strong>Cara Oclusal:</strong></td><td>{selectedOrden.cara_oclusal_si ? 'Sí' : 'No'}</td></tr>
+                    <p>.</p>
+                    <p>Zona Cervical</p>
+                    <tr><td><strong>Oscura:</strong></td><td>{selectedOrden.zona_cervical_oscura ? 'Sí' : 'No'}</td></tr>
+                    <tr><td><strong>normal:</strong></td><td>{selectedOrden.zona_cervical_normal ? 'Sí' : 'No'}</td></tr>
+                    <p>.</p>
+                    <p>Incisal</p>
+                    <tr><td><strong>Translucida:</strong></td><td>{selectedOrden.incisal_translucida ? 'Sí' : 'No'}</td></tr>
+                    <tr><td><strong>normal:</strong></td><td>{selectedOrden.incisal_normal ? 'Sí' : 'No'}</td></tr>
+                    <p>.</p>
+                    <tr><td><strong>Mamelones:</strong></td><td>{selectedOrden.mamelones_si ? 'Sí' : 'No'}</td></tr>
                   </tbody>
                 </table>
               </div>

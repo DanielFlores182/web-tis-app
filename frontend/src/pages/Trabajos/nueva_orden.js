@@ -151,7 +151,7 @@ function NuevaOrden() {
             </label>
             <label>
               <input type="checkbox" name="especial" checked={formData.especial} onChange={handleInputChange} />
-              Especial
+              Estetico
             </label>
             <label>
               <input type="checkbox" name="largoplazo" checked={formData.largoplazo} onChange={handleInputChange} />
@@ -322,7 +322,7 @@ function NuevaOrden() {
             <div className="group">
               <h4>Cara Oclusal</h4>
               <label><input type="checkbox" name="caraoclusal_si" checked={formData.caraoclusal_si} onChange={handleInputChange} /> Sí</label>
-              <label><input type="checkbox" name="caraoclusal_no" checked={formData.caraoclusal_no} onChange={handleInputChange} /> No</label>
+             
             </div>
             <div className="group">
               <h4>Zona Cervical</h4>
@@ -337,7 +337,7 @@ function NuevaOrden() {
             <div className="group">
               <h4>Mamelones</h4>
               <label><input type="checkbox" name="mamelones_si" checked={formData.mamelones_si} onChange={handleInputChange} /> Sí</label>
-              <label><input type="checkbox" name="mamelones_no" checked={formData.mamelones_no} onChange={handleInputChange} /> No</label>
+              
             </div>
           </div>
 
