@@ -18,12 +18,19 @@ function BarraTareas() {
   const toggleCriteriosOptions = () => {
     setShowCriteriosOptions(!showCriteriosOptions);
   };
-  // Función para obtener la fecha local en formato YYYY-MM-DD
-  const getLocalDate = (offsetDays = 0) => {
+   // Función para obtener la fecha local en formato YYYY-MM-DD
+   const getLocalDate = (offsetDays = 0) => {
     const date = new Date();
     date.setDate(date.getDate() + offsetDays); // Añadir días de desplazamiento
-    return date.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+
+    // Formatear la fecha en YYYY-MM-DD según la zona horaria local
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses van de 0 a 11
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   };
+
   // Obtener las órdenes no entregadas desde el backend
   useEffect(() => {
     const fetchOrdenes = async () => {
@@ -31,7 +38,7 @@ function BarraTareas() {
         const hoy = getLocalDate(0); // Fecha de hoy
         const manana = getLocalDate(1); // Fecha de mañana
         const pasadoManana = getLocalDate(2); // Fecha de pasado mañana
-        console.log(hoy, manana, pasadoManana);
+        console.log("Fechas:", hoy, manana, pasadoManana);
 
         // Obtener órdenes para hoy
         const responseHoy = await fetch(`https://web-tis-app-production.up.railway.app/get_ordenes_por_fecha.php?fecha_entrega=${hoy}`);
