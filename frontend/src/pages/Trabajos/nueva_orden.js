@@ -289,6 +289,7 @@ function NuevaOrden() {
               name="fechaRecibo"
               value={formData.fechaRecibo}
               onChange={handleInputChange}
+              required
             />
           </div>
 
@@ -301,6 +302,7 @@ function NuevaOrden() {
               name="fechaEntrega"
               value={formData.fechaEntrega}
               onChange={handleInputChange}
+              required
             />
           </div>
 
