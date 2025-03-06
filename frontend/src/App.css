@@ -29,7 +29,7 @@ h1, h2, h3 {
 
 /* Botones */
 button {
-  background-color: var(--secondary-color);
+  background-color: #9cd6d9;
   color: white;
   border: none;
   padding: 2vw 5vw; /* unidades relativas */

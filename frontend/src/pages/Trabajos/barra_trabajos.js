@@ -10,6 +10,8 @@ function BarraTareas() {
   const [ordenesPasadoManana, setOrdenesPasadoManana] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedOrden, setSelectedOrden] = useState(null); // Estado para la orden seleccionada
+  const [showModal, setShowModal] = useState(false); // Estado para controlar el modal
 
   const toggleRegisterOptions = () => {
     setShowRegisterOptions(!showRegisterOptions);
@@ -18,8 +20,9 @@ function BarraTareas() {
   const toggleCriteriosOptions = () => {
     setShowCriteriosOptions(!showCriteriosOptions);
   };
-   // Función para obtener la fecha local en formato YYYY-MM-DD
-   const getLocalDate = (offsetDays = 0) => {
+
+  // Función para obtener la fecha local en formato YYYY-MM-DD
+  const getLocalDate = (offsetDays = 0) => {
     const date = new Date();
     date.setDate(date.getDate() + offsetDays); // Añadir días de desplazamiento
 
@@ -29,6 +32,18 @@ function BarraTareas() {
     const day = String(date.getDate()).padStart(2, '0');
 
     return `${year}-${month}-${day}`;
+  };
+
+  // Función para abrir el modal con los detalles de la orden
+  const openModal = (orden) => {
+    setSelectedOrden(orden); // Guardar la orden seleccionada
+    setShowModal(true); // Mostrar el modal
+  };
+
+  // Función para cerrar el modal
+  const closeModal = () => {
+    setShowModal(false); // Ocultar el modal
+    setSelectedOrden(null); // Limpiar la orden seleccionada
   };
 
   // Obtener las órdenes no entregadas desde el backend
@@ -92,7 +107,7 @@ function BarraTareas() {
         <h1 className="header-title">Menu</h1>
         <nav>
           <ul>
-          <li><a href="/menu_principal">Menu</a></li>
+            <li><a href="/menu_principal">Menu</a></li>
             <li><a href="/nueva_orden">Nueva Orden</a></li>
             <li>
               <a href="#!" onClick={toggleRegisterOptions}>Buscador</a>
@@ -133,6 +148,7 @@ function BarraTareas() {
                 <p><strong>Descripción:</strong> {orden.descripcion}</p>
                 <p><strong>Odontólogo:</strong> {orden.odontologo}</p>
                 <p><strong>Fecha de entrega:</strong> {orden.fecha_entrega}</p>
+                <button class="btn btn-warning rounded-pill px-3" onClick={() => openModal(orden)}>Ver</button>
               </div>
             ))}
           </div>
@@ -146,6 +162,7 @@ function BarraTareas() {
                 <p><strong>Descripción:</strong> {orden.descripcion}</p>
                 <p><strong>Odontólogo:</strong> {orden.odontologo}</p>
                 <p><strong>Fecha de entrega:</strong> {orden.fecha_entrega}</p>
+                <button class="btn btn-warning rounded-pill px-3" onClick={() => openModal(orden)}>Ver</button>
               </div>
             ))}
           </div>
@@ -159,11 +176,45 @@ function BarraTareas() {
                 <p><strong>Descripción:</strong> {orden.descripcion}</p>
                 <p><strong>Odontólogo:</strong> {orden.odontologo}</p>
                 <p><strong>Fecha de entrega:</strong> {orden.fecha_entrega}</p>
+                <button class="btn btn-warning rounded-pill px-3" onClick={() => openModal(orden)}>Ver</button>
               </div>
             ))}
           </div>
         </div>
       </main>
+
+      {/* Modal para mostrar los detalles de la orden */}
+        {showModal && selectedOrden && (
+          <div className="modal-overlay" onClick={closeModal}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              
+              <h2>Detalles de la Orden</h2>
+              <div className="modal-body">
+                <table>
+                  <tbody>
+                    <tr><td><strong>Paciente:</strong></td><td>{selectedOrden.paciente}</td></tr>
+                    <tr><td><strong>Descripción:</strong></td><td>{selectedOrden.descripcion}</td></tr>
+                    <tr><td><strong>Odontólogo:</strong></td><td>{selectedOrden.odontologo}</td></tr>
+                    <tr><td><strong>Fecha de entrega:</strong></td><td>{selectedOrden.fecha_entrega}</td></tr>
+                    <tr><td><strong>Clínica:</strong></td><td>{selectedOrden.clinica}</td></tr>
+                    <tr><td><strong>Dirección:</strong></td><td>{selectedOrden.direccion}</td></tr>
+                    <tr><td><strong>Tel. Odontólogo:</strong></td><td>{selectedOrden.telefono_dentista}</td></tr>
+                    <tr><td><strong>Tel. Clínica:</strong></td><td>{selectedOrden.telefono_clinica}</td></tr>
+                    <tr><td><strong>Colorímetro:</strong></td><td>{selectedOrden.colorimetro}</td></tr>
+                    <tr><td><strong>Edad:</strong></td><td>{selectedOrden.edad}</td></tr>
+                    <tr><td><strong>Género:</strong></td><td>{selectedOrden.genero}</td></tr>
+                    <tr><td><strong>Urgente:</strong></td><td>{selectedOrden.urgente ? 'Sí' : 'No'}</td></tr>
+                    <tr><td><strong>Regular:</strong></td><td>{selectedOrden.regular ? 'Sí' : 'No'}</td></tr>
+                    <tr><td><strong>Especial:</strong></td><td>{selectedOrden.especial ? 'Sí' : 'No'}</td></tr>
+                    <tr><td><strong>Largo Plazo:</strong></td><td>{selectedOrden.largoplazo ? 'Sí' : 'No'}</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <button class="btn btn-warning rounded-pill px-3" onClick={closeModal}>Cerrar</button>
+            </div>
+          </div>
+        )}
+
     </div>
   );
 }
