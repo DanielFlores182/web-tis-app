@@ -100,3 +100,38 @@ to { opacity: 1; }
 from { transform: translateY(-20px); opacity: 0; }
 to { transform: translateY(0); opacity: 1; }
 }
+/* Estilos para el informe de órdenes */
+.informe-ordenes {
+  padding: 20px;
+}
+
+.informe-ordenes table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.informe-ordenes th, .informe-ordenes td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.informe-ordenes th {
+  background-color: #f2f2f2;
+}
+
+/* Estilos específicos para impresión */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .informe-ordenes, .informe-ordenes * {
+    visibility: visible;
+  }
+  .informe-ordenes {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
