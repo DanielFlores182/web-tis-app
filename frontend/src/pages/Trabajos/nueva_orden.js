@@ -305,6 +305,17 @@ function NuevaOrden() {
               required
             />
           </div>
+          {/* Campo de hora de entrega*/}
+          <div className="form-group">
+            <label htmlFor="fechaEntrega">Hora de Entrega:</label>
+            <input
+              type="time"
+              id="horaEntrega"
+              name="horaEntrega"
+              value={formData.horaEntrega}
+              onChange={handleInputChange}
+            />
+          </div>
 
           {/* Checkboxes */}
           <div className="checkbox-container">

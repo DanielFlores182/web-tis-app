@@ -89,6 +89,7 @@ try {
         $incisal_normal = $data->incisal_normal ?? null;
         $mamelones_si = $data->mamelones_si ?? null;
         $mamelones_no = $data->mamelones_no ?? null;
+        $hora_de_entrega = $data->horaEntrega ?? null;
 
         // Llamar a la función insertar_orden_de_trabajo
         $query = "SELECT public.insertar_orden_de_trabajo(
@@ -96,7 +97,7 @@ try {
             :fecha_inicio, :fecha_entrega, :edad, :genero, :telefono_clinica, :urgente, :regular, :especial,
             :largoplazo, :antagonista, :articulador, :transfer, :analogo, :tornillo, :uclas, :otros,
             :cara_oclusal_si, :cara_oclusal_no, :zona_cervical_oscura, :zona_cervical_normal,
-            :incisal_translucida, :incisal_normal, :mamelones_si, :mamelones_no
+            :incisal_translucida, :incisal_normal, :mamelones_si, :mamelones_no ,:hora_de_entrega
         )";
         $stmt = $pdo->prepare($query);
 
@@ -132,6 +133,7 @@ try {
         $stmt->bindParam(':incisal_normal', $incisal_normal);
         $stmt->bindParam(':mamelones_si', $mamelones_si);
         $stmt->bindParam(':mamelones_no', $mamelones_no);
+        $stmt->bindParam(':hora_de_entrega', $hora_de_entrega);
 
         // Ejecutar la consulta
         if ($stmt->execute()) {

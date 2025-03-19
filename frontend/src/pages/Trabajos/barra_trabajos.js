@@ -91,77 +91,63 @@ function BarraTareas() {
 
     fetchOrdenes();
   }, []);
-  const imprimirOrdenesHoy = () => {
-    const ordenesHtml = ordenesHoy.map((orden) => {
-      return `
-        <div class="orden">
-          <h3>Detalles de la Orden</h3>
-          <table>
-            <tr><td><strong>Urgente:</strong></td><td>${orden.urgente ? 'Sí' : 'No'}</td></tr>
-            <tr><td><strong>Regular:</strong></td><td>${orden.regular ? 'Sí' : 'No'}</td></tr>
-            <tr><td><strong>Estetico:</strong></td><td>${orden.especial ? 'Sí' : 'No'}</td></tr>
-            <tr><td><strong>Largo Plazo:</strong></td><td>${orden.largoplazo ? 'Sí' : 'No'}</td></tr>
-            <tr><td><strong>Paciente:</strong></td><td>${orden.paciente}</td></tr>
-            <tr><td><strong>Descripción:</strong></td><td>${orden.descripcion}</td></tr>
-            <tr><td><strong>Odontólogo:</strong></td><td>${orden.odontologo}</td></tr>
-            <tr><td><strong>Fecha de entrega:</strong></td><td>${orden.fecha_entrega}</td></tr>
-            <tr><td><strong>Clínica:</strong></td><td>${orden.clinica}</td></tr>
-            <tr><td><strong>Dirección:</strong></td><td>${orden.direccion}</td></tr>
-            <tr><td><strong>Tel. Odontólogo:</strong></td><td>${orden.telefono_dentista}</td></tr>
-            <tr><td><strong>Tel. Clínica:</strong></td><td>${orden.telefono_clinica}</td></tr>
-            <tr><td><strong>Colorímetro:</strong></td><td>${orden.colorimetro}</td></tr>
-            <tr><td><strong>Edad:</strong></td><td>${orden.edad}</td></tr>
-            <tr><td><strong>Género:</strong></td><td>${orden.genero}</td></tr>
-            <tr><td><strong>Antagonista:</strong></td><td>${orden.antagonista ? 'Sí' : 'No'}</td></tr>
-            <tr><td><strong>Articulador:</strong></td><td>${orden.articulador ? 'Sí' : 'No'}</td></tr>
-            <tr><td><strong>Transfer:</strong></td><td>${orden.transfer ? 'Sí' : 'No'}</td></tr>
-            <tr><td><strong>Analogo:</strong></td><td>${orden.analogo ? 'Sí' : 'No'}</td></tr>
-            <tr><td><strong>Tornillo:</strong></td><td>${orden.tornillo ? 'Sí' : 'No'}</td></tr>
-            <tr><td><strong>Uclas Mec:</strong></td><td>${orden.uclas ? 'Sí' : 'No'}</td></tr>
-            <tr><td><strong>Otros:</strong></td><td>${orden.otros ? 'Sí (ver descripcion)' : 'No'}</td></tr>
-            <tr><td><strong>Cara Oclusal:</strong></td><td>${orden.cara_oclusal_si ? 'Sí' : 'No'}</td></tr>
-            <tr><td><strong>Oscura:</strong></td><td>${orden.zona_cervical_oscura ? 'Sí' : 'No'}</td></tr>
-            <tr><td><strong>Translucida:</strong></td><td>${orden.incisal_translucida ? 'Sí' : 'No'}</td></tr>
-            <tr><td><strong>Mamelones:</strong></td><td>${orden.mamelones_si ? 'Sí' : 'No'}</td></tr>
-          </table>
-        </div>
-      `;
-    }).join('');
+  const imprimirOrdenesManana = () => {
+    const ordenesHtml = `
+     <h2>Órdenes con fecha de entrega: ${getLocalDate(1)}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Odontólogo</th>
+            <th>Descripción</th>
+            <th>Dirección</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${ordenesManana.map(orden => `
+            <tr>
+              <td>${orden.odontologo}</td>
+              <td>${orden.descripcion}</td>
+              <td>${orden.direccion}</td>
+              <td>${orden.hora_de_entrega}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+      <div class="footer">"DentAll Web"</div>
+    `;
   
     const newWindow = window.open('', '', 'width=800,height=600');
     newWindow.document.write(`
-      <html>
+     <html>
         <head>
-          <title>Órdenes de Hoy</title>
+          <title>Órdenes de Mañana</title>
           <style>
             body {
               font-family: Arial, sans-serif;
               margin: 0;
-              padding: 0;
-              font-size: 9pt; /* Reducir tamaño de la fuente */
-            }
-            .page {
-              width: 100%;
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: space-between;
-              gap: 20px;
-            }
-            .orden {
-              border: 1px solid #000;
-              margin: 10px;
-              padding: 10px;
-              width: 48%; /* Para 2 órdenes por fila */
-              box-sizing: border-box;
-              page-break-inside: avoid; /* Evitar que las órdenes se dividan entre páginas */
+              padding: 20px;
+              font-size: 12pt;
             }
             table {
               width: 100%;
               border-collapse: collapse;
             }
-            table td {
-              padding: 5px;
-              border: 1px solid #ddd;
+            th, td {
+              padding: 10px;
+              border: 1px solid #000;
+              text-align: left;
+            }
+            th {
+              background-color: #f4f4f4;
+            }
+            .footer {
+              position: fixed;
+              bottom: 10px;
+              left: 0;
+              width: 100%;
+              text-align: center;
+              font-size: 12px;
+              font-weight: bold;
             }
             @page {
               size: letter;
@@ -170,16 +156,15 @@ function BarraTareas() {
           </style>
         </head>
         <body>
-          <div class="page">
-            ${ordenesHtml}
-          </div>
+          ${ordenesHtml}
         </body>
       </html>
     `);
     newWindow.document.close();
     newWindow.print();
   };
-    
+  
+  
 
   if (loading) {
     return <div>Cargando...</div>;
@@ -227,7 +212,7 @@ function BarraTareas() {
       <main className="content">
         <h1 style={{ color: '#CC1616' }}>Barra de Tareas</h1>
         <h3 style={{ color: '#333' }}>Órdenes de trabajo no entregadas</h3>
-        <button className="btn rounded-pill px-3" onClick={imprimirOrdenesHoy}>Imprimir Órdenes de Hoy</button>
+        <button className="btn rounded-pill px-3" onClick={imprimirOrdenesManana}>Imprimir Órdenes de Mañana</button>
         <div className="taskboard">
           {/* Columna para hoy */}
           <div className="column">
@@ -291,6 +276,7 @@ function BarraTareas() {
                     <tr><td><strong>Descripción:</strong></td><td>{selectedOrden.descripcion}</td></tr>
                     <tr><td><strong>Odontólogo:</strong></td><td>{selectedOrden.odontologo}</td></tr>
                     <tr><td><strong>Fecha de entrega:</strong></td><td>{selectedOrden.fecha_entrega}</td></tr>
+                    <tr><td><strong>Hora de entrega:</strong></td><td>{selectedOrden.hora_de_entrega}</td></tr>
                     <tr><td><strong>Clínica:</strong></td><td>{selectedOrden.clinica}</td></tr>
                     <tr><td><strong>Dirección:</strong></td><td>{selectedOrden.direccion}</td></tr>
                     <tr><td><strong>Tel. Odontólogo:</strong></td><td>{selectedOrden.telefono_dentista}</td></tr>
