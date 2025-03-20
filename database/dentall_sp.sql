@@ -51,3 +51,57 @@ BEGIN
     RAISE NOTICE 'Orden de trabajo creada exitosamente.';
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION public.obtener_ordenes_no_entregadas_por_fecha(fecha_entrega_param date)
+RETURNS TABLE (
+    id bigint,
+    clinica character varying,
+    odontologo character varying,
+    direccion character varying,
+    telefono_dentista bigint,
+    descripcion character varying,
+    paciente character varying,
+    colorimetro character varying,
+    fecha_inicio date,
+    fecha_entrega date,
+    edad bigint,
+    genero text,
+    telefono_clinica bigint,
+    urgente boolean,
+    regular boolean,
+    especial boolean,
+    largoplazo boolean,
+    antagonista boolean,
+    articulador boolean,
+    transfer boolean,
+    analogo boolean,
+    tornillo boolean,
+    uclas boolean,
+    otros boolean,
+    cara_oclusal_si boolean,
+    cara_oclusal_no boolean,
+    zona_cervical_oscura boolean,
+    zona_cervical_normal boolean,
+    incisal_translucida boolean,
+    incisal_normal boolean,
+    mamelones_si boolean,
+    mamelones_no boolean,
+    entregado boolean,
+    hora_de_entrega time
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT *
+    FROM public.orden_de_trabajo as A
+    WHERE A.fecha_entrega = fecha_entrega_param
+      AND A.entregado = false
+    ORDER BY
+        CASE
+            WHEN A.urgente = true THEN 1
+            WHEN A.especial = true THEN 2
+            WHEN A.regular = true THEN 3
+            WHEN A.largoplazo = true THEN 4
+            ELSE 5
+        END;
+END;
+$$ LANGUAGE plpgsql;

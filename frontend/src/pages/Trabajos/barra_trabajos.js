@@ -100,6 +100,7 @@ function BarraTareas() {
             <th>Odontólogo</th>
             <th>Descripción</th>
             <th>Dirección</th>
+            <th>Hora</th>
           </tr>
         </thead>
         <tbody>
