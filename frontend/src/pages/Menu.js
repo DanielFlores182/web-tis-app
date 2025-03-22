@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Menu.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../images/dentall 1.png';
 //import { useNavigate } from 'react-router-dom';
 

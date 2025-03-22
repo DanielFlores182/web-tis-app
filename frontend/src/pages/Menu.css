@@ -1,112 +1,296 @@
-/* Estilo general del contenedor */
+/* Estilo del contenedor principal */
+body {
+  background-color: #f9f9f9;
+  margin: 0;
+}
 .menu-container {
-    display: flex;
-    height: 100vh;
-    background-color: #98e9ff;
-  }
+  display: flex;
+  height: 100vh;
+  background-color: #ddf6fe;
+  font-size: 0.9rem;
+  margin-left: 250px;
+  padding: 20px;
+}
+
+.app-container {
+  display: flex;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.perfil-container {
+  margin-left: 250px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 300px; /* Reducir el ancho */
+  background-color: #98e9ff; /* Azul oscuro */
+  color: white;
+  padding: 20px;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh; /* Altura completa de la ventana */
+  overflow-y: auto; /* Agrega scroll cuando el contenido es más grande que el contenedor */
+  font-size: 1rem; /* Fuente más pequeña */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar .header-logo {
+  width: 60%;
+  margin: 0 auto;
+  display: block;
+}
+.sidebar nav .header-logo {
+  width: 60%;
+  margin-bottom: 20px;
+}
+
+.sidebar .header-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 20px 0;
+  margin-bottom: 10px;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.sidebar nav ul li {
+  margin: 15px 0;
+  margin-bottom: 15px;
+}
+
+.sidebar nav ul li a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 8px 0; /* Ajustar padding */
+}
+
+.sidebar nav ul li a:hover {
+  text-decoration: underline;
+  color: #0078a7
+}
+
+/* Submenú */
+.submenu {
+  list-style: none;
+  padding-left: 15px;
+  margin-top: 10px;
+  list-style-type: none;
+  padding: 0;
+  margin-left: 20px;
+  max-height: 400px; /* Altura máxima para los submenús */
+  overflow-y: auto; /* Permite que los submenús tengan su propio scroll si son muy largos */
+}
+
+.submenu li {
+  margin: 10px 0;
+  margin-bottom: 10px;
+}
+
+.submenu li a {
+  color: white;
+  font-size: 0.9rem; /* Fuente aún más pequeña para submenú */
+}
+.submenu li a:hover {
+  color: #334545;
+}
+/* Títulos */
+.titulo {
+  text-align: center;
+  color: #1e2342; /* Azul oscuro */
+  margin-top: 20px;
+  font-size: 1.8rem;
+  padding: 10px 0;
+  border-bottom: 2px solid #e6e6e6; /* Línea divisoria */
+}
+
+.subtitulo {
+  text-align: center;
+  color: #555;
+  margin: 10px 0 20px;
+  font-size: 1.2rem;
+  background-color: #f7f7f7; /* Fondo claro */
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* Contenedor de tareas */
+.tareas-container {
+  margin: 20px 0;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+/* Botones */
+.btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #44959b; /* Azul primario */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+display: block;
+  margin: 20px auto;
+}
+
+.btn:hover {
+  background-color: #8edfce; /* Azul más oscuro */
+}
+
+.btn-ver {
+  background-color: #28a745; /* Verde */
+  color: white;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-ver:hover {
+  background-color: #218838; /* Verde más oscuro */
+}
+
+/* Contenedor de botones */
+.botones {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+.container {
+  margin-left: 250px;
+  padding: 20px;
+  background-color: #fff; /* Fondo blanco */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo del contenido principal */
+.content {
+  flex-grow: 1;
+  padding: 25px;
+  color: #333;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  overflow-y: auto;
+}
+
+.content h1 {
+  color: #CC1616;
+  font-size: 2.5rem;
+}
   
-  /* Barra lateral */
-  .sidebar {
-    width: 300px; /* Reducir el ancho */
-    background-color: #98e9ff;
-    padding: 15px;
-    font-size: 1rem; /* Fuente más pequeña */
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh; /* Altura completa de la ventana */
-    overflow-y: auto; /* Agrega scroll cuando el contenido es más grande que el contenedor */
-  }
-  .sidebar nav
-  .header-logo {
-    width: 60%;
-    margin-bottom: 20px;
-  }
-  
-  .header-title {
-    font-size: 1.5rem; /* Reducir el tamaño del título */
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  
-  nav ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  nav ul li {
-    margin-bottom: 15px;
-  }
-  
-  nav ul li a {
-    color: rgb(0, 255, 234);
-    text-decoration: none;
-    font-size: 1rem; /* Reducir tamaño de fuente */
-    padding: 8px 0; /* Ajustar padding */
-  }
-  
-  nav ul li a:hover {
-    color: #3c7777;
-  }
-  
-  /* Submenú */
-  .submenu {
-    list-style-type: none;
-    padding: 0;
-    margin-left: 20px;
-    max-height: 400px; /* Altura máxima para los submenús */
-    overflow-y: auto; /* Permite que los submenús tengan su propio scroll si son muy largos */
-  }
-  
-  .submenu li {
-    margin-bottom: 10px;
-  }
-  
-  .submenu li a {
-    color: white;
-    font-size: 0.9rem; /* Fuente aún más pequeña para submenú */
-  }
-  
-  .submenu li a:hover {
-    color: #334545;
-  }
-  
-  /* Estilo del contenido principal */
-  .content {
-    flex-grow: 1;
-    padding: 30px;
-    color: #333;
-  }
-  
-  .content h1 {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-  }
-  
-  .content h3 {
-    font-size: 1.5rem;
-    margin-top: 20px;
-  }
-  
-  .content p {
-    font-size: 1rem;
-    color: #666;
-  }
-  .central-button {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #169bcc;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .central-button:hover {
-    background-color: #A01313;
-  }
-  
+.content h3 {
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+.content p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 90%;
+  margin: 10px 0;
+  padding: 8px;
+  font-size: 0.85rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-buttons .btn {
+  flex-grow: 1;
+  margin: 5px;
+}
+.submit-button {
+  background-color: #CC1616;
+  color: white;
+  padding: 12px 0;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.submit-button:hover {
+  background-color: #a31313;
+}
+form .form-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+button {
+  font-size: 0.85rem;
+}
+.central-button:hover {
+  background-color: #A01313;
+}
+.central-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #169bcc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
